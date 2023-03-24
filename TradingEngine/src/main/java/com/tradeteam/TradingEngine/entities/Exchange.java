@@ -1,20 +1,19 @@
 package com.tradeteam.TradingEngine.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
-@Getter @AllArgsConstructor @NoArgsConstructor
+@Getter @AllArgsConstructor @NoArgsConstructor @ToString @RequiredArgsConstructor
 public class Exchange {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String exchangeId;
 
+    @NonNull
     @OneToMany(mappedBy = "exchangeId", cascade = CascadeType.ALL)
     private List<OrderBook> orderBooks;
 
