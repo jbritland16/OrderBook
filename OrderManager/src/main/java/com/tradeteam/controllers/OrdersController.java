@@ -10,11 +10,11 @@ import java.util.List;
 
 public class OrdersController {
 
-    public List<Order> viewBuyOrders(User user) {
+    public List<Order> viewBuyOrders(int userId) {
         return null;
     }
 
-    public List<Order> viewSellOrders(User user) {
+    public List<Order> viewSellOrders(int userId) {
         return null;
     }
 
@@ -34,7 +34,7 @@ public class OrdersController {
         return null;
     }
 
-    public List<Trade> getTradeHistory(User user) {
+    public List<Trade> getTradeHistory(int userId) {
         return null;
     }
 

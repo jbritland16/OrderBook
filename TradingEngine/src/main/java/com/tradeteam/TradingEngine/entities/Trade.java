@@ -12,14 +12,20 @@ public class Trade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "tradeId")
     private int tradeId;
 
     @NonNull
-    @ManyToMany(mappedBy = "orderId")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "orderId")
     private List<Order> orders;
 
     @NonNull
     private LocalDateTime tradeTimestamp;
 
+    @NonNull
+    @ManyToOne
+    @JoinColumn(name = "exchangeId", referencedColumnName = "exchangeId", insertable = false, updatable = false)
+    private Exchange exchange;
 
 }
