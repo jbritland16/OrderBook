@@ -2,6 +2,7 @@ package com.tradeteam.TradingEngine.services;
 
 import com.tradeteam.TradingEngine.entities.Exchange;
 import com.tradeteam.TradingEngine.entities.Order;
+import com.tradeteam.TradingEngine.entities.OrderBook;
 import com.tradeteam.TradingEngine.repositories.ExchangeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,13 @@ public class ExchangeServiceImpl implements  ExchangeService {
 
     @Override
     public Exchange getExchangeByExchangeId(String exchangeId) {
-        return null;
+        return exchangeRepository.findByExchangeId(exchangeId);
     }
 
     @Override
-    public Order addNewOrderToExchange(Order order, Exchange exchange) {
-        return null;
+    public void addNewOrderToExchange(Order order) {
+        Exchange exchange = order.getOrderBook().getExchange();
+        exchange.addOrder(order);
+        exchangeRepository.save(exchange);
     }
 }

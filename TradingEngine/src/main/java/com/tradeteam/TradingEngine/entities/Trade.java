@@ -20,12 +20,12 @@ public class Trade {
 
     @NonNull
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "orderId")
+    @JoinColumn(name = "order1Id")
     private Order order1;
 
     @NonNull
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "orderId")
+    @JoinColumn(name = "order2Id")
     private Order order2;
 
     @NonNull

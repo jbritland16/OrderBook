@@ -10,6 +10,6 @@ import java.util.List;
 public interface ExchangeService {
 
     public Exchange getExchangeByExchangeId(String exchangeId);
-    public Order addNewOrderToExchange(Order order, Exchange exchange);
+    public void addNewOrderToExchange(Order order);
 
 }

@@ -15,11 +15,11 @@ public class OrderViewerServiceImpl implements OrderViewerService {
 
     @Override
     public List<Order> getOrdersByUserId(int userId) {
-        return null;
+        return orderRepository.findByUserId(userId);
     }
 
     @Override
     public Order getOrderById(int orderId) {
-        return null;
+        return orderRepository.getReferenceById(orderId);
     }
 }

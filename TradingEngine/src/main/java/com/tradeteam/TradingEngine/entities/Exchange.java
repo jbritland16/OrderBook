@@ -25,4 +25,14 @@ public class Exchange {
     // private double feeLadder; This was included in Kishore's example but I would like
     // to do more research before implementing
 
+    public void addOrder(Order order) {
+        order.getOrderBook().addOrder(order);
+    }
+
+    public OrderBook getOrderBookByCompanyAbbrev(String companyAbbrev) {
+        return orderBooks.stream()
+                .filter(o -> o.getOrderBookId().getCompanyAbbrev() == companyAbbrev)
+                .findFirst().get();
+    }
+
 }

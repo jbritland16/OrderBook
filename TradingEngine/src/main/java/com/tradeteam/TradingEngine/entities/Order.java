@@ -55,8 +55,8 @@ public class Order {
     private boolean orderActive;
 
     @NonNull
-    @ManyToOne
-    @JoinTable@JoinColumn(name = "order_id")
+    @OneToMany
+    @JoinColumn(name = "order_id")
     private List<Trade> trades;
 
     public OrderType matchOrderType() {
