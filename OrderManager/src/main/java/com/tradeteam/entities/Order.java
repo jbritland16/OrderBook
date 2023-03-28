@@ -1,6 +1,5 @@
 package com.tradeteam.entities;
 
-
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -20,5 +19,7 @@ public class Order {
         SELL
     }
     @NonNull private OrderType orderType;
+
+    @NonNull private int userId;
 
 }
