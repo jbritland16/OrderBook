@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter @AllArgsConstructor @NoArgsConstructor @ToString @RequiredArgsConstructor
@@ -19,7 +20,10 @@ public class Order {
     private LocalDateTime orderTimestamp;
 
     @NonNull
-    @OneToMany(mappedBy = "orderBookId", cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumns({
+            @JoinColumn(name="exchange"),
+            @JoinColumn(name="companyAbbrev")})
     private OrderBook orderBook;
 
     @NonNull
@@ -38,5 +42,13 @@ public class Order {
 
     @NonNull
     private boolean orderActive;
+
+    @NonNull
+    @ManyToMany
+    @JoinTable(
+            name = "order_trades",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "trade_id"))
+    private List<Trade> trades;
 
 }
