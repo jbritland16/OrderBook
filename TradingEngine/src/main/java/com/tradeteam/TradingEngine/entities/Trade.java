@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Entity
-@Getter @NoArgsConstructor @AllArgsConstructor @ToString @RequiredArgsConstructor
+@Getter @NoArgsConstructor @AllArgsConstructor @RequiredArgsConstructor @EqualsAndHashCode
 public class Trade {
 
     @Id
@@ -48,9 +48,12 @@ public class Trade {
                 .min(Integer::compare).orElse(0);
         order1.fulfillSome(numToTrade);
         order2.fulfillSome(numToTrade);
+        double price = Stream.of(order1, order2)
+                .map(o -> o.getPrice())
+                .min(Double::compare).get();
         return new Trade(order1, order2, LocalDateTime.now(),
                 order1.getOrderBook().getExchange(),
-                numToTrade, order1.getPrice());
+                numToTrade, price);
     }
 
 }

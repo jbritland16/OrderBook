@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Entity
-@Getter @NoArgsConstructor @AllArgsConstructor @ToString @EqualsAndHashCode @RequiredArgsConstructor
+@Getter @NoArgsConstructor @AllArgsConstructor @EqualsAndHashCode @RequiredArgsConstructor
 public class OrderBook {
 
     @EmbeddedId
@@ -20,10 +20,12 @@ public class OrderBook {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "exchangeId", referencedColumnName = "exchangeId",
             insertable = false, updatable = false)
+    @EqualsAndHashCode.Exclude
     private Exchange exchange;
 
     @NonNull
     @OneToMany(mappedBy = "orderBook")
+    @EqualsAndHashCode.Exclude
     private List<Order> orders;
 
     public void addOrder(Order order) {
@@ -34,6 +36,7 @@ public class OrderBook {
                 Trade trade = Trade.of(order, matchedOrder);
                 order.addTrade(trade);
                 matchedOrder.addTrade(trade);
+                order.getOrderBook().getExchange().addTrade(trade);
             }
         }while(order.isOrderActive() && matchedOrder != null);
         orders.add(order);
