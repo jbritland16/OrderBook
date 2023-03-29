@@ -38,10 +38,6 @@ public class Order {
     @NonNull
     @Setter private double price;
 
-    public LocalDateTime getOrderTimestamp() {
-        return orderTimestamp;
-    }
-
     public enum OrderType {
         BUY,
         SELL

@@ -14,5 +14,6 @@ public class Trade {
     private LocalDateTime tradeTimestamp;
     private int numberTraded;
     private double price;
+    private Order connectedOrder;
 
 }

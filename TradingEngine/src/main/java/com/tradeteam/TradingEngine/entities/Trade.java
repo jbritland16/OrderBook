@@ -36,6 +36,12 @@ public class Trade {
     @JoinColumn(name = "exchangeId", referencedColumnName = "exchangeId", insertable = false, updatable = false)
     private Exchange exchange;
 
+    @NonNull
+    private int numberTraded;
+
+    @NonNull
+    private double pricePerShare;
+
     public static Trade of(Order order1, Order order2) {
         int numToTrade = Stream.of(order1, order2)
                 .map(o -> o.getNumberOrdered() - o.getNumberFulfilled())
@@ -43,7 +49,8 @@ public class Trade {
         order1.fulfillSome(numToTrade);
         order2.fulfillSome(numToTrade);
         return new Trade(order1, order2, LocalDateTime.now(),
-                order1.getOrderBook().getExchange());
+                order1.getOrderBook().getExchange(),
+                numToTrade, order1.getPrice());
     }
 
 }
