@@ -13,7 +13,6 @@ import com.tradeteam.entities.User;
 @Controller
 public class UserController {
 
-
 	@Autowired
 	private UserService userService;
 	//Mapping methods
@@ -51,8 +50,6 @@ public class UserController {
 	}
 	}
 
-
-
 	@PostMapping("/login")
 	public ModelAndView login(@RequestParam("userName") String userName, @RequestParam("userPassword") String userPassword){
 	User user = userService.login(userName, userPassword);
@@ -63,13 +60,6 @@ public class UserController {
 	mv.setViewName("login");
 	}
 	return mv;
-
-
-
-
-
-
-
 
 	}
 }
