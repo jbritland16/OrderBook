@@ -168,5 +168,8 @@ SELECT o.order_id, o.number_ordered, o.number_fulfilled, o.order_active, o.order
 SELECT o.number_ordered, o.number_fulfilled, t.number_traded, o.order_timestamp, t.trade_timestamp, o.price, t.price_per_share, o.order_type FROM `order` o 
 		RIGHT JOIN order_trades ot ON o.order_id = ot.order_order_id 
 		LEFT JOIN trade t ON ot.trades_trade_id = t.trade_id;
+SELECT o.order_id, o.exchange_id, o.company_abbrev, t.trade_id, t.trade_timestamp FROM `order` o 
+		RIGHT JOIN order_trades ot ON o.order_id = ot.order_order_id 
+		LEFT JOIN trade t ON ot.trades_trade_id = t.trade_id;
 
 
