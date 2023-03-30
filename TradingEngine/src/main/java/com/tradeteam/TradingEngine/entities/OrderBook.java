@@ -2,7 +2,9 @@ package com.tradeteam.TradingEngine.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -16,17 +18,17 @@ public class OrderBook {
     @NonNull
     private String companyName;
 
-    @NonNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore @Getter(onMethod = @__( @JsonIgnore ))
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "exchangeId", referencedColumnName = "exchangeId",
             insertable = false, updatable = false)
     @EqualsAndHashCode.Exclude
     private Exchange exchange;
 
-    @NonNull
-    @OneToMany(mappedBy = "orderBook")
+    @JsonIgnore @Getter(onMethod = @__( @JsonIgnore )) @Setter
+    @OneToMany(mappedBy = "orderBook", fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
     public void addOrder(Order order) {
         Order matchedOrder = null;

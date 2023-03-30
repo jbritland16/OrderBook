@@ -2,8 +2,10 @@ package com.tradeteam.TradingEngine.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -18,10 +20,10 @@ public class Trade {
     @Column(name = "tradeId")
     private int tradeId;
 
-    @NonNull
-    @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore @Getter(onMethod = @__( @JsonIgnore )) @Setter
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "orderId")
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
     @NonNull
     private LocalDateTime tradeTimestamp;
@@ -31,6 +33,13 @@ public class Trade {
 
     @NonNull
     private double pricePerShare;
+
+    public Trade(List<Order> orders, LocalDateTime tradeTimestamp, int numberTraded, double pricePerShare) {
+        this.orders = orders;
+        this.tradeTimestamp = tradeTimestamp;
+        this.numberTraded = numberTraded;
+        this.pricePerShare = pricePerShare;
+    }
 
     public static Trade of(Order order1, Order order2) {
         int numToTrade = Stream.of(order1, order2)

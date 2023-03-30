@@ -7,6 +7,7 @@ import com.tradeteam.TradingEngine.repositories.TradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -23,6 +24,15 @@ public class TradeViewerServiceImpl implements TradeViewerService {
     @Override
     public List<Trade> getTradesByUserId(int userId) {
         return tradeRepository.findByOrdersUserId(userId);
+    }
+
+    @Override
+    public double getTotalValueTradedByExchangeByDate(String exchangeId, LocalDate date) {
+        List<Trade> trades = tradeRepository.findByOrdersOrderBookExchangeExchangeId(exchangeId);
+        return trades.stream()
+                .filter(t -> t.getTradeTimestamp().toLocalDate() == date)
+                .map(t -> t.getNumberTraded() * t.getPricePerShare())
+                .reduce(0.0, Double::sum);
     }
 
 
