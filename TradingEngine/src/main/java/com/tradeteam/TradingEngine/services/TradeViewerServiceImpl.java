@@ -22,9 +22,7 @@ public class TradeViewerServiceImpl implements TradeViewerService {
 
     @Override
     public List<Trade> getTradesByUserId(int userId) {
-        List<Trade> trades = tradeRepository.findByOrder1UserId(userId);
-        trades.addAll(tradeRepository.findByOrder2UserId(userId));
-        return trades;
+        return tradeRepository.findByOrdersUserId(userId);
     }
 
 

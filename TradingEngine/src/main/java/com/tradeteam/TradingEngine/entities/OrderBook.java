@@ -36,7 +36,6 @@ public class OrderBook {
                 Trade trade = Trade.of(order, matchedOrder);
                 order.addTrade(trade);
                 matchedOrder.addTrade(trade);
-                order.getOrderBook().getExchange().addTrade(trade);
             }
         }while(order.isOrderActive() && matchedOrder != null);
         orders.add(order);

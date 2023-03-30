@@ -1,0 +1,172 @@
+mysql -u root
+
+DROP database trading_engine_db;
+CREATE database trading_engine_db;
+USE trading_engine_db;
+
+
+-- ! RUN PROGRAM TO CREATE DATABASE TABLES !
+
+
+-- Exchanges
+INSERT INTO exchange(exchange_id) VALUES("NYSE");
+INSERT INTO exchange(exchange_id) VALUES("LSE");
+
+-- Order Books
+-- NYSE
+INSERT INTO order_book(company_abbrev, exchange_id, company_name)
+	VALUES("LUV", "NYSE", "Southwest Airlines Co");
+INSERT INTO order_book(company_abbrev, exchange_id, company_name)
+	VALUES("BCS", "NYSE", "Barclays PLC");
+INSERT INTO order_book(company_abbrev, exchange_id, company_name)
+	VALUES("DIS", "NYSE", "Walt Disney Co");
+INSERT INTO order_book(company_abbrev, exchange_id, company_name)
+	VALUES("KO", "NYSE", "Coca-Cola Co");
+INSERT INTO order_book(company_abbrev, exchange_id, company_name)
+	VALUES("DB", "NYSE", "Deutsche Bank Ag");
+-- LSE
+INSERT INTO order_book(company_abbrev, exchange_id, company_name)
+	VALUES("BARC", "LSE", "Barclays PLC");
+INSERT INTO order_book(company_abbrev, exchange_id, company_name)
+	VALUES("CCH", "LSE", "Coca-Cola HBC");
+INSERT INTO order_book(company_abbrev, exchange_id, company_name)
+	VALUES("0H7D", "LSE", "Deutsche Bank Ag");
+
+
+-- Orders
+-- For the orders, I used user_id 5-10; do we want our test users to already have data?
+-- NYSE, divided by company
+-- LUV
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("LUV", "NYSE", 5, 10, 5, 29.15, 1, '2023-03-23 12:45:56', 0);
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("LUV", "NYSE", 7, 5, 5, 29.15, 0, '2023-03-23 19:14:26', 1);
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("LUV", "NYSE", 8, 28, 0, 29.00, 1, '2023-03-24 05:15:32', 0);
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("LUV", "NYSE", 6, 25, 0, 31.58, 1, '2023-03-24 11:41:59', 1);
+-- BCS	
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("BCS", "NYSE", 7, 17, 0, 7.05, 1, '2023-03-22 10:21:36', 1);
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("BCS", "NYSE", 4, 30, 0, 6.98, 1, '2023-03-26 12:44:00', 0);	
+-- DIS			
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("DIS", "NYSE", 9, 12, 0, 95.55, 1, '2023-03-19 11:08:27', 0);
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("DIS", "NYSE", 6, 6, 0, 99.50, 1, '2023-03-20 06:22:31', 1);
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("DIS", "NYSE", 8, 12, 0, 96.33, 1, '2023-03-20 10:11:57', 0);
+-- KO		
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("KO", "NYSE", 5, 33, 0, 62.02, 1, '2023-03-21 18:42:11', 1);	
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("KO", "NYSE", 9, 8, 0, 60.54, 1, '2023-03-22 11:39:10', 0);
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("KO", "NYSE", 8, 10, 0, 60.90, 1, '2023-03-22 20:49:50', 0);	
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("KO", "NYSE", 8, 15, 0, 60.75, 1, '2023-03-24 12:21:00', 0);
+-- DB		
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("DB", "NYSE", 5, 15, 15, 9.90, 0, '2023-03-25 09:12:38', 0);
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("DB", "NYSE", 7, 20, 15, 9.75, 1, '2023-03-26 09:02:46', 1);
+-- LSE, divided by company
+-- BARC
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("BARC", "LSE", 7, 30, 0, 144.99, 1, '2023-03-21 17:41:12', 0);	
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("BARC", "LSE", 6, 5, 0, 145.50, 0, '2023-03-22 07:34:33', 0);
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("BARC", "LSE", 8, 10, 10, 145.51, 0, '2023-03-22 10:14:40', 1);	
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("BARC", "LSE", 5, 15, 0, 145.60, 1, '2023-03-22 16:24:05', 1);
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("BARC", "LSE", 9, 10, 10, 145.55, 0, '2023-03-23 12:13:09', 0);
+-- CCH
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("CCH", "LSE", 5, 4, 0, 2230.15, 1, '2023-03-22 22:16:13', 0);	
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("CCH", "LSE", 6, 5, 0, 2251.56, 1, '2023-03-24 09:34:33', 1);
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("CCH", "LSE", 9, 10, 0, 2251.89, 0, '2023-03-26 14:50:32', 1);
+-- 0H7D
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("0H7D", "LSE", 8, 10, 0, 9.34, 1, '2023-03-22 21:16:37', 0);	
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("0H7D", "LSE", 10, 22, 0, 9.36, 1, '2023-03-23 08:32:13', 0);
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("0H7D", "LSE", 7, 14, 0, 9.37, 1, '2023-03-23 14:14:12', 1);	
+INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number_fulfilled, price, 
+						order_active, order_timestamp, order_type) 
+			VALUES("0H7D", "LSE", 6, 9, 0, 9.44, 1, '2023-03-25 19:47:16', 1);
+
+
+-- Trades
+INSERT INTO trade(number_traded, price_per_share, trade_timestamp) 
+			VALUES(5, 29.15, '2023-03-23 19:14:26');
+INSERT INTO trade_orders(trade_trade_id, orders_order_id) 
+			VALUES(1, 1);
+INSERT INTO trade_orders(trade_trade_id, orders_order_id) 
+			VALUES(1, 2);
+INSERT INTO order_trades(order_order_id, trades_trade_id) 
+			VALUES(1, 1);
+INSERT INTO order_trades(order_order_id, trades_trade_id) 
+			VALUES(2, 1);
+
+INSERT INTO trade(number_traded, price_per_share, trade_timestamp) 
+			VALUES(15, 9.75, '2023-03-26 09:02:46');
+INSERT INTO trade_orders(trade_trade_id, orders_order_id) 
+			VALUES(2, 14);
+INSERT INTO trade_orders(trade_trade_id, orders_order_id) 
+			VALUES(2, 15);
+INSERT INTO order_trades(order_order_id, trades_trade_id) 
+			VALUES(14, 2);
+INSERT INTO order_trades(order_order_id, trades_trade_id) 
+			VALUES(15, 2);
+
+INSERT INTO trade(number_traded, price_per_share, trade_timestamp) 
+			VALUES(10, 145.51, '2023-03-23 12:13:09');
+INSERT INTO trade_orders(trade_trade_id, orders_order_id) 
+			VALUES(3, 18);
+INSERT INTO trade_orders(trade_trade_id, orders_order_id) 
+			VALUES(3, 20);
+INSERT INTO order_trades(order_order_id, trades_trade_id) 
+			VALUES(18, 3);
+INSERT INTO order_trades(order_order_id, trades_trade_id) 
+			VALUES(20, 3);
+
+-- This section for testing only
+SELECT o.order_id, o.number_ordered, o.number_fulfilled, o.order_active, o.order_timestamp, o.company_abbrev, o.exchange_id FROM `order` o 
+		RIGHT JOIN order_trades ot ON o.order_id = ot.order_order_id;
+SELECT o.number_ordered, o.number_fulfilled, t.number_traded, o.order_timestamp, t.trade_timestamp, o.price, t.price_per_share, o.order_type FROM `order` o 
+		RIGHT JOIN order_trades ot ON o.order_id = ot.order_order_id 
+		LEFT JOIN trade t ON ot.trades_trade_id = t.trade_id;
+
+

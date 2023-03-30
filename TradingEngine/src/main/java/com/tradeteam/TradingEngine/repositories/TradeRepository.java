@@ -12,9 +12,8 @@ import java.util.List;
 public interface TradeRepository extends JpaRepository<Trade, Integer> {
 
     public Trade findByTradeId(int tradeId);
-    public List<Trade> findByExchangeExchangeId(String exchangeId);
-    public List<Trade> findByOrder1UserId(int userId);
-    public List<Trade> findByOrder2UserId(int userId);
+    public List<Trade> findByOrdersOrderBookExchangeExchangeId(String exchangeId);
+    public List<Trade> findByOrdersUserId(int userId);
 
 
 

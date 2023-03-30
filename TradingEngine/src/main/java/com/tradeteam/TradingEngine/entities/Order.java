@@ -16,7 +16,7 @@ public class Order {
     public static Comparator<Order> earliestTimestampComparator = Comparator.comparing(Order::getOrderTimestamp).reversed();
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderId;
 
     @NonNull
@@ -27,8 +27,8 @@ public class Order {
     @NonNull
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumns({
-            @JoinColumn(name="exchange"),
-            @JoinColumn(name="companyAbbrev")})
+            @JoinColumn(name="companyAbbrev"),
+            @JoinColumn(name="exchangeId")})
     private OrderBook orderBook;
 
     @NonNull
@@ -51,8 +51,7 @@ public class Order {
     private boolean orderActive;
 
     @NonNull
-    @OneToMany
-    @JoinColumn(name = "order_id")
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Trade> trades;
 
     public OrderType matchOrderType() {
