@@ -14,27 +14,17 @@ import java.util.stream.Stream;
 public class Trade {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tradeId")
     private int tradeId;
 
     @NonNull
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order1Id")
-    private Order order1;
-
-    @NonNull
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order2Id")
-    private Order order2;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "orderId")
+    private List<Order> orders;
 
     @NonNull
     private LocalDateTime tradeTimestamp;
-
-    @NonNull
-    @ManyToOne
-    @JoinColumn(name = "exchangeId", referencedColumnName = "exchangeId", insertable = false, updatable = false)
-    private Exchange exchange;
 
     @NonNull
     private int numberTraded;
@@ -51,8 +41,7 @@ public class Trade {
         double price = Stream.of(order1, order2)
                 .map(o -> o.getPrice())
                 .min(Double::compare).get();
-        return new Trade(order1, order2, LocalDateTime.now(),
-                order1.getOrderBook().getExchange(),
+        return new Trade(Arrays.asList(order1, order2), LocalDateTime.now(),
                 numToTrade, price);
     }
 
