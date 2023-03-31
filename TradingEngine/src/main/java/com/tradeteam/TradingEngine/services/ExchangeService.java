@@ -12,7 +12,7 @@ import java.util.List;
 public interface ExchangeService {
 
     public List<String> getAllExchangeIds();
-    public void addNewOrderToExchange(Order order);
+    public List<String> getAllCompanyAbbrevsByExchangeId(String exchangeId);
     public OrderBook getOrderBookByOrderBookId(OrderBookId orderBookId);
 
 }

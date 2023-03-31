@@ -1,11 +1,11 @@
 package com.tradeteam.TradingEngine.services;
 
-import com.tradeteam.TradingEngine.entities.Exchange;
 import com.tradeteam.TradingEngine.entities.Order;
 import com.tradeteam.TradingEngine.entities.OrderBook;
 import com.tradeteam.TradingEngine.entities.OrderBookId;
 import com.tradeteam.TradingEngine.repositories.ExchangeRepository;
 import com.tradeteam.TradingEngine.repositories.OrderBookRepository;
+import com.tradeteam.TradingEngine.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +20,9 @@ public class ExchangeServiceImpl implements  ExchangeService {
     @Autowired
     private OrderBookRepository orderBookRepository;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
 
     @Override
     public List<String> getAllExchangeIds() {
@@ -27,10 +30,8 @@ public class ExchangeServiceImpl implements  ExchangeService {
     }
 
     @Override
-    public void addNewOrderToExchange(Order order) {
-        OrderBook orderBook = order.getOrderBook();
-        orderBook.addOrder(order);
-        orderBookRepository.save(orderBook);
+    public List<String> getAllCompanyAbbrevsByExchangeId(String exchangeId) {
+        return orderBookRepository.getAllCompanyAbbrevsByExchangeId(exchangeId);
     }
 
     @Override

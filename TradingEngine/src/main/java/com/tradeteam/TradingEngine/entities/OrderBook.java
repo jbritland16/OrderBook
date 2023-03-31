@@ -5,7 +5,6 @@ import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 @Entity
@@ -30,7 +29,8 @@ public class OrderBook {
     @EqualsAndHashCode.Exclude
     private List<Order> orders = new ArrayList<>();
 
-    public void addOrder(Order order) {
+    public boolean matchOrder(Order order) {
+        boolean madeTrade = false;
         Order matchedOrder = null;
         do {
             matchedOrder = getMatchingOrder(order);
@@ -38,9 +38,10 @@ public class OrderBook {
                 Trade trade = Trade.of(order, matchedOrder);
                 order.addTrade(trade);
                 matchedOrder.addTrade(trade);
+                madeTrade = true;
             }
         }while(order.isOrderActive() && matchedOrder != null);
-        orders.add(order);
+        return madeTrade;
     }
 
     public Order getMatchingOrder(Order order) {

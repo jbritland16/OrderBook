@@ -4,13 +4,11 @@ import com.tradeteam.TradingEngine.entities.*;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 
 public class TotalDailyValueTradedTest {
 
@@ -60,41 +58,41 @@ public class TotalDailyValueTradedTest {
 
     @Test
     public void addOrderWithNoOtherOrders() {
-        orderBook1.addOrder(buyOrder1);
+        orderBook1.matchOrder(buyOrder1);
         Assert.assertEquals(0, exchange1.getTotalTradedValueByDate(
                 LocalDate.now()), .01);
     }
 
     @Test
     public void addOrderWithNonMatchingOrder() {
-        orderBook1.addOrder(buyOrder1);
-        orderBook1.addOrder(buyOrder2);
+        orderBook1.matchOrder(buyOrder1);
+        orderBook1.matchOrder(buyOrder2);
         Assert.assertEquals(0, exchange1.getTotalTradedValueByDate(
                 LocalDate.now()), .01);
     }
 
     @Test
     public void addSellOrderWithOneBuyOrder() {
-        orderBook1.addOrder(buyOrder1);
-        orderBook1.addOrder(sellOrder1);
+        orderBook1.matchOrder(buyOrder1);
+        orderBook1.matchOrder(sellOrder1);
         Assert.assertEquals(140, exchange1.getTotalTradedValueByDate(
                 LocalDate.now()), .01);
     }
 
     @Test
     public void addSellOrderWithWorsePriceThanBuyOrders() {
-        orderBook1.addOrder(buyOrder1);
-        orderBook1.addOrder(buyOrder2);
-        orderBook1.addOrder(sellOrder2);
+        orderBook1.matchOrder(buyOrder1);
+        orderBook1.matchOrder(buyOrder2);
+        orderBook1.matchOrder(sellOrder2);
         Assert.assertEquals(0, exchange1.getTotalTradedValueByDate(
                 LocalDate.now()), .01);
     }
 
     @Test
     public void addSellOrderThatSplitsBuyOrders() {
-        orderBook1.addOrder(buyOrder1);
-        orderBook1.addOrder(buyOrder2);
-        orderBook1.addOrder(sellOrder3);
+        orderBook1.matchOrder(buyOrder1);
+        orderBook1.matchOrder(buyOrder2);
+        orderBook1.matchOrder(sellOrder3);
         Assert.assertEquals(132, exchange1.getTotalTradedValueByDate(
                 LocalDate.now()), .01);
     }
@@ -105,9 +103,9 @@ public class TotalDailyValueTradedTest {
                 LocalDateTime.of(2023, 3, 28, 12, 0),
                 orderBook1, 10, 0,
                 15.00, Order.OrderType.BUY, true, new ArrayList<Trade>());
-        orderBook1.addOrder(buyOrder1);
-        orderBook1.addOrder(buyOrderClone);
-        orderBook1.addOrder(sellOrder3);
+        orderBook1.matchOrder(buyOrder1);
+        orderBook1.matchOrder(buyOrderClone);
+        orderBook1.matchOrder(sellOrder3);
         Assert.assertEquals(132, exchange1.getTotalTradedValueByDate(
                 LocalDate.now()), .01);
     }

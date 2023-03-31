@@ -5,7 +5,7 @@ import com.tradeteam.TradingEngine.entities.Trade;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface TradeViewerService {
+public interface TradeService {
 
     public Trade getTradeDetails(int tradeId);
     public List<Trade> getTradesByUserId(int userId);

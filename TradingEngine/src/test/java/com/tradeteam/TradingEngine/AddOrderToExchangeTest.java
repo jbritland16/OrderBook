@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class AddOrderToExchangeTest {
 
@@ -57,21 +55,21 @@ public class AddOrderToExchangeTest {
 
     @Test
     public void addOrderWithNoOtherOrders() {
-        orderBook1.addOrder(buyOrder1);
+        orderBook1.matchOrder(buyOrder1);
         Assert.assertEquals(buyOrder1, orderBook1.getOrders().get(0));
     }
 
     @Test
     public void addOrderWithNonMatchingOrder() {
-        orderBook1.addOrder(buyOrder1);
-        orderBook1.addOrder(buyOrder2);
+        orderBook1.matchOrder(buyOrder1);
+        orderBook1.matchOrder(buyOrder2);
         Assert.assertEquals(buyOrder2, orderBook1.getOrders().get(1));
     }
 
     @Test
     public void addSellOrderWithOneBuyOrder() {
-        orderBook1.addOrder(buyOrder1);
-        orderBook1.addOrder(sellOrder1);
+        orderBook1.matchOrder(buyOrder1);
+        orderBook1.matchOrder(sellOrder1);
         Assert.assertEquals(10, orderBook1.getOrders().get(0).getNumberFulfilled());
         Assert.assertEquals(10, orderBook1.getOrders().get(1).getNumberFulfilled());
         Assert.assertEquals(10, buyOrder1.getTrades().get(0).getNumberTraded());
@@ -79,9 +77,9 @@ public class AddOrderToExchangeTest {
 
     @Test
     public void addSellOrderWithWorsePriceThanBuyOrders() {
-        orderBook1.addOrder(buyOrder1);
-        orderBook1.addOrder(buyOrder2);
-        orderBook1.addOrder(sellOrder2);
+        orderBook1.matchOrder(buyOrder1);
+        orderBook1.matchOrder(buyOrder2);
+        orderBook1.matchOrder(sellOrder2);
         Assert.assertEquals(0, sellOrder2.getNumberFulfilled());
         Assert.assertEquals(0, buyOrder1.getTrades().size());
         Assert.assertEquals(0, buyOrder2.getTrades().size());
@@ -90,9 +88,9 @@ public class AddOrderToExchangeTest {
 
     @Test
     public void addSellOrderThatSplitsBuyOrders() {
-        orderBook1.addOrder(buyOrder1);
-        orderBook1.addOrder(buyOrder2);
-        orderBook1.addOrder(sellOrder3);
+        orderBook1.matchOrder(buyOrder1);
+        orderBook1.matchOrder(buyOrder2);
+        orderBook1.matchOrder(sellOrder3);
         Assert.assertEquals(5, buyOrder2.getNumberFulfilled());
         Assert.assertEquals(7, buyOrder1.getNumberFulfilled());
         Assert.assertEquals(12, sellOrder3.getNumberFulfilled());
@@ -110,9 +108,9 @@ public class AddOrderToExchangeTest {
                 LocalDateTime.of(2023, 3, 28, 12, 0),
                 orderBook1, 10, 0,
                 15.00, Order.OrderType.BUY, true, new ArrayList<Trade>());
-        orderBook1.addOrder(buyOrder1);
-        orderBook1.addOrder(buyOrderClone);
-        orderBook1.addOrder(sellOrder3);
+        orderBook1.matchOrder(buyOrder1);
+        orderBook1.matchOrder(buyOrderClone);
+        orderBook1.matchOrder(sellOrder3);
         Assert.assertEquals(2, buyOrder1.getNumberFulfilled());
         Assert.assertEquals(10, buyOrderClone.getNumberFulfilled());
         Assert.assertEquals(12, sellOrder3.getNumberFulfilled());
