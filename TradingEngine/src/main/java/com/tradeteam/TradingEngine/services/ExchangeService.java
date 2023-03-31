@@ -13,6 +13,6 @@ public interface ExchangeService {
 
     public List<String> getAllExchangeIds();
     public List<String> getAllCompanyAbbrevsByExchangeId(String exchangeId);
-    public OrderBook getOrderBookByOrderBookId(OrderBookId orderBookId);
+    public OrderBook getOrderBookCurrentOrdersByOrderBookId(OrderBookId orderBookId);
 
 }

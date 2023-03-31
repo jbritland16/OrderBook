@@ -9,6 +9,7 @@ public interface TradeService {
 
     public Trade getTradeDetails(int tradeId);
     public List<Trade> getTradesByUserId(int userId);
-    public double getTotalValueTradedByExchangeByDate(String exchangeId, LocalDate date);
+    public double getTotalValueTradedByExchangeByDate(String exchangeId, int year,
+                                                      int month, int day);
 
 }

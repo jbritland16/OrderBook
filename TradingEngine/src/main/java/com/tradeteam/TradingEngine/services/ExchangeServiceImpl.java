@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ExchangeServiceImpl implements  ExchangeService {
@@ -35,8 +36,11 @@ public class ExchangeServiceImpl implements  ExchangeService {
     }
 
     @Override
-    public OrderBook getOrderBookByOrderBookId(OrderBookId orderBookId) {
-        System.out.println("Finding order book " + orderBookId);
-        return orderBookRepository.findByOrderBookId(orderBookId);
+    public OrderBook getOrderBookCurrentOrdersByOrderBookId(OrderBookId orderBookId) {
+        OrderBook orderBook = orderBookRepository.findByOrderBookId(orderBookId);
+        orderBook.setOrders(orderBook.getOrders().stream()
+                .filter(o -> o.isOrderActive())
+                .collect(Collectors.toList()));
+        return orderBook;
     }
 }

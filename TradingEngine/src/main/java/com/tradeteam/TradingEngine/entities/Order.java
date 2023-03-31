@@ -1,5 +1,6 @@
 package com.tradeteam.TradingEngine.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Getter @AllArgsConstructor @NoArgsConstructor @RequiredArgsConstructor
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "fieldHandler"})
 public class Order {
 
     public static Comparator<Order> highestPriceComparator = Comparator.comparing(Order::getPrice);
@@ -26,8 +28,17 @@ public class Order {
     @NonNull
     private LocalDateTime orderTimestamp;
 
+    @Column(name = "companyAbbrev", insertable=false, updatable=false)
+    @JoinColumn(name = "companyAbbrev")
+    String companyAbbrev;
+
+    @Column(name = "exchangeId", insertable=false, updatable=false)
+    @JoinColumn(name = "exchangeId")
+    String exchangeId;
+
     @JsonIgnore @Getter(onMethod = @__( @JsonIgnore ))
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Setter
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name="companyAbbrev"),
             @JoinColumn(name="exchangeId")})

@@ -20,7 +20,6 @@ public class OrderBookDTO {
         this.orderBookId = orderBookId;
         this.companyName = companyName;
         this.orders = orders.stream()
-                .peek(odto -> odto.setOrderBookId(orderBookId))
                 .map(odto -> odto.order())
                 .collect(Collectors.toList());
     }

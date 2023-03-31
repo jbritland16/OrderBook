@@ -1,6 +1,7 @@
 package com.tradeteam.dtos;
 
 import com.tradeteam.entities.Order;
+import com.tradeteam.entities.OrderBook;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,21 +11,19 @@ import java.time.LocalDateTime;
 public class ReceiveOrderDTO {
 
     private int orderId;
-    private int userId;
     private LocalDateTime orderTimestamp;
-    private OrderBookId orderBookId;
+    private OrderBook orderBook;
     private int numberOrdered;
     private int numberFulfilled;
     private double price;
     private Order.OrderType orderType;
     private boolean orderActive;
 
-    public ReceiveOrderDTO(int orderId, int userId, LocalDateTime orderTimestamp,
+    public ReceiveOrderDTO(int orderId, LocalDateTime orderTimestamp,
                            int numberOrdered, int numberFulfilled,
                            double price, Order.OrderType orderType,
                            boolean orderActive) {
         this.orderId = orderId;
-        this.userId = userId;
         this.orderTimestamp = orderTimestamp;
         this.numberOrdered = numberOrdered;
         this.numberFulfilled = numberFulfilled;
@@ -39,9 +38,8 @@ public class ReceiveOrderDTO {
                            double price, Order.OrderType orderType,
                            boolean orderActive) {
         this.orderId = orderId;
-        this.userId = userId;
         this.orderTimestamp = orderTimestamp;
-        this.orderBookId = orderBook.getOrderBookId();
+        this.orderBook = orderBook.orderBook();
         this.numberOrdered = numberOrdered;
         this.numberFulfilled = numberFulfilled;
         this.price = price;
@@ -52,8 +50,8 @@ public class ReceiveOrderDTO {
     public Order order() {
         return new Order(orderId, orderTimestamp, numberOrdered,
                 numberFulfilled, price, orderActive, orderType,
-                userId, orderBookId.getCompanyAbbrev(),
-                orderBookId.getExchangeId());
+                0, orderBook.getCompanyAbbrev(),
+                orderBook.getExchangeId());
     }
 
 }
