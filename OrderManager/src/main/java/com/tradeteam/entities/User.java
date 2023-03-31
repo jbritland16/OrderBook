@@ -11,9 +11,9 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity  //Represents a table
-public class User implements UserDetails {
-    @Id //indicates ID
-    @GeneratedValue(strategy= GenerationType.AUTO) // Auto generates user ID
+public class User {
+	@Id //indicates ID
+	@GeneratedValue(strategy = GenerationType.AUTO) // Auto generates user ID
 	private int userId;
 	private String userName;
 	private String userPassword;
@@ -31,7 +31,7 @@ public class User implements UserDetails {
 		this.userEmail = userEmail;
 	}
 
-	public User( String userName, String userPassword, String userEmail) {
+	public User(String userName, String userPassword, String userEmail) {
 		super();
 		this.userName = userName;
 		this.userPassword = userPassword;
@@ -77,43 +77,4 @@ public class User implements UserDetails {
 				+ userEmail + "]";
 	}
 
-	public static User login(String userName, String userPassword) {
-		return null;
-	}
-
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-	}
-
-	@Override
-	public String getPassword() {
-		return userPassword;
-	}
-
-	@Override
-	public String getUsername() {
-		return userName;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
 }

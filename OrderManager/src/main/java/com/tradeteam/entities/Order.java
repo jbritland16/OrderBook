@@ -1,12 +1,15 @@
 package com.tradeteam.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Entity
 @Getter @AllArgsConstructor @RequiredArgsConstructor @ToString
 public class Order {
-
+    @Id
     private int orderId;
     @NonNull private LocalDateTime orderTimestamp;
     @NonNull private int numberOrdered;
