@@ -8,33 +8,28 @@ import jakarta.persistence.ManyToOne;
 import lombok.NonNull;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class TradeDTO {
 
     private int tradeId;
-    private ReceiveOrderDTO order1;
-    private ReceiveOrderDTO order2;
+    private List<ReceiveOrderDTO> orders;
     private LocalDateTime tradeTimestamp;
     private int numberTraded;
     private double pricePerShare;
 
-    public TradeDTO(int tradeId, ReceiveOrderDTO order1,
-                    ReceiveOrderDTO order2, LocalDateTime tradeTimestamp,
+    public TradeDTO(int tradeId, List<ReceiveOrderDTO> orders, LocalDateTime tradeTimestamp,
                     int numberTraded, double pricePerShare) {
         this.tradeId = tradeId;
-        this.order1 = order1;
-        this.order2 = order2;
+        this.orders = orders;
         this.tradeTimestamp = tradeTimestamp;
         this.numberTraded = numberTraded;
         this.pricePerShare = pricePerShare;
     }
 
     public Trade tradeForUser(int userId) {
-        Order connectedOrder = Stream.of(order1, order2)
-                .filter(o -> o.getUserId() == userId)
-                .findFirst().get()
-                .order();
+        Order connectedOrder = orders.get(0).order();
         return new Trade(tradeId, tradeTimestamp, numberTraded,
                 pricePerShare, connectedOrder);
     }

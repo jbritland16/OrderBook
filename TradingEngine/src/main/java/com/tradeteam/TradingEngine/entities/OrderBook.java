@@ -1,5 +1,6 @@
 package com.tradeteam.TradingEngine.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -8,14 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @NoArgsConstructor @AllArgsConstructor @EqualsAndHashCode @RequiredArgsConstructor
+@Getter @NoArgsConstructor @AllArgsConstructor @EqualsAndHashCode
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "fieldHandler"})
 public class OrderBook {
 
     @EmbeddedId
     private OrderBookId orderBookId;
 
-    @NonNull
     private String companyName;
+
+    public OrderBook(OrderBookId orderBookId) {
+        this.orderBookId = orderBookId;
+    }
 
     @JsonIgnore @Getter(onMethod = @__( @JsonIgnore ))
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -24,7 +29,7 @@ public class OrderBook {
     @EqualsAndHashCode.Exclude
     private Exchange exchange;
 
-    @JsonIgnore @Getter(onMethod = @__( @JsonIgnore )) @Setter
+    @Setter
     @OneToMany(mappedBy = "orderBook", fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
     private List<Order> orders = new ArrayList<>();

@@ -1,0 +1,84 @@
+Before using this test data, please open trading_engine_dummy_data.txt and follow the steps 
+	to get the database and dummy data ready.
+	
+When entering the data in this file, make sure you pay attention to the request type and URL 
+	and then enter the data in raw JSON format in Postman.
+
+First, we'll access the list of Exchange IDs available in the program.
+GET
+http://localhost:8082/exchanges/allExchangeIds
+(No body)
+
+We from there, we can access a list of CompanyAbbrev strings available in the Exchange. 
+The Exchange ID is entered in the URL.
+GET
+http://localhost:8082/exchanges/NYSE/allCompanyAbbrevs
+(No body)
+
+Let's look at the OrderBook for one of the companies listed. The Exchange ID and Company Abbrev 
+are both entered in the URL.
+GET
+http://localhost:8082/exchanges/NYSE/DIS
+(No body)
+
+We can look at the total daily traded value for a particular exchange for a specific date. 
+The Exchange ID and the year, month, and day are entered in the URL.
+GET
+http://localhost:8082/exchanges/NYSE/dailyTradedValue/2023/3/23
+(No body)
+
+
+Let's move on from the exchanges as a whole and look at the orders.
+
+We can look at orders by user ID. User ID is passed in the request body.
+POST
+http://localhost:8082/orders/byUserId
+Body:
+6
+
+We can also look at a single order by number. The Order ID is passed in the request body.
+POST
+http://localhost:8082/orders/byOrderId
+Body:
+8
+
+We can see a user's wallet, the summary of stocks that they own on the app. This function essentially 
+counts stocks that a user has bought and not sold. The data returned is a hashmap of Strings and Integers. 
+The string contains the Exchange ID and the Company Abbrev separated by a colon. The User ID should be 
+passed in the request body.
+POST
+http://localhost:8082/orders/wallet
+Body:
+5
+
+Now we'll add a new order. In the OrderManager, the order is submitted as a NewOrderDTO. All fields are 
+required in the request body and additionally, the Exchange ID and the Company Abbrev must be included 
+in the URL.
+POST
+http://localhost:8082/orders/NYSE/DIS/new
+Body:
+{
+    "userId" : 3,
+    "orderTimestamp" : "2023-03-31T12:59:11.332",
+    "numberOrdered":10,
+    "numberFulfilled":0,
+    "price":100.00,
+    "orderType":"BUY",
+    "orderActive": true
+}
+
+Now we can see the trade we just made. If you've set up the example exactly as directed, the trade just 
+completed will have an ID of 4.
+POST
+http://localhost:8082/trades/byTradeId
+Body:
+4
+
+We can also view a list of trades for a user by User ID. The User ID should be passed to the request body.
+POST
+http://localhost:8082/trades/byUserId
+Body:
+7
+
+
+

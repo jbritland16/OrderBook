@@ -10,7 +10,7 @@ public interface OrderService {
 
     public List<Order> getOrdersByUserId(int userId);
     public Order getOrderById(int orderId);
-    public void addNewOrderToExchange(Order order);
-    public Map<OrderBookId, Integer> getUserWallet(int userId);
+    public void addNewOrderToOrderBook(Order order, String exchangeId, String companyAbbrev);
+    public Map<String, Integer> getUserWallet(int userId);
 
 }

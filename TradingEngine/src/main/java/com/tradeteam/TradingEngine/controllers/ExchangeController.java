@@ -5,6 +5,7 @@ import com.tradeteam.TradingEngine.entities.OrderBookId;
 import com.tradeteam.TradingEngine.services.ExchangeService;
 import com.tradeteam.TradingEngine.services.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -31,16 +32,18 @@ public class ExchangeController {
     }
 
     @GetMapping("/{exchangeId}/{companyAbbrev}")
-    public OrderBook getOrderBookByOrderBookId(@PathVariable String exchangeId,
+    public OrderBook getOrderBookCurrentOrdersByOrderBookId(@PathVariable String exchangeId,
                                                @PathVariable String companyAbbrev) {
-        return exchangeService.getOrderBookByOrderBookId(
+        return exchangeService.getOrderBookCurrentOrdersByOrderBookId(
                 new OrderBookId(exchangeId, companyAbbrev));
     }
 
-    @GetMapping("/{exchangeId}/dailyTradedValue/{date}")
+    @GetMapping("/{exchangeId}/dailyTradedValue/{year}/{month}/{day}")
     public double getTotalValueTradedByExchangeByDate(@PathVariable String exchangeId,
-                                                      @PathVariable LocalDate date) {
-        return tradeService.getTotalValueTradedByExchangeByDate(exchangeId, date);
+                                                      @PathVariable int year,
+                                                      @PathVariable int month,
+                                                      @PathVariable int day) {
+        return tradeService.getTotalValueTradedByExchangeByDate(exchangeId, year, month, day);
     }
 
 }

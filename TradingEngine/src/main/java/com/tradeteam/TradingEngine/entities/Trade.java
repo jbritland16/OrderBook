@@ -1,5 +1,6 @@
 package com.tradeteam.TradingEngine.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,6 +14,7 @@ import java.util.stream.Stream;
 
 @Entity
 @Getter @NoArgsConstructor @AllArgsConstructor @RequiredArgsConstructor @EqualsAndHashCode
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "fieldHandler"})
 public class Trade {
 
     @Id
@@ -20,7 +22,7 @@ public class Trade {
     @Column(name = "tradeId")
     private int tradeId;
 
-    @JsonIgnore @Getter(onMethod = @__( @JsonIgnore )) @Setter
+    @Setter
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "orderId")
     private List<Order> orders = new ArrayList<>();

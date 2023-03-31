@@ -33,29 +33,32 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void addNewOrderToExchange(Order order) {
+    public void addNewOrderToOrderBook(Order order, String exchangeId, String companyAbbrev) {
+        OrderBook orderBook = orderBookRepository.findByOrderBookId(
+                new OrderBookId(exchangeId, companyAbbrev));
+        order.setOrderBook(orderBook);
         order = orderRepository.save(order);
-        OrderBook orderBook = order.getOrderBook();
         if (orderBook.matchOrder(order)) {
             orderBookRepository.save(orderBook);
         }
     }
 
     @Override
-    public Map<OrderBookId, Integer> getUserWallet(int userId) {
+    public Map<String, Integer> getUserWallet(int userId) {
         List<Order> orders = orderRepository.findByUserId(userId);
-        Map<OrderBookId, Integer> wallet = new HashMap<>();
+        Map<String, Integer> wallet = new HashMap<>();
         for (Order order : orders) {
-            OrderBookId orderBookId = order.getOrderBook().getOrderBookId();
-            Integer currentTotal = wallet.get(orderBookId);
+            String orderBookIdString = (order.getOrderBook().getOrderBookId().getExchangeId() + ":"
+                    + order.getOrderBook().getOrderBookId().getCompanyAbbrev());
+            Integer currentTotal = wallet.get(orderBookIdString);
             if (currentTotal == null) {
                 currentTotal = 0;
             }
             if (order.getOrderType() == Order.OrderType.BUY) {
-                wallet.put(orderBookId, currentTotal + order.getNumberFulfilled());
+                wallet.put(orderBookIdString, currentTotal + order.getNumberFulfilled());
             }
             else {
-                wallet.put(orderBookId, currentTotal - order.getNumberFulfilled());
+                wallet.put(orderBookIdString, currentTotal - order.getNumberFulfilled());
             }
         }
         return wallet.entrySet().stream().filter(x -> x.getValue() > 0)
