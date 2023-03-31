@@ -2,8 +2,10 @@ package com.tradeteam.TradingEngine.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -24,8 +26,8 @@ public class Order {
     @NonNull
     private LocalDateTime orderTimestamp;
 
-    @NonNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore @Getter(onMethod = @__( @JsonIgnore ))
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumns({
             @JoinColumn(name="companyAbbrev"),
             @JoinColumn(name="exchangeId")})
@@ -50,9 +52,10 @@ public class Order {
     @Setter
     private boolean orderActive;
 
-    @NonNull
+    @JsonIgnore @Getter(onMethod = @__( @JsonIgnore )) @Setter
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Trade> trades;
+    private List<Trade> trades = new ArrayList<>() {
+    };
 
     public OrderType matchOrderType() {
         if (orderType == OrderType.SELL) {

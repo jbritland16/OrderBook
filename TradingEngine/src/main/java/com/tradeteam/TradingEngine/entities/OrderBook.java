@@ -2,8 +2,9 @@ package com.tradeteam.TradingEngine.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,19 +17,20 @@ public class OrderBook {
     @NonNull
     private String companyName;
 
-    @NonNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore @Getter(onMethod = @__( @JsonIgnore ))
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "exchangeId", referencedColumnName = "exchangeId",
             insertable = false, updatable = false)
     @EqualsAndHashCode.Exclude
     private Exchange exchange;
 
-    @NonNull
-    @OneToMany(mappedBy = "orderBook")
+    @JsonIgnore @Getter(onMethod = @__( @JsonIgnore )) @Setter
+    @OneToMany(mappedBy = "orderBook", fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
-    public void addOrder(Order order) {
+    public boolean matchOrder(Order order) {
+        boolean madeTrade = false;
         Order matchedOrder = null;
         do {
             matchedOrder = getMatchingOrder(order);
@@ -36,9 +38,10 @@ public class OrderBook {
                 Trade trade = Trade.of(order, matchedOrder);
                 order.addTrade(trade);
                 matchedOrder.addTrade(trade);
+                madeTrade = true;
             }
         }while(order.isOrderActive() && matchedOrder != null);
-        orders.add(order);
+        return madeTrade;
     }
 
     public Order getMatchingOrder(Order order) {

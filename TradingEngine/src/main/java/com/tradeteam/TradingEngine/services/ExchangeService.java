@@ -11,8 +11,8 @@ import java.util.List;
 
 public interface ExchangeService {
 
-    public Exchange getExchangeByExchangeId(String exchangeId);
-    public void addNewOrderToExchange(Order order);
+    public List<String> getAllExchangeIds();
+    public List<String> getAllCompanyAbbrevsByExchangeId(String exchangeId);
     public OrderBook getOrderBookByOrderBookId(OrderBookId orderBookId);
 
 }

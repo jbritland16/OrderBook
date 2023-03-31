@@ -5,10 +5,12 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public class AddOrderToExchangeTest {
+public class TotalDailyValueTradedTest {
 
     Exchange exchange1;
     OrderBook orderBook1;
@@ -20,11 +22,11 @@ public class AddOrderToExchangeTest {
 
     @BeforeEach
     public void setUp() {
-        exchange1 = new Exchange("NYSE", new ArrayList<OrderBook>());
-        exchange1.getOrderBooks().add(orderBook1);
+        exchange1 = new Exchange("NYSE", new ArrayList<>());
         orderBook1 = new OrderBook(new OrderBookId("NYSE", "DB"),
                 "Deutsche Bank", exchange1,
                 new ArrayList<Order>());
+        exchange1.setOrderBooks(Arrays.asList(orderBook1));
         buyOrder1 = new Order(1, 1,
                 LocalDateTime.of(2023, 3, 28, 12, 30),
                 orderBook1, 10, 0,
@@ -51,28 +53,30 @@ public class AddOrderToExchangeTest {
         // sellOrder1: qty 10, price 14
         // sellOrder2: qty 15, price 17
         // sellOrder3: qty 12, price 11
+
     }
 
     @Test
     public void addOrderWithNoOtherOrders() {
         orderBook1.matchOrder(buyOrder1);
-        Assert.assertEquals(buyOrder1, orderBook1.getOrders().get(0));
+        Assert.assertEquals(0, exchange1.getTotalTradedValueByDate(
+                LocalDate.now()), .01);
     }
 
     @Test
     public void addOrderWithNonMatchingOrder() {
         orderBook1.matchOrder(buyOrder1);
         orderBook1.matchOrder(buyOrder2);
-        Assert.assertEquals(buyOrder2, orderBook1.getOrders().get(1));
+        Assert.assertEquals(0, exchange1.getTotalTradedValueByDate(
+                LocalDate.now()), .01);
     }
 
     @Test
     public void addSellOrderWithOneBuyOrder() {
         orderBook1.matchOrder(buyOrder1);
         orderBook1.matchOrder(sellOrder1);
-        Assert.assertEquals(10, orderBook1.getOrders().get(0).getNumberFulfilled());
-        Assert.assertEquals(10, orderBook1.getOrders().get(1).getNumberFulfilled());
-        Assert.assertEquals(10, buyOrder1.getTrades().get(0).getNumberTraded());
+        Assert.assertEquals(140, exchange1.getTotalTradedValueByDate(
+                LocalDate.now()), .01);
     }
 
     @Test
@@ -80,10 +84,8 @@ public class AddOrderToExchangeTest {
         orderBook1.matchOrder(buyOrder1);
         orderBook1.matchOrder(buyOrder2);
         orderBook1.matchOrder(sellOrder2);
-        Assert.assertEquals(0, sellOrder2.getNumberFulfilled());
-        Assert.assertEquals(0, buyOrder1.getTrades().size());
-        Assert.assertEquals(0, buyOrder2.getTrades().size());
-        Assert.assertEquals(0, sellOrder2.getTrades().size());
+        Assert.assertEquals(0, exchange1.getTotalTradedValueByDate(
+                LocalDate.now()), .01);
     }
 
     @Test
@@ -91,15 +93,8 @@ public class AddOrderToExchangeTest {
         orderBook1.matchOrder(buyOrder1);
         orderBook1.matchOrder(buyOrder2);
         orderBook1.matchOrder(sellOrder3);
-        Assert.assertEquals(5, buyOrder2.getNumberFulfilled());
-        Assert.assertEquals(7, buyOrder1.getNumberFulfilled());
-        Assert.assertEquals(12, sellOrder3.getNumberFulfilled());
-        Assert.assertTrue(buyOrder1.isOrderActive());
-        Assert.assertFalse(buyOrder2.isOrderActive());
-        Assert.assertFalse(sellOrder3.isOrderActive());
-        Assert.assertEquals(1, buyOrder1.getTrades().size());
-        Assert.assertEquals(1, buyOrder2.getTrades().size());
-        Assert.assertEquals(2, sellOrder3.getTrades().size());
+        Assert.assertEquals(132, exchange1.getTotalTradedValueByDate(
+                LocalDate.now()), .01);
     }
 
     @Test
@@ -111,12 +106,8 @@ public class AddOrderToExchangeTest {
         orderBook1.matchOrder(buyOrder1);
         orderBook1.matchOrder(buyOrderClone);
         orderBook1.matchOrder(sellOrder3);
-        Assert.assertEquals(2, buyOrder1.getNumberFulfilled());
-        Assert.assertEquals(10, buyOrderClone.getNumberFulfilled());
-        Assert.assertEquals(12, sellOrder3.getNumberFulfilled());
-        Assert.assertEquals(1, buyOrder1.getTrades().size());
-        Assert.assertEquals(1, buyOrderClone.getTrades().size());
-        Assert.assertEquals(2, sellOrder3.getTrades().size());
+        Assert.assertEquals(132, exchange1.getTotalTradedValueByDate(
+                LocalDate.now()), .01);
     }
 
 }

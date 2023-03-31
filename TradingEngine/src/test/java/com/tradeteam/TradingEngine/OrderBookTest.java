@@ -1,18 +1,12 @@
 package com.tradeteam.TradingEngine;
 
-import com.tradeteam.TradingEngine.entities.Exchange;
-import com.tradeteam.TradingEngine.entities.Order;
-import com.tradeteam.TradingEngine.entities.OrderBook;
-import com.tradeteam.TradingEngine.entities.Trade;
-import lombok.ToString;
-import org.junit.jupiter.api.Assertions;
+import com.tradeteam.TradingEngine.entities.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.Assert;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 public class OrderBookTest {
 
@@ -25,25 +19,26 @@ public class OrderBookTest {
 
     @BeforeEach
     public void setUp() {
-        orderBook = new OrderBook("AAPL", new Exchange(),
+        orderBook = new OrderBook(new OrderBookId("NYSE", "DB"),
+                "Deutsche Bank", new Exchange(),
                 new ArrayList<Order>());
-        buyOrder1 = new Order(1,
+        buyOrder1 = new Order(1, 1,
                 LocalDateTime.of(2023, 3, 28, 12, 30),
                 orderBook, 10, 0,
                 15.00, Order.OrderType.BUY, true, new ArrayList<Trade>());
-        buyOrder2 = new Order(1,
+        buyOrder2 = new Order(2, 1,
                 LocalDateTime.of(2023, 3, 28, 12, 35),
                 orderBook, 5, 0,
                 16.00, Order.OrderType.BUY, true, new ArrayList<Trade>());
-        sellOrder1 = new Order(2,
+        sellOrder1 = new Order(3, 2,
                 LocalDateTime.of(2023, 3, 28, 12, 40),
                 orderBook, 10, 0,
                 14.00, Order.OrderType.SELL, true, new ArrayList<Trade>());
-        sellOrder2 = new Order(2,
+        sellOrder2 = new Order(4, 2,
                 LocalDateTime.of(2023, 3, 28, 12, 45),
                 orderBook, 15, 0,
                 17.00, Order.OrderType.SELL, true, new ArrayList<Trade>());
-        sellOrder3 = new Order(2,
+        sellOrder3 = new Order(5, 2,
                 LocalDateTime.of(2023, 3, 28, 12, 45),
                 orderBook, 12, 0,
                 11.00, Order.OrderType.SELL, true, new ArrayList<Trade>());
@@ -56,38 +51,38 @@ public class OrderBookTest {
 
     @Test
     public void addOrderWithNoOtherOrders() {
-        orderBook.addOrder(buyOrder1);
+        orderBook.matchOrder(buyOrder1);
         Assert.assertEquals(buyOrder1, orderBook.getOrders().get(0));
     }
 
     @Test
     public void addOrderWithNonMatchingOrder() {
-        orderBook.addOrder(buyOrder1);
-        orderBook.addOrder(buyOrder2);
+        orderBook.matchOrder(buyOrder1);
+        orderBook.matchOrder(buyOrder2);
         Assert.assertEquals(buyOrder2, orderBook.getOrders().get(1));
     }
 
     @Test
     public void addSellOrderWithOneBuyOrder() {
-        orderBook.addOrder(buyOrder1);
-        orderBook.addOrder(sellOrder1);
+        orderBook.matchOrder(buyOrder1);
+        orderBook.matchOrder(sellOrder1);
         Assert.assertEquals(10, orderBook.getOrders().get(0).getNumberFulfilled());
         Assert.assertEquals(10, orderBook.getOrders().get(1).getNumberFulfilled());
     }
 
     @Test
     public void addSellOrderWithWorsePriceThanBuyOrders() {
-        orderBook.addOrder(buyOrder1);
-        orderBook.addOrder(buyOrder2);
-        orderBook.addOrder(sellOrder2);
+        orderBook.matchOrder(buyOrder1);
+        orderBook.matchOrder(buyOrder2);
+        orderBook.matchOrder(sellOrder2);
         Assert.assertEquals(0, sellOrder2.getNumberFulfilled());
     }
 
     @Test
     public void addSellOrderThatSplitsBuyOrders() {
-        orderBook.addOrder(buyOrder1);
-        orderBook.addOrder(buyOrder2);
-        orderBook.addOrder(sellOrder3);
+        orderBook.matchOrder(buyOrder1);
+        orderBook.matchOrder(buyOrder2);
+        orderBook.matchOrder(sellOrder3);
         Assert.assertEquals(5, buyOrder2.getNumberFulfilled());
         Assert.assertEquals(7, buyOrder1.getNumberFulfilled());
         Assert.assertEquals(12, sellOrder3.getNumberFulfilled());
@@ -98,13 +93,13 @@ public class OrderBookTest {
 
     @Test
     public void twoIdenticalBuyOrdersExceptTimestamp() {
-        Order buyOrderClone = new Order(1,
+        Order buyOrderClone = new Order(6, 1,
                 LocalDateTime.of(2023, 3, 28, 12, 0),
                 orderBook, 10, 0,
                 15.00, Order.OrderType.BUY, true, new ArrayList<Trade>());
-        orderBook.addOrder(buyOrder1);
-        orderBook.addOrder(buyOrderClone);
-        orderBook.addOrder(sellOrder3);
+        orderBook.matchOrder(buyOrder1);
+        orderBook.matchOrder(buyOrderClone);
+        orderBook.matchOrder(sellOrder3);
         Assert.assertEquals(2, buyOrder1.getNumberFulfilled());
         Assert.assertEquals(10, buyOrderClone.getNumberFulfilled());
         Assert.assertEquals(12, sellOrder3.getNumberFulfilled());
