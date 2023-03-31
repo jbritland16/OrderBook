@@ -13,11 +13,7 @@ import java.util.List;
 @Entity
 @Getter @AllArgsConstructor @NoArgsConstructor @RequiredArgsConstructor
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "fieldHandler"})
-public class Order {
-
-    public static Comparator<Order> highestPriceComparator = Comparator.comparing(Order::getPrice);
-    public static Comparator<Order> lowestPriceComparator = highestPriceComparator.reversed();
-    public static Comparator<Order> earliestTimestampComparator = Comparator.comparing(Order::getOrderTimestamp).reversed();
+public class Order implements Comparable<Order> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,10 +47,6 @@ public class Order {
     @NonNull
     @Setter private double price;
 
-    public enum OrderType {
-        BUY,
-        SELL
-    }
     @NonNull
     @Setter
     private OrderType orderType;
@@ -67,6 +59,38 @@ public class Order {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Trade> trades = new ArrayList<>() {
     };
+
+    @Override
+    public int compareTo(Order o) {
+        if (this.orderType != o.getOrderType()) {
+            return this.orderType.compareTo(o.getOrderType());
+        }
+        else if (this.price == o.getPrice()) {
+            return this.orderTimestamp.compareTo(o.getOrderTimestamp());
+        }
+        else if (this.orderType == OrderType.BUY) {
+            // This is structured like a queue and the highest buy price should be first;
+            // therefore, we reverse the order
+            return Double.compare(o.getPrice(), this.price);
+        }
+        else {
+            return Double.compare(this.price, o.getPrice());
+        }
+    }
+
+    public boolean confirmTradeWithOrder(Order order) {
+        if (this.orderType == OrderType.BUY) {
+            return this.price >= order.getPrice();
+        }
+        else {
+            return this.price <= order.getPrice();
+        }
+    }
+
+    public enum OrderType {
+        BUY,
+        SELL
+    }
 
     public OrderType matchOrderType() {
         if (orderType == OrderType.SELL) {
