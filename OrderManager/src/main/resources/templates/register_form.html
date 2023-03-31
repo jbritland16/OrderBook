@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
-<html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}"
+      xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
 </head>
 <body>
+<div layout:fragment="content">
+
 <h1> Registration form </h1>
 
 <form action="/registerProcess" method="POST">
@@ -16,5 +16,6 @@ User Email : <input type="email" name="userEmail"/> <br>
 
 <input type="submit" value="REGISTER"/> 
 </form>
+</div>
 </body>
 </html>
