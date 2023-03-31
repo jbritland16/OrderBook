@@ -46,7 +46,7 @@ public class Trade {
     public static Trade of(Order order1, Order order2) {
         int numToTrade = Stream.of(order1, order2)
                 .map(o -> o.getNumberOrdered() - o.getNumberFulfilled())
-                .min(Integer::compare).orElse(0);
+                .min(Integer::compare).get();
         order1.fulfillSome(numToTrade);
         order2.fulfillSome(numToTrade);
         double price = Stream.of(order1, order2)

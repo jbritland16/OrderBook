@@ -6,7 +6,9 @@ import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter @NoArgsConstructor @AllArgsConstructor @EqualsAndHashCode
@@ -51,25 +53,12 @@ public class OrderBook {
 
     public Order getMatchingOrder(Order order) {
         Order matchedOrder;
-        if (order.getOrderType() == Order.OrderType.SELL) {
-            matchedOrder = orders.stream()
-                    .filter(o -> o.getOrderType() == Order.OrderType.BUY)
-                    .filter(o -> o.isOrderActive())
-                    .max(Order.highestPriceComparator.thenComparing(Order.earliestTimestampComparator))
-                    .orElse(null);
-            if (matchedOrder != null && order.getPrice() > matchedOrder.getPrice()) {
-                matchedOrder = null;
-            }
-        }
-        else {
-            matchedOrder = orders.stream()
-                    .filter(o -> o.getOrderType() == Order.OrderType.SELL)
-                    .filter(o -> o.isOrderActive())
-                    .max(Order.lowestPriceComparator.thenComparing(Order.earliestTimestampComparator))
-                    .orElse(null);
-            if (matchedOrder != null && order.getPrice() < matchedOrder.getPrice()) {
-                matchedOrder = null;
-            }
+        matchedOrder = this.orders.stream().filter(o -> o.getOrderType() != order.getOrderType())
+                .filter(o -> o.isOrderActive())
+                .sorted(Order::compareTo)
+                .findFirst().orElse(null);
+        if (matchedOrder != null && !order.confirmTradeWithOrder(matchedOrder)) {
+            matchedOrder = null;
         }
         return matchedOrder;
     }

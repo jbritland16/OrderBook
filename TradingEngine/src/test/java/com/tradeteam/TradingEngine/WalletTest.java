@@ -32,39 +32,46 @@ public class WalletTest {
     OrderBookRepository orderBookRepository;
 
     OrderBookId orderBookId;
+    String orderBookIdString;
     OrderBook orderBook1;
     Order buyOrder1;
     Order buyOrder2;
     Order buyOrder3;
     Order sellOrder1;
     Order sellOrder2;
-    Map<OrderBookId, Integer> wallet;
+    Map<String, Integer> wallet;
 
 
     @BeforeEach
     public void setUp() {
         orderBookId = new OrderBookId("NYSE", "DB");
+        orderBookIdString = "NYSE:DB";
         orderBook1 = new OrderBook(orderBookId,
                 "Deutsche Bank", new Exchange(),
                 new ArrayList<Order>());
         buyOrder1 = new Order(1, 1,
                 LocalDateTime.of(2023, 3, 28, 12, 30),
+                orderBook1.getCompanyName(), orderBook1.getOrderBookId().getExchangeId(),
                 orderBook1, 10, 0,
                 5.00, Order.OrderType.BUY, true, new ArrayList<Trade>());
         buyOrder2 = new Order(2, 1,
                 LocalDateTime.of(2023, 3, 28, 12, 35),
+                orderBook1.getCompanyName(), orderBook1.getOrderBookId().getExchangeId(),
                 orderBook1, 10, 5,
                 10.00, Order.OrderType.BUY, true, new ArrayList<Trade>());
         buyOrder3 = new Order(6, 1,
                 LocalDateTime.of(2023, 3, 28, 12, 35),
+                orderBook1.getCompanyName(), orderBook1.getOrderBookId().getExchangeId(),
                 orderBook1, 10, 10,
                 10.00, Order.OrderType.BUY, true, new ArrayList<Trade>());
         sellOrder1 = new Order(3, 1,
                 LocalDateTime.of(2023, 3, 28, 12, 40),
+                orderBook1.getCompanyName(), orderBook1.getOrderBookId().getExchangeId(),
                 orderBook1, 10, 0,
                 5.00, Order.OrderType.SELL, true, new ArrayList<Trade>());
         sellOrder2 = new Order(4, 1,
                 LocalDateTime.of(2023, 3, 28, 12, 45),
+                orderBook1.getCompanyName(), orderBook1.getOrderBookId().getExchangeId(),
                 orderBook1, 15, 10,
                 10.00, Order.OrderType.SELL, true, new ArrayList<Trade>());
         wallet = new HashMap<>();
@@ -74,35 +81,35 @@ public class WalletTest {
     public void oneBuyOrderNoneFulfilled() {
         when(orderRepository.findByUserId(1)).thenReturn(Arrays.asList(buyOrder1));
         wallet = orderService.getUserWallet(1);
-        Assert.assertNull(wallet.get(orderBookId));
+        Assert.assertNull(wallet.get(orderBookIdString));
     }
 
     @Test
     public void oneBuyOrderSomeFulfilled() {
         when(orderRepository.findByUserId(1)).thenReturn(Arrays.asList(buyOrder2));
         wallet = orderService.getUserWallet(1);
-        Assert.assertEquals(Integer.valueOf(5), wallet.get(orderBookId));
+        Assert.assertEquals(Integer.valueOf(5), wallet.get(orderBookIdString));
     }
 
     @Test
     public void oneSellOrderNonFulfilled() {
         when(orderRepository.findByUserId(1)).thenReturn(Arrays.asList(sellOrder1));
         wallet = orderService.getUserWallet(1);
-        Assert.assertNull(wallet.get(orderBookId));
+        Assert.assertNull(wallet.get(orderBookIdString));
     }
 
     @Test
     public void oneSellOrderSomeFulfilled() {
         when(orderRepository.findByUserId(1)).thenReturn(Arrays.asList(sellOrder2));
         wallet = orderService.getUserWallet(1);
-        Assert.assertNull(wallet.get(orderBookId));
+        Assert.assertNull(wallet.get(orderBookIdString));
     }
 
     @Test
     public void multipleBuyOrders() {
         when(orderRepository.findByUserId(1)).thenReturn(Arrays.asList(buyOrder1, buyOrder2));
         wallet = orderService.getUserWallet(1);
-        Assert.assertEquals(Integer.valueOf(5), wallet.get(orderBookId));
+        Assert.assertEquals(Integer.valueOf(5), wallet.get(orderBookIdString));
     }
 
     @Test
@@ -110,7 +117,7 @@ public class WalletTest {
         when(orderRepository.findByUserId(1)).thenReturn(Arrays.asList(
                 buyOrder1, buyOrder2, buyOrder3, sellOrder2));
         wallet = orderService.getUserWallet(1);
-        Assert.assertEquals(Integer.valueOf(5), wallet.get(orderBookId));
+        Assert.assertEquals(Integer.valueOf(5), wallet.get(orderBookIdString));
     }
 
     @Test
@@ -118,7 +125,7 @@ public class WalletTest {
         when(orderRepository.findByUserId(1)).thenReturn(Arrays.asList(
                 buyOrder1, buyOrder2, sellOrder2));
         wallet = orderService.getUserWallet(1);
-        Assert.assertNull(wallet.get(orderBookId));
+        Assert.assertNull(wallet.get(orderBookIdString));
     }
 
 }
