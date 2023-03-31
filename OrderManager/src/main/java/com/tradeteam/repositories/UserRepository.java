@@ -10,10 +10,10 @@ import com.tradeteam.entities.User;
 
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer>{
+public interface UserRepository extends JpaRepository<User, Integer> {
 
-	@Query("FROM User WHERE userName = :userName AND userPassword = :userPassword")
-	public User findUserByUserNameAndUserPassword(@Param("userName") String userName,
-	@Param("userPassword") String userPassword);
+    @Query("FROM User WHERE userName = :userName AND userPassword = :userPassword")
+    public User findUserByUserNameAndUserPassword(@Param("userName") String userName,
+                                                  @Param("userPassword") String userPassword);
 
 }
