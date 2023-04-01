@@ -9,19 +9,11 @@
 <body>
 <h1> Registration form </h1>
 
-
-
 <form action="/registerProcess" method="POST">
 
-
-
 User Name : <input type="text" name="userName"/><br>
-
 User Password : <input type="password" name="userPassword"/> <br>
-
 User Email : <input type="email" name="userEmail"/> <br>
-
-
 
 <input type="submit" value="REGISTER"/> 
 </form>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <h1> Registration form </h1>
+    <form th:action="@{/register}" method="post">
+
+        User Name : <input type="text" name="userName"/><br>
+        User Password : <input type="password" name="userPassword"/> <br>
+        User Email : <input type="email" name="userEmail"/> <br>
+
+        <input type="submit" value="REGISTER"/>
+    </form>
+</div>
+</body>
+</html>
