@@ -5,7 +5,9 @@
 </head>
 <body>
 <div layout:fragment="content">
-
+    <th:block th:if="${message} != null">
+        <div class="alert alert-success" role="alert" th:text="${message}"></div>
+    </th:block>
     <h1>Create Order</h1>
     <form th:action="@{/order/create}" method="post">
         Quantity :
