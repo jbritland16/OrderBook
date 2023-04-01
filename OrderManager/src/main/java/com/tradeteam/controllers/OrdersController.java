@@ -3,12 +3,18 @@ package com.tradeteam.controllers;
 import com.tradeteam.entities.Order;
 import com.tradeteam.entities.OrderBook;
 import com.tradeteam.entities.Trade;
-import com.tradeteam.repositories.OrderRepository;
+import com.tradeteam.security.OrderManagerUserDetails;
 import com.tradeteam.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.HashMap;
-import java.util.List;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
 
+import java.util.List;
+@Controller
 public class OrdersController {
     @Autowired
     OrderService orderService;
@@ -20,10 +26,23 @@ public class OrdersController {
     public Order updateOrder(Order order) {
         return null;
     }
-
-    public Order addNewOrder(Order order) {
-        return null;
+    @GetMapping("/order/create")
+    public String addNewOrder() {
+        return "order_form";
     }
+    @PostMapping("/order/create")
+    public String createOrder(@AuthenticationPrincipal OrderManagerUserDetails userDetails,
+                              @RequestParam("numberOrdered") int numberOrdered,
+                              @RequestParam("price") double price,
+                              @RequestParam("OrderType") String orderType,
+                              @RequestParam("companyAbbrev") String companyAbbrev,
+                              Model model){
+        Order new_order = new Order(numberOrdered, price, orderType, userDetails.getUserId(), companyAbbrev, 1);
+        orderService.createOrder(new_order);
+        model.addAttribute("message", "Your order was successfully created!");
+        return "order_form";
+    }
+
 
     public Order cancelOrder(int orderId) {
         return null;

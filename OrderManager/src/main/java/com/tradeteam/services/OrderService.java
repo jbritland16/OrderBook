@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface OrderService {
     public List<Order> findByUserId(int userId);
+    public Order createOrder(Order order);
 }

@@ -1,23 +1,33 @@
 package com.tradeteam.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name="orders")
 @Getter @AllArgsConstructor @RequiredArgsConstructor @ToString
 public class Order {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int orderId;
     @NonNull private LocalDateTime orderTimestamp;
     @NonNull private int numberOrdered;
     @NonNull private int numberFulfilled = 0;
     @NonNull private double price;
     @NonNull private boolean orderActive = true;
+
+    public Order(int numberOrdered, double price, String orderType, int userId, String companyAbbrev, int exchangeId) {
+        this.numberOrdered = numberOrdered;
+        this.price = price;
+        this.orderType = OrderType.valueOf(orderType);
+        this.userId = userId;
+        this.companyAbbrev = companyAbbrev;
+        this.exchangeId = String.valueOf(exchangeId);
+
+    }
 
     public enum OrderType {
         BUY,
@@ -31,4 +41,10 @@ public class Order {
 
     @NonNull private String exchangeId;
 
+    @PrePersist
+    public void setDefaultValues() {
+        if (orderTimestamp == null) {
+            orderTimestamp = LocalDateTime.now();
+        }
+    }
 }
