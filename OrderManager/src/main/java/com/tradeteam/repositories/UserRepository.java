@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.tradeteam.entities.User;
 
+import java.util.Optional;
+
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
@@ -16,4 +18,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     public User findUserByUserNameAndUserPassword(@Param("userName") String userName,
                                                   @Param("userPassword") String userPassword);
 
+    Optional<User> findByUserName(String userName);
 }

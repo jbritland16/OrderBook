@@ -6,16 +6,15 @@
 <body>
 <div layout:fragment="content">
 
-<h1> Registration form </h1>
+    <h1> Registration form </h1>
+    <form th:action="@{/register}" method="post">
 
-<form action="/registerProcess" method="POST">
+        User Name : <input type="text" name="userName"/><br>
+        User Password : <input type="password" name="userPassword"/> <br>
+        User Email : <input type="email" name="userEmail"/> <br>
 
-User Name : <input type="text" name="userName"/><br>
-User Password : <input type="password" name="userPassword"/> <br>
-User Email : <input type="email" name="userEmail"/> <br>
-
-<input type="submit" value="REGISTER"/> 
-</form>
+        <input type="submit" value="REGISTER"/>
+    </form>
 </div>
 </body>
 </html>
