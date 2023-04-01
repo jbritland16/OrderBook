@@ -11,14 +11,19 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
-    private OrderRepository OrderRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
     private TradingEngineApiConsumer tradingEngineApiConsumer;
 
     public List<Order> findByUserId(int userId) {
 
-        return OrderRepository.findByUserId(userId);
+        return orderRepository.findByUserId(userId);
+    }
+
+    @Override
+    public Order createOrder(Order order) {
+        return orderRepository.save(order);
     }
 
 
