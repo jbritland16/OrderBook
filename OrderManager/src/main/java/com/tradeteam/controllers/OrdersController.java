@@ -6,9 +6,12 @@ import com.tradeteam.entities.Trade;
 import com.tradeteam.repositories.OrderRepository;
 import com.tradeteam.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
 import java.util.HashMap;
 import java.util.List;
-
+@Controller
 public class OrdersController {
     @Autowired
     OrderService orderService;
@@ -20,9 +23,9 @@ public class OrdersController {
     public Order updateOrder(Order order) {
         return null;
     }
-
-    public Order addNewOrder(Order order) {
-        return null;
+    @GetMapping("/order/create")
+    public String addNewOrder() {
+        return "order_form";
     }
 
     public Order cancelOrder(int orderId) {
