@@ -46,4 +46,12 @@ public class Order {
             orderTimestamp = LocalDateTime.now();
         }
     }
+
+    public String getStatus(){
+        if(this.isOrderActive() == true){
+            return "Active";
+        } else {
+            return "Inactive";
+        }
+    }
 }

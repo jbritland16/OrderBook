@@ -2,7 +2,8 @@
 import com.tradeteam.entities.Order;
 import org.junit.jupiter.api.Test;
 
-import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class OrderTest {
     @Test
