@@ -8,9 +8,7 @@ import com.tradeteam.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -47,14 +45,15 @@ public class OrdersController {
         return "order_form";
     }
 
-    @PostMapping("/order/{orderId}/cancel")
-    public Order cancelOrder(
+    @PostMapping("/order/cancel")
+    public String cancelOrder(
             @AuthenticationPrincipal OrderManagerUserDetails userDetails,
             @RequestParam("orderId") int orderId) {
         int currentUserId = userDetails.getUserId();
-        return orderService.cancelOrder(orderId, currentUserId);
+        orderService.cancelOrder(orderId, currentUserId);
+        return "redirect:/orders";
     }
-
+    
     public Order getOrderDetails(int orderId) {
         return null;
     }

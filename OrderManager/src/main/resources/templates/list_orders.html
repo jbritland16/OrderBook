@@ -18,6 +18,7 @@
             <th>Price</th>
             <th>Status</th>
             <th>Order date</th>
+            <th>Actions</th>
         </tr>
         <tr th:each="order: ${orders}">
             <td th:text="${order.getCompanyAbbrev()}" />
@@ -27,6 +28,13 @@
             <td th:text="${order.getPrice()}" />
             <td th:text="${order.getStatus()}" />
             <td th:text="${order.getOrderTimestamp()}" />
+            <td>
+                <form method="POST" th:action="@{/order/cancel}">
+                    <input type="hidden" name="orderId" th:value="${order.getOrderId()}">
+                    <button type="submit" name="submit" value="value" class="link-button">Cancel</button>
+                </form>
+                <a href="">Update</a>
+            </td>
         </tr>
     </table>
 </div>
