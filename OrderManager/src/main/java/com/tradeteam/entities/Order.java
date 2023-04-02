@@ -4,11 +4,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Entity
 @Table(name="orders")
-@Getter @AllArgsConstructor @RequiredArgsConstructor @ToString
+@Getter @Setter @AllArgsConstructor @RequiredArgsConstructor @NoArgsConstructor @ToString
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,6 +44,14 @@ public class Order {
     public void setDefaultValues() {
         if (orderTimestamp == null) {
             orderTimestamp = LocalDateTime.now();
+        }
+    }
+
+    public String getStatus(){
+        if(this.isOrderActive() == true){
+            return "Active";
+        } else {
+            return "Inactive";
         }
     }
 }
