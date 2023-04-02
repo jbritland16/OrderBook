@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import javax.swing.plaf.BorderUIResource;
 import java.util.List;
+
 @Controller
 public class OrdersController {
     @Autowired
@@ -28,17 +30,19 @@ public class OrdersController {
     public Order updateOrder(Order order) {
         return null;
     }
+
     @GetMapping("/order/create")
     public String addNewOrder(Model model) {
         model.addAttribute("order", new Order());
         return "add_order";
     }
+
     @PostMapping("/order/create")
     public String createOrder(@AuthenticationPrincipal OrderManagerUserDetails userDetails,
                               @RequestParam("numberOrdered") int numberOrdered,
                               @RequestParam("price") double price,
                               @RequestParam("OrderType") String orderType,
-                              @RequestParam("companyAbbrev") String companyAbbrev){
+                              @RequestParam("companyAbbrev") String companyAbbrev) {
         Order new_order = new Order(numberOrdered, price, orderType, userDetails.getUserId(), companyAbbrev, 1);
         orderService.createOrder(new_order);
         return "redirect:/orders";
@@ -60,6 +64,17 @@ public class OrdersController {
         model.addAttribute("order", order);
         return "edit_order";
     }
+
+    @PostMapping("/order/update/{orderId}")
+    public String updateOrder(@PathVariable("orderId") int orderId,
+                              @RequestParam("numberOrdered") int numberOrdered,
+                              @RequestParam("price") double price,
+                              @RequestParam("OrderType") String orderType,
+                              @RequestParam("companyAbbrev") String companyAbbrev) {
+        orderService.updateOrder(orderId, numberOrdered, price, orderType, companyAbbrev);
+        return "redirect:/orders";
+    }
+
 
     public Order getOrderDetails(int orderId) {
         return null;

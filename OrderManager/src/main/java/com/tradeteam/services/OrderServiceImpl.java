@@ -46,5 +46,15 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
     }
 
+    @Override
+    public Order updateOrder(int orderId, int numberOrdered, double price, String orderType, String companyAbbrev) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
+        order.setNumberOrdered(numberOrdered);
+        order.setPrice(price);
+        order.setOrderType(Order.OrderType.valueOf(orderType));
+        order.setCompanyAbbrev(companyAbbrev);
+        return orderRepository.save(order);
+    }
+
 
 }

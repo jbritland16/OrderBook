@@ -9,4 +9,6 @@ public interface OrderService {
     public Order createOrder(Order order);
     public Order cancelOrder(int orderId, int userId);
     public Order findById(int orderId);
+
+    public Order updateOrder(int orderId, int numberOrdered, double price, String orderType, String companyAbbrev);
 }

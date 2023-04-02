@@ -6,7 +6,7 @@
 <body>
 <div layout:fragment="content">
     <h1>Edit Order</h1>
-    <form th:action="@{/order/update}" method="post">
+    <form th:action="@{/order/update/{orderId}(orderId=${order.getOrderId()})}" method="post">
         <div th:replace="fragments/order_form :: order-form(${order})"></div>
         <input type="submit" value="UPDATE ORDER"/>
     </form>
