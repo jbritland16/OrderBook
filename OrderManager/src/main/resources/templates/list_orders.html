@@ -30,7 +30,8 @@
                     <input type="hidden" name="orderId" th:value="${order.getOrderId()}">
                     <button type="submit" name="submit" value="value" class="link-button">Cancel</button>
                 </form>
-                <a href="">Update</a>
+                <a th:href="@{/order/edit/{orderId}(orderId=${order.getOrderId()})}" class="link-button">Edit</a>
+
             </td>
         </tr>
     </table>

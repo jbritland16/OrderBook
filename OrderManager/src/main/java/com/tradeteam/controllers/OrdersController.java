@@ -29,8 +29,9 @@ public class OrdersController {
         return null;
     }
     @GetMapping("/order/create")
-    public String addNewOrder() {
-        return "order_form";
+    public String addNewOrder(Model model) {
+        model.addAttribute("order", new Order());
+        return "add_order";
     }
     @PostMapping("/order/create")
     public String createOrder(@AuthenticationPrincipal OrderManagerUserDetails userDetails,
@@ -50,6 +51,14 @@ public class OrdersController {
         int currentUserId = userDetails.getUserId();
         orderService.cancelOrder(orderId, currentUserId);
         return "redirect:/orders";
+    }
+
+    @GetMapping("/order/edit/{orderId}")
+    public String editOrder(@PathVariable("orderId") int orderId,
+                            Model model) {
+        Order order = orderService.findById(orderId);
+        model.addAttribute("order", order);
+        return "edit_order";
     }
 
     public Order getOrderDetails(int orderId) {

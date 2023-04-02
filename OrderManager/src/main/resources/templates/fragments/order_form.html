@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="">
+<head></head>
+<body>
+  <div th:fragment="order-form(order)">
+    Quantity :
+    <input type="text" name="numberOrdered" th:value="${order.getNumberOrdered()}"/><br>
+    Price :
+    <input type="text" name="price" th:value="${order.getPrice()}"/> <br>
+    Order Type :
+    <select name="OrderType">
+      <option value="BUY">BUY</option>
+      <option value="SELL">SELL</option>
+    </select>
+    <br>
+    Stock Symbol :
+    <select name="companyAbbrev">
+      <option value="AAPL">AAPL</option>
+      <option value="AMZN">AMZN</option>
+      <option value="NKE">NKE</option>
+      <option value="WMT">WMT</option>
+      <option value="GOOGL">GOOGL</option>
+    </select>
+    <br />
+  </div>
+</body>
+</html>
