@@ -5,6 +5,7 @@ import com.tradeteam.entities.OrderBook;
 import com.tradeteam.entities.Trade;
 import com.tradeteam.security.OrderManagerUserDetails;
 import com.tradeteam.services.OrderService;
+import jakarta.ws.rs.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -25,10 +26,6 @@ public class OrdersController {
         List<Order> orders = orderService.findByUserId(userDetails.getUserId());
         model.addAttribute("orders", orders);
         return "list_orders";
-    }
-
-    public Order updateOrder(Order order) {
-        return null;
     }
 
     @GetMapping("/order/create")
@@ -75,9 +72,11 @@ public class OrdersController {
         return "redirect:/orders";
     }
 
-
-    public Order getOrderDetails(int orderId) {
-        return null;
+    @GetMapping("/order/{orderId}")
+    public String getOrderDetails(@PathVariable("orderId") int orderId, Model model) {
+        Order order = orderService.findById(orderId);
+        model.addAttribute("order", order);
+        return "view_order";
     }
 
     public List<Trade> getTradeHistory(int userId) {

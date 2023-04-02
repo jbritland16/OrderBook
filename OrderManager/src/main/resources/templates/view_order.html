@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>View Order</h1>
+    <p th:text="'Stock Symbol: ' + ${order.getCompanyAbbrev()}"></p>
+    <p th:text="'Operation: ' + ${order.getOrderType()}"></p>
+    <p th:text="'Quantity: ' + ${order.getNumberOrdered()}"></p>
+    <p th:text="'Fulfilled: ' + ${order.getNumberFulfilled()}"></p>
+    <p th:text="'Price: ' + ${order.getPrice()}"></p>
+    <p th:text="'Status: ' + ${order.getStatus()}"></p>
+    <p th:text="'Order date: ' + ${order.getOrderTimestamp()}"></p>
+</div>
+</body>
+</html>

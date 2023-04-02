@@ -26,11 +26,12 @@
             <td th:text="${order.getStatus()}" />
             <td th:text="${order.getOrderTimestamp()}" />
             <td>
+                <a th:href="@{/order/{orderId}(orderId=${order.getOrderId()})}" class="btn">View</a>
                 <form method="POST" th:action="@{/order/cancel}">
                     <input type="hidden" name="orderId" th:value="${order.getOrderId()}">
-                    <button type="submit" name="submit" value="value" class="link-button">Cancel</button>
+                    <button type="submit" name="submit" value="value" class="btn">Cancel</button>
                 </form>
-                <a th:href="@{/order/edit/{orderId}(orderId=${order.getOrderId()})}" class="link-button">Edit</a>
+                <a th:href="@{/order/edit/{orderId}(orderId=${order.getOrderId()})}" class="btn">Edit</a>
 
             </td>
         </tr>
