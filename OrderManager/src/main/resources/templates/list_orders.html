@@ -12,21 +12,21 @@
     <table>
         <tr>
             <th>Stock Symbol</th>
-            <th>Order date</th>
+            <th>Operation</th>
             <th>Quantity</th>
             <th>Fulfilled</th>
             <th>Price</th>
             <th>Status</th>
-            <th>Operation</th>
+            <th>Order date</th>
         </tr>
         <tr th:each="order: ${orders}">
             <td th:text="${order.getCompanyAbbrev()}" />
-            <td th:text="${order.getOrderTimestamp()}" />
+            <td th:text="${order.getOrderType()}" />
             <td th:text="${order.getNumberOrdered()}" />
             <td th:text="${order.getNumberFulfilled()}" />
             <td th:text="${order.getPrice()}" />
-            <td th:text="${order.isOrderActive()}" />
-            <td th:text="${order.getOrderType()}" />
+            <td th:text="${order.getStatus()}" />
+            <td th:text="${order.getOrderTimestamp()}" />
         </tr>
     </table>
 </div>
