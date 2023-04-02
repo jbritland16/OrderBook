@@ -37,12 +37,10 @@ public class OrdersController {
                               @RequestParam("numberOrdered") int numberOrdered,
                               @RequestParam("price") double price,
                               @RequestParam("OrderType") String orderType,
-                              @RequestParam("companyAbbrev") String companyAbbrev,
-                              Model model){
+                              @RequestParam("companyAbbrev") String companyAbbrev){
         Order new_order = new Order(numberOrdered, price, orderType, userDetails.getUserId(), companyAbbrev, 1);
         orderService.createOrder(new_order);
-        model.addAttribute("message", "Your order was successfully created!");
-        return "order_form";
+        return "redirect:/orders";
     }
 
     @PostMapping("/order/cancel")
@@ -53,7 +51,7 @@ public class OrdersController {
         orderService.cancelOrder(orderId, currentUserId);
         return "redirect:/orders";
     }
-    
+
     public Order getOrderDetails(int orderId) {
         return null;
     }

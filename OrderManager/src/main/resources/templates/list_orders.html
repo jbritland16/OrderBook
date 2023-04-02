@@ -5,9 +5,6 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <th:block th:if="${message} != null">
-        <div class="alert alert-success" role="alert" th:text="${message}"></div>
-    </th:block>
     <h1>Orders</h1>
     <table>
         <tr>
@@ -37,6 +34,7 @@
             </td>
         </tr>
     </table>
+    <a th:href="@{/order/create}" class="btn btn-primary">New Order</a>
 </div>
 </body>
 </html>
