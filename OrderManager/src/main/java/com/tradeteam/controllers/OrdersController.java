@@ -19,8 +19,12 @@ public class OrdersController {
     @Autowired
     OrderService orderService;
 
-    public List<Order> findByUserId(int userId) {
-        return orderService.findByUserId(userId);
+    @GetMapping("/orders")
+    public String findByUserId(@AuthenticationPrincipal OrderManagerUserDetails userDetails,
+                               Model model) {
+        List<Order> orders = orderService.findByUserId(userDetails.getUserId());
+        model.addAttribute("orders", orders);
+        return "list_orders";
     }
 
     public Order updateOrder(Order order) {
@@ -43,9 +47,12 @@ public class OrdersController {
         return "order_form";
     }
 
-
-    public Order cancelOrder(int orderId) {
-        return null;
+    @PostMapping("/order/{orderId}/cancel")
+    public Order cancelOrder(
+            @AuthenticationPrincipal OrderManagerUserDetails userDetails,
+            @RequestParam("orderId") int orderId) {
+        int currentUserId = userDetails.getUserId();
+        return orderService.cancelOrder(orderId, currentUserId);
     }
 
     public Order getOrderDetails(int orderId) {
