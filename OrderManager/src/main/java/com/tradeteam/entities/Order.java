@@ -18,6 +18,10 @@ public class Order {
     @NonNull private double price;
     @NonNull private boolean orderActive = true;
 
+
+    public Order(int i, LocalDateTime now, int i1, int i2, double v, boolean b, OrderType buy, int userId) {
+    }
+
     public enum OrderType {
         BUY,
         SELL
