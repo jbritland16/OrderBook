@@ -44,7 +44,7 @@ public class Exchange {
                 .filter(t -> t.getTradeTimestamp().getYear() == date.getYear())
                 .filter(t -> t.getTradeTimestamp().getDayOfYear() == date.getDayOfYear())
                 .distinct()
-                .mapToDouble(t -> (t.getNumberTraded() * t.getPricePerShare()))
+                .mapToDouble(t -> (t.getNumberTraded() * t.getPricePerShare().doubleValue()))
                 .sum();
     }
 
