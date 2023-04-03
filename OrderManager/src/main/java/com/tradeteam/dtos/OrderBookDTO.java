@@ -1,5 +1,6 @@
 package com.tradeteam.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tradeteam.entities.Order;
 import com.tradeteam.entities.OrderBook;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderBookDTO {
 
     private OrderBookId orderBookId;

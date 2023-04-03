@@ -1,18 +1,23 @@
 package com.tradeteam.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tradeteam.entities.Order;
-import com.tradeteam.entities.OrderBook;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter @Setter
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ReceiveOrderDTO {
 
     private int orderId;
+    private int userId;
     private LocalDateTime orderTimestamp;
-    private OrderBook orderBook;
+    private String exchangeId;
+    private  String companyAbbrev;
     private int numberOrdered;
     private int numberFulfilled;
     private double price;
@@ -20,26 +25,14 @@ public class ReceiveOrderDTO {
     private boolean orderActive;
 
     public ReceiveOrderDTO(int orderId, LocalDateTime orderTimestamp,
+                           String exchangeId, String companyAbbrev,
                            int numberOrdered, int numberFulfilled,
                            double price, Order.OrderType orderType,
                            boolean orderActive) {
         this.orderId = orderId;
         this.orderTimestamp = orderTimestamp;
-        this.numberOrdered = numberOrdered;
-        this.numberFulfilled = numberFulfilled;
-        this.price = price;
-        this.orderType = orderType;
-        this.orderActive = orderActive;
-    }
-
-    public ReceiveOrderDTO(int orderId, int userId, LocalDateTime orderTimestamp,
-                           OrderBookDTO orderBook,
-                           int numberOrdered, int numberFulfilled,
-                           double price, Order.OrderType orderType,
-                           boolean orderActive) {
-        this.orderId = orderId;
-        this.orderTimestamp = orderTimestamp;
-        this.orderBook = orderBook.orderBook();
+        this.exchangeId = exchangeId;
+        this.companyAbbrev = companyAbbrev;
         this.numberOrdered = numberOrdered;
         this.numberFulfilled = numberFulfilled;
         this.price = price;
@@ -50,8 +43,7 @@ public class ReceiveOrderDTO {
     public Order order() {
         return new Order(orderId, orderTimestamp, numberOrdered,
                 numberFulfilled, price, orderActive, orderType,
-                0, orderBook.getCompanyAbbrev(),
-                orderBook.getExchangeId());
+                0, companyAbbrev, exchangeId);
     }
 
 }

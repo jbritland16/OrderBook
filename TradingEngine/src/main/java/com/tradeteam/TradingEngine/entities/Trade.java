@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,13 +35,21 @@ public class Trade {
     private int numberTraded;
 
     @NonNull
-    private double pricePerShare;
+    @Column(scale = 2)
+    private BigDecimal pricePerShare;
 
-    public Trade(List<Order> orders, LocalDateTime tradeTimestamp, int numberTraded, double pricePerShare) {
+    @NonNull
+    @JsonIgnore @Getter(onMethod = @__( @JsonIgnore ))
+    @Column(scale = 2)
+    private BigDecimal profitPerShare;
+
+    public Trade(List<Order> orders, LocalDateTime tradeTimestamp, int numberTraded,
+                 BigDecimal pricePerShare, BigDecimal profitPerShare) {
         this.orders = orders;
         this.tradeTimestamp = tradeTimestamp;
         this.numberTraded = numberTraded;
         this.pricePerShare = pricePerShare;
+        this.profitPerShare = profitPerShare;
     }
 
     public static Trade of(Order order1, Order order2) {
@@ -49,11 +58,14 @@ public class Trade {
                 .min(Integer::compare).get();
         order1.fulfillSome(numToTrade);
         order2.fulfillSome(numToTrade);
-        double price = Stream.of(order1, order2)
+        BigDecimal price = BigDecimal.valueOf(Stream.of(order1, order2)
                 .map(o -> o.getPrice())
-                .min(Double::compare).get();
+                .max(Double::compare).get());
+        BigDecimal profit = price.subtract(BigDecimal.valueOf(Stream.of(order1, order2)
+                .map(o -> o.getPrice())
+                .max(Double::compare).get()));
         return new Trade(Arrays.asList(order1, order2), LocalDateTime.now(),
-                numToTrade, price);
+                numToTrade, price, profit);
     }
 
 }
