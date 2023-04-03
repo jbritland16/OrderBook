@@ -4,6 +4,7 @@ import com.tradeteam.entities.Order;
 import com.tradeteam.entities.OrderBook;
 import com.tradeteam.entities.Trade;
 import com.tradeteam.security.OrderManagerUserDetails;
+import com.tradeteam.services.ExchangeOrderBookService;
 import com.tradeteam.services.OrderService;
 import jakarta.ws.rs.Path;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ import java.util.List;
 public class OrdersController {
     @Autowired
     OrderService orderService;
+
+    @Autowired
+    ExchangeOrderBookService exchangeOrderBookService;
 
     @GetMapping("/orders")
     public String findByUserId(@AuthenticationPrincipal OrderManagerUserDetails userDetails,
@@ -83,8 +87,11 @@ public class OrdersController {
         return null;
     }
 
-    public OrderBook getOrderBook(String exchangeId, String companyAbbrev) {
-        return null;
+    public String getOrderBook(String exchangeId, String companyAbbrev, Model model) {
+        OrderBook orderBook = exchangeOrderBookService
+                .getOrderBookByExchangeIdCompanyAbbrev(exchangeId, companyAbbrev);
+        model.addAttribute("orderBook", orderBook);
+        return "view_order_book"; // This view hasn't been made yet
     }
 
 }
