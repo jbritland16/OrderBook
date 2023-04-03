@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-@FeignClient("trading-engine")
+@FeignClient(name = "trading-engine")
 public interface TradingEngineApiConsumer {
 
     @GetMapping("/exchanges/allExchangeIds")
@@ -30,21 +30,22 @@ public interface TradingEngineApiConsumer {
                                                       @PathVariable int day);
 
     @PostMapping("/orders/byUserId")
-    public List<ReceiveOrderDTO> getOrdersByUserId(@RequestParam int userId);
+    public List<ReceiveOrderDTO> getOrdersByUserId(int userId);
 
     @PostMapping("/orders/byOrderId")
-    public ReceiveOrderDTO getOrderById(@RequestParam int orderId);
+    public ReceiveOrderDTO getOrderById(int orderId);
 
-    @PostMapping("/orders/new")
-    public void addNewOrder(@RequestParam NewOrderDTO order);
+    @PostMapping("/orders/{exchangeId}/{companyAbbrev}/new")
+    public void addNewOrder(NewOrderDTO order, @PathVariable String exchangeId,
+                            @PathVariable String companyAbbrev);
 
     @PostMapping("/orders/wallet")
-    public Map<String, Integer> getWalletByUserId(@RequestParam int userId);
+    public Map<String, Integer> getWalletByUserId(int userId);
 
     @GetMapping("/trades/byTradeId")
-    public TradeDTO getTradeDetails(@RequestParam int tradeId);
+    public TradeDTO getTradeDetails(int tradeId);
 
     @GetMapping("/trades/byUserId")
-    public List<TradeDTO> getTradesByUser(@RequestParam int userId);
+    public List<TradeDTO> getTradesByUser(int userId);
 
 }

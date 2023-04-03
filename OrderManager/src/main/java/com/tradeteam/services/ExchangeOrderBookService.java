@@ -1,0 +1,14 @@
+package com.tradeteam.services;
+
+import com.tradeteam.entities.OrderBook;
+
+import java.util.List;
+
+public interface ExchangeOrderBookService {
+
+    public List<String> getAllExchangeIds();
+    public List<String> getCompanyAbbrevsByExchangeId(String exchangeId);
+    public OrderBook getOrderBookByExchangeIdCompanyAbbrev(String exchangeId,
+                                                           String companyAbbrev);
+
+}

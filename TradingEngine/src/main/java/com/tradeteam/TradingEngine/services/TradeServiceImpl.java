@@ -40,7 +40,7 @@ public class TradeServiceImpl implements TradeService {
                 .filter(t -> t.getTradeTimestamp().getYear() == year)
                 .filter(t -> t.getTradeTimestamp().getMonthValue() == month)
                 .filter(t -> t.getTradeTimestamp().getDayOfMonth() == day)
-                .map(t -> t.getNumberTraded() * t.getPricePerShare())
+                .map(t -> t.getNumberTraded() * t.getPricePerShare().doubleValue())
                 .reduce(0.0, Double::sum);
     }
 

@@ -18,15 +18,6 @@ public class Order {
     @NonNull private double price;
     @NonNull private boolean orderActive = true;
 
-    public Order(int numberOrdered, double price, String orderType, int userId, String companyAbbrev, int exchangeId) {
-        this.numberOrdered = numberOrdered;
-        this.price = price;
-        this.orderType = OrderType.valueOf(orderType);
-        this.userId = userId;
-        this.companyAbbrev = companyAbbrev;
-        this.exchangeId = String.valueOf(exchangeId);
-
-    }
 
     public Order(int i, LocalDateTime now, int i1, int i2, double v, boolean b, OrderType buy, int userId) {
     }
@@ -42,6 +33,16 @@ public class Order {
     @NonNull private String companyAbbrev;
 
     @NonNull private String exchangeId;
+
+    public Order(int numberOrdered, double price, String orderType, int userId, String companyAbbrev, int exchangeId) {
+        this.numberOrdered = numberOrdered;
+        this.price = price;
+        this.orderType = OrderType.valueOf(orderType);
+        this.userId = userId;
+        this.companyAbbrev = companyAbbrev;
+        this.exchangeId = String.valueOf(exchangeId);
+
+    }
 
     @PrePersist
     public void setDefaultValues() {
