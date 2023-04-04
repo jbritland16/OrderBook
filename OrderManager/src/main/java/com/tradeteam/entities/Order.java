@@ -19,9 +19,6 @@ public class Order {
     @NonNull private boolean orderActive = true;
 
 
-    public Order(int i, LocalDateTime now, int i1, int i2, double v, boolean b, OrderType buy, int userId) {
-    }
-
     public enum OrderType {
         BUY,
         SELL
@@ -34,21 +31,14 @@ public class Order {
 
     @NonNull private String exchangeId;
 
-    public Order(int numberOrdered, double price, String orderType, int userId, String companyAbbrev, int exchangeId) {
+    public Order(int numberOrdered, double price, String orderType, int userId, String companyAbbrev, String exchangeId) {
+        this.orderTimestamp = LocalDateTime.now();
         this.numberOrdered = numberOrdered;
         this.price = price;
         this.orderType = OrderType.valueOf(orderType);
         this.userId = userId;
         this.companyAbbrev = companyAbbrev;
-        this.exchangeId = String.valueOf(exchangeId);
-
-    }
-
-    @PrePersist
-    public void setDefaultValues() {
-        if (orderTimestamp == null) {
-            orderTimestamp = LocalDateTime.now();
-        }
+        this.exchangeId = exchangeId;
     }
 
     public String getStatus(){

@@ -3,6 +3,19 @@
 <head></head>
 <body>
   <div th:fragment="order-form(order)">
+    Exchange:
+    <select id="exchangeId" name="exchangeId" onchange="populateCompanyAbbrevs()">
+      <option value="">-- Select an Exchange --</option>
+      <option th:each="key : ${exchangeCompanyAbbrevs.keySet()}" th:value="${key}" th:text="${key}"></option>
+    </select>
+
+    <br />
+
+    Company Abbrev:
+    <select id="companyAbbrev" name="companyAbbrev"></select>
+
+    <br />
+
     Quantity :
     <input type="text" name="numberOrdered" th:value="${order.getNumberOrdered()}"/><br>
     Price :
@@ -12,16 +25,37 @@
       <option value="BUY">BUY</option>
       <option value="SELL">SELL</option>
     </select>
-    <br>
-    Stock Symbol :
-    <select name="companyAbbrev">
-      <option value="AAPL">AAPL</option>
-      <option value="AMZN">AMZN</option>
-      <option value="NKE">NKE</option>
-      <option value="WMT">WMT</option>
-      <option value="GOOGL">GOOGL</option>
-    </select>
     <br />
+
+
+    <br />
+    <script th:inline="javascript">
+    function populateCompanyAbbrevs() {
+        var exchangeIdSelect = document.getElementById("exchangeId");
+        var companyAbbrevsSelect = document.getElementById("companyAbbrev");
+
+        // Remove any existing options from the second select field
+        while (companyAbbrevsSelect.firstChild) {
+            companyAbbrevsSelect.removeChild(companyAbbrevsSelect.firstChild);
+        }
+
+        // Get the selected option from the first select field
+        var selectedOption = exchangeIdSelect.options[exchangeIdSelect.selectedIndex].value;
+
+        var exchangeCompanyAbbrevs = /*[[${exchangeCompanyAbbrevs}]]*/;
+
+        // Get the values from the HashMap for the selected option
+        var values = exchangeCompanyAbbrevs[selectedOption];
+
+        // Add the values as options to the second select field
+        for (var i = 0; i < values.length; i++) {
+            var option = document.createElement("option");
+            option.text = values[i];
+            option.value = values[i];
+            companyAbbrevsSelect.appendChild(option);
+        }
+    }
+  </script>
   </div>
 </body>
 </html>
