@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,10 +28,12 @@ public class Order implements Comparable<Order> {
 
     @Column(name = "companyAbbrev", insertable=false, updatable=false)
     @JoinColumn(name = "companyAbbrev")
+    @Setter
     String companyAbbrev;
 
     @Column(name = "exchangeId", insertable=false, updatable=false)
     @JoinColumn(name = "exchangeId")
+    @Setter
     String exchangeId;
 
     @JsonIgnore @Getter(onMethod = @__( @JsonIgnore ))

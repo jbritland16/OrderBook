@@ -18,7 +18,7 @@ public class OrderBookDTO {
     private List<Order> orders;
 
     public OrderBookDTO(OrderBookId orderBookId, String companyName,
-                        List<ReceiveOrderDTO> orders) {
+                        List<ExistingOrderDTO> orders) {
         this.orderBookId = orderBookId;
         this.companyName = companyName;
         this.orders = orders.stream()

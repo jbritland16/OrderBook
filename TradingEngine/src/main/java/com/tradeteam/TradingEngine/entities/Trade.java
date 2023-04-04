@@ -63,7 +63,7 @@ public class Trade {
                 .max(Double::compare).get());
         BigDecimal profit = price.subtract(BigDecimal.valueOf(Stream.of(order1, order2)
                 .map(o -> o.getPrice())
-                .max(Double::compare).get()));
+                .min(Double::compare).get()));
         return new Trade(Arrays.asList(order1, order2), LocalDateTime.now(),
                 numToTrade, price, profit);
     }
