@@ -4,20 +4,14 @@ import com.tradeteam.consumers.TradingEngineApiConsumer;
 import com.tradeteam.dtos.NewOrderDTO;
 import com.tradeteam.dtos.ExistingOrderDTO;
 import com.tradeteam.entities.Order;
-import com.tradeteam.entities.Trade;
-import com.tradeteam.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-
-    @Autowired
-    private OrderRepository orderRepository;
 
     @Autowired
     private TradingEngineApiConsumer tradingEngineApiConsumer;
