@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Trade History</h1>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Trade time</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        <tr th:each="trade: ${trades}">
+            <td th:text="${trade.getTradeId()}" />
+            <td th:text="${trade.getTradeTimestamp()}" />
+            <td th:text="${trade.getNumberTraded()}" />
+            <td th:text="${trade.getPricePerShare()}" />
+        </tr>
+    </table>
+</div>
+</body>
+</html>

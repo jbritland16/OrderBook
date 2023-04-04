@@ -19,8 +19,8 @@ public class TradeController {
         return tradeService.getTradeDetails(tradeId);
     }
 
-    @PostMapping("/byUserId")
-    public List<Trade> getTradesByUserId(@RequestBody int userId) {
+    @GetMapping("/byUserId/{userId}")
+    public List<Trade> getTradesByUserId(@PathVariable int userId) {
         return tradeService.getTradesByUserId(userId);
     }
 
