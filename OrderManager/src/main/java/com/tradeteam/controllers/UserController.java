@@ -1,13 +1,13 @@
 package com.tradeteam.controllers;
 
+import com.tradeteam.security.OrderManagerUserDetails;
 import com.tradeteam.security.OrderManagerUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.tradeteam.services.UserService;
 import com.tradeteam.entities.User;
 
@@ -22,7 +22,15 @@ public class UserController {
     //Mapping methods
 
     @GetMapping("/")
-    public String index() {
+    public String index(@AuthenticationPrincipal OrderManagerUserDetails userDetails) {
+        if(userDetails != null) {
+            return "redirect:/orders";
+        }
+        return "index";
+    }
+
+    @GetMapping("/home")
+    public String home(){
         return "index";
     }
 

@@ -23,8 +23,8 @@ public class OrderServiceTest {
     public void testFindByUserId() {
         // Given
         int userId = 1;
-        Order order1 = new Order(1, LocalDateTime.now(), 100, 0, 99.01, true, Order.OrderType.BUY, userId);
-        Order order2 = new Order(2, LocalDateTime.now(), 100, 0, 99.03, true, Order.OrderType.SELL, userId);
+        Order order1 = new Order(100, 99.02, "BUY", 1, "AAPL", "NYSE");
+        Order order2 = new Order(100, 99.02, "SELL", 1, "AAPL", "NYSE");;
         List<Order> orders = new ArrayList<>();
         orders.add(order1);
         orders.add(order2);
