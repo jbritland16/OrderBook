@@ -1,22 +1,17 @@
 package com.tradeteam.controllers;
 
-import com.tradeteam.consumers.TradingEngineApiConsumer;
 import com.tradeteam.entities.Order;
 import com.tradeteam.entities.OrderBook;
-import com.tradeteam.entities.Trade;
+import com.tradeteam.dtos.TradeDTO;
 import com.tradeteam.security.OrderManagerUserDetails;
 import com.tradeteam.services.ExchangeOrderBookService;
 import com.tradeteam.services.OrderService;
 import com.tradeteam.services.TradingEngineTradeService;
-import jakarta.ws.rs.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-
-import javax.swing.plaf.BorderUIResource;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,7 +24,7 @@ public class OrdersController {
     ExchangeOrderBookService exchangeOrderBookService;
 
     @Autowired
-    TradingEngineApiConsumer tradingEngineApiConsumer;
+    TradingEngineTradeService tradingEngineTradeService;
 
     @GetMapping("/orders")
     public String findByUserId(@AuthenticationPrincipal OrderManagerUserDetails userDetails,
@@ -41,12 +36,7 @@ public class OrdersController {
 
     @GetMapping("/order/create")
     public String addNewOrder(Model model) {
-        HashMap<String, List<String>> exchangeCompanyAbbrevs = new HashMap<>();
-        List<String> exchangeIds = tradingEngineApiConsumer.getAllExchangeIds();
-        for(String exchangeId : exchangeIds) {
-            List<String> companyAbbrevs = tradingEngineApiConsumer.getAllCompanyAbbrevsByExchangeId(exchangeId);
-            exchangeCompanyAbbrevs.put(exchangeId, companyAbbrevs);
-        }
+        HashMap<String, List<String>> exchangeCompanyAbbrevs = tradingEngineTradeService.getExchangeIdsAndCompanyAbbrevs();
         model.addAttribute("exchangeCompanyAbbrevs", exchangeCompanyAbbrevs);
         model.addAttribute("order", new Order());
         return "add_order";
@@ -77,6 +67,8 @@ public class OrdersController {
     public String editOrder(@PathVariable("orderId") int orderId,
                             Model model) {
         Order order = orderService.findById(orderId);
+        HashMap<String, List<String>> exchangeCompanyAbbrevs = tradingEngineTradeService.getExchangeIdsAndCompanyAbbrevs();
+        model.addAttribute("exchangeCompanyAbbrevs", exchangeCompanyAbbrevs);
         model.addAttribute("order", order);
         return "edit_order";
     }
@@ -98,8 +90,13 @@ public class OrdersController {
         return "view_order";
     }
 
-    public List<Trade> getTradeHistory(int userId) {
-        return null;
+    @GetMapping("/order/tradeHistory")
+    public String getTradeHistory(@AuthenticationPrincipal OrderManagerUserDetails userDetails,
+                                  Model model) {
+        int currentUserId = userDetails.getUserId();
+        List<TradeDTO> trades = tradingEngineTradeService.getTrades(currentUserId);
+        model.addAttribute("trades", trades);
+        return "list_trade_history";
     }
 
     public String getOrderBook(String exchangeId, String companyAbbrev, Model model) {

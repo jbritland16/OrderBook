@@ -5,11 +5,27 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h1>Create Order</h1>
-    <form th:action="@{/order/create}" method="post">
-        <div th:replace="fragments/order_form :: order-form(${order})"></div>
-        <input type="submit" value="CREATE ORDER"/>
-    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <div class="card" style="width: 22rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Create Order</h5>
+                        <p class="card-text">
+
+                        <form th:action="@{/order/create}" method="post">
+                            <div th:replace="fragments/order_form :: order-form(${order})"></div>
+                            <div class="text-center">
+                                <input type="submit" class="btn btn-primary" value="CREATE ORDER"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

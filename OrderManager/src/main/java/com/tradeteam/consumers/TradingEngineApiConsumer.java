@@ -49,7 +49,7 @@ public interface TradingEngineApiConsumer {
     @GetMapping("/trades/byTradeId")
     public TradeDTO getTradeDetails(int tradeId);
 
-    @GetMapping("/trades/byUserId")
-    public List<TradeDTO> getTradesByUser(int userId);
+    @GetMapping("/trades/byUserId/{userId}")
+    public List<TradeDTO> getTradesByUser(@PathVariable int userId);
 
 }
