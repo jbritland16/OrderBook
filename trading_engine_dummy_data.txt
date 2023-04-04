@@ -140,8 +140,8 @@ INSERT INTO `order`(company_abbrev, exchange_id, user_id, number_ordered, number
 
 
 -- Trades
-INSERT INTO trade(number_traded, price_per_share, trade_timestamp) 
-			VALUES(5, 29.15, '2023-03-23 19:14:26');
+INSERT INTO trade(number_traded, price_per_share, trade_timestamp, profit_per_share) 
+			VALUES(5, 29.15, '2023-03-23 19:14:26', 0.0);
 INSERT INTO trade_orders(trade_trade_id, orders_order_id) 
 			VALUES(1, 1);
 INSERT INTO trade_orders(trade_trade_id, orders_order_id) 
@@ -151,8 +151,8 @@ INSERT INTO order_trades(order_order_id, trades_trade_id)
 INSERT INTO order_trades(order_order_id, trades_trade_id) 
 			VALUES(2, 1);
 
-INSERT INTO trade(number_traded, price_per_share, trade_timestamp) 
-			VALUES(15, 9.75, '2023-03-26 09:02:46');
+INSERT INTO trade(number_traded, price_per_share, trade_timestamp, profit_per_share) 
+			VALUES(15, 9.90, '2023-03-26 09:02:46', 0.15);
 INSERT INTO trade_orders(trade_trade_id, orders_order_id) 
 			VALUES(2, 14);
 INSERT INTO trade_orders(trade_trade_id, orders_order_id) 
@@ -162,8 +162,8 @@ INSERT INTO order_trades(order_order_id, trades_trade_id)
 INSERT INTO order_trades(order_order_id, trades_trade_id) 
 			VALUES(15, 2);
 
-INSERT INTO trade(number_traded, price_per_share, trade_timestamp) 
-			VALUES(10, 145.51, '2023-03-23 12:13:09');
+INSERT INTO trade(number_traded, price_per_share, trade_timestamp, profit_per_share) 
+			VALUES(10, 145.55, '2023-03-23 12:13:09', 0.04);
 INSERT INTO trade_orders(trade_trade_id, orders_order_id) 
 			VALUES(3, 18);
 INSERT INTO trade_orders(trade_trade_id, orders_order_id) 

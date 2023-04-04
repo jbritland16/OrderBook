@@ -81,8 +81,9 @@ public class TotalDailyValueTradedTest {
     public void addSellOrderWithOneBuyOrder() {
         orderBook1.setOrders(Arrays.asList(buyOrder1, sellOrder1));
         orderBook1.matchOrder(sellOrder1);
-        Assert.assertEquals(140, exchange1.getTotalTradedValueByDate(
+        Assert.assertEquals(150, exchange1.getTotalTradedValueByDate(
                 LocalDate.now()), .01);
+        Assert.assertEquals(1.0, buyOrder1.getTrades().get(0).getProfitPerShare().doubleValue(), .01);
     }
 
     @Test
@@ -97,8 +98,10 @@ public class TotalDailyValueTradedTest {
     public void addSellOrderThatSplitsBuyOrders() {
         orderBook1.setOrders(Arrays.asList(buyOrder1, buyOrder2, sellOrder3));
         orderBook1.matchOrder(sellOrder3);
-        Assert.assertEquals(132, exchange1.getTotalTradedValueByDate(
+        Assert.assertEquals(185, exchange1.getTotalTradedValueByDate(
                 LocalDate.now()), .01);
+        Assert.assertEquals(5.0, sellOrder3.getTrades().get(0).getProfitPerShare().doubleValue(), .01);
+        Assert.assertEquals(4.0, sellOrder3.getTrades().get(1).getProfitPerShare().doubleValue(), .01);
     }
 
     @Test
@@ -110,8 +113,10 @@ public class TotalDailyValueTradedTest {
                 15.00, Order.OrderType.BUY, true, new ArrayList<Trade>());
         orderBook1.setOrders(Arrays.asList(buyOrder1, buyOrderClone, sellOrder3));
         orderBook1.matchOrder(sellOrder3);
-        Assert.assertEquals(132, exchange1.getTotalTradedValueByDate(
+        Assert.assertEquals(180, exchange1.getTotalTradedValueByDate(
                 LocalDate.now()), .01);
+        Assert.assertEquals(4.0, sellOrder3.getTrades().get(0).getProfitPerShare().doubleValue(), .01);
+        Assert.assertEquals(4.0, sellOrder3.getTrades().get(1).getProfitPerShare().doubleValue(), .01);
     }
 
 }

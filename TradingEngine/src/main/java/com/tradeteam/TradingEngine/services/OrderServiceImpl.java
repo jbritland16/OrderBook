@@ -33,14 +33,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void addNewOrderToOrderBook(Order order, String exchangeId, String companyAbbrev) {
+    // Method written by Vania moved over from OrderManager
+    public Order addNewOrderToOrderBook(Order order, String exchangeId, String companyAbbrev) {
         OrderBook orderBook = orderBookRepository.findByOrderBookId(
                 new OrderBookId(exchangeId, companyAbbrev));
         order.setOrderBook(orderBook);
-        order = orderRepository.save(order);
+        order.setExchangeId(exchangeId);
+        order.setCompanyAbbrev(companyAbbrev);
+        order = orderRepository.saveAndFlush(order);
         if (orderBook.matchOrder(order)) {
-            orderBookRepository.save(orderBook);
+            orderBookRepository.saveAndFlush(orderBook);
         }
+        orderRepository.flush();
+        return orderRepository.findByOrderId(order.getOrderId());
     }
 
     @Override
@@ -65,5 +70,29 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
     }
 
+    @Override
+    // Method written by Vania moved over from OrderManager
+    public Order cancelOrder(int orderId, int userId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
+        if (order.getUserId() != userId) {
+            throw new RuntimeException("Order doesn't belong to user");
+        }
+        else {
+            order.setOrderActive(false);
+            return orderRepository.save(order);
+        }
+    }
+
+    @Override
+    public Order updateOrder(Order order) {
+        order = orderRepository.saveAndFlush(order);
+        OrderBook orderBook = orderBookRepository.findByOrderBookId(
+                new OrderBookId(order.getExchangeId(), order.getCompanyAbbrev()));
+        if (orderBook.matchOrder(order)) {
+            orderBookRepository.saveAndFlush(orderBook);
+        }
+        orderRepository.flush();
+        return orderRepository.findByOrderId(order.getOrderId());
+    }
 
 }
