@@ -6,6 +6,7 @@ import com.tradeteam.entities.OrderBook;
 import com.tradeteam.entities.Trade;
 import com.tradeteam.security.OrderManagerUserDetails;
 import com.tradeteam.services.ExchangeOrderBookService;
+import com.tradeteam.services.ExchangeOrderBookServiceImpl;
 import com.tradeteam.services.OrderService;
 import com.tradeteam.services.TradingEngineTradeService;
 import jakarta.ws.rs.Path;
@@ -108,6 +109,16 @@ public class OrdersController {
         List<TradeDTO> trades = tradingEngineTradeService.getTrades(currentUserId);
         model.addAttribute("trades", trades);
         return "list_trade_history";
+    }
+
+    @GetMapping("/order/exchangeIds")
+    public List<String> getAllExchangeIds() {
+        return exchangeOrderBookService.getAllExchangeIds();
+    }
+
+    @GetMapping("/order/stockSymbols")
+    public List<String> getAllSymbolsByExchangeId(String exchangeId) {
+        return exchangeOrderBookService.getCompanyAbbrevsByExchangeId(exchangeId);
     }
 }
 
