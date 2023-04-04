@@ -6,14 +6,11 @@ import com.tradeteam.entities.Trade;
 import com.tradeteam.security.OrderManagerUserDetails;
 import com.tradeteam.services.ExchangeOrderBookService;
 import com.tradeteam.services.OrderService;
-import jakarta.ws.rs.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-
-import javax.swing.plaf.BorderUIResource;
 import java.util.List;
 
 @Controller
