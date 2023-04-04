@@ -14,7 +14,7 @@
 
   <section>
 
-    <div class="container">
+    <div style="width:100%;height:auto" >
       <div class="row" layout:fragment="content">
 
       </div>
@@ -24,7 +24,7 @@
 
 </main>
 
-<div th:insert="~{fragments/footer :: block-footer}"></div>
+<div style="bottom: 0;position: fixed;width:100%" th:insert="~{fragments/footer :: block-footer}"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
