@@ -38,9 +38,6 @@ public class ExistingOrderDTO {
     }
 
     public Order order() {
-        System.out.println(this.orderId + " " + this.orderTimestamp + " " + this.exchangeId
-        + " " + this.companyAbbrev + " " + this.numberOrdered + " " + this.numberFulfilled
-        + " " + this.price + " " + this.orderType + " " + this.orderActive);
         return new Order(orderId, orderTimestamp, numberOrdered,
                 numberFulfilled, price, orderActive, orderType,
                 0, companyAbbrev, exchangeId);
