@@ -1,112 +1,72 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}"
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-<!--
-    <link rel="stylesheet" href="src/main/java/resources/static.css/css/style.css">
--->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trading App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+          integrity="sha512-KfMpAdz8Mgtp+99EkmAenFhzDUpZdIlNbj2NvxZfN90cOeybw/IB/CEpNOeqGyH1iSj7ZY0xLgThVXZXE4+W3Q=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
-<style>
+    <style>
+    .btn.btn-primary{
+      background-color: rgb(0, 24, 168);
+      border-color: rgb(0, 24, 168);
+    }
 
-.div1 {
+    footer{
+      background-color: rgb(0, 24, 168);
+      height: 40px; /* Change the height value to adjust the footer size */
+    }
 
-	width:100% ;
-	height:50px;
-	 background-color:#4B6B6C;
-	 display:inline-block;
-	 margin-bottom:50px;
-box-shadow: 0px 10px 10px 0px black;
-}
+    .centered-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50%;
+      padding: 20px;
+      background-color: #f5f5f5;
+      border: 1px solid #ccc;
+    }
 
-.div11 {
-
-	width:100% ;
-	height:50px;
-	 background-color:#4B6B6C;
-	 display:inline-block;
-
-
-}
-.div2{
-
-	width:100%;
-	 background-color:white;
-	 float:left;
-	 height:350px
-}
-
-.div3{
-
-	height:50px;width:100%; background-color:#4B6B6C
-}
-
-
-
-
-input[type=submit] {
-  border: none;
-  color: white;
-  padding: 16px 32px;
-  text-decoration: none;
-  margin: 4px 2px;
-  cursor: pointer;
-
-}
-
-input[type=text], input[type=password],input[type=email]{
-
-  color: black;
-  width:50%;
-  margin-left: 25%;
-  border: 3px solid #555;
-  border-radius: 4px;
-  height:35px;
-  }
-   input[type=submit]{
-   width:25%;
-   margin-left: 25%;
-   background-color:black;
-   }
-
-
-
-
-.box1{
-width:50% ;
-  height:auto;
-  margin-left:25%;
-background-color:silver;
-float:left;
-align-content: center;
- border-radius: 4px;
-
- box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-}
-.box1:hover {
-  box-shadow: 0 20px 25px 0 rgba(0,0,0,0.2);
-
-}
-
-
-
-.h11{
-	text-align:center;font-size:35px;
-	color:white;
-}
-.h12{
-	text-align:center;font-size:20px
-}
-
-</style>
-
+    </style>
 </head>
-
-
 <body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/home}">
+            <img src="https://cdn.discordapp.com/attachments/1057981014548426752/1093297545536606239/mlvilela_trading_app_logo_474a05c2-ef8f-4fa0-af6f-06f806e8594d.png"
+                 alt="Company Logo" width="50" height="50">
+        </a>
 
-<div layout:fragment="content">
-<!--
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/home}">Insights</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/home}">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/home}">About Us</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div>
     <div class="container">
         <div class="row">
             <div class="col"></div>
@@ -123,13 +83,7 @@ align-content: center;
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password"
-                                           aria-describedby="passwordHelp">
-                                    <div id="passwordHelp" class="form-text">Make sure it's at least 8 characters and
-                                        includes a
-                                        number and
-                                        a symbol.
-                                    </div>
+                                    <input type="password" class="form-control" id="password" name="password">
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email Address</label>
@@ -139,7 +93,9 @@ align-content: center;
                                         else.
                                     </div>
                                 </div>
-                                <input type="submit" class="btn btn-primary" value="Submit"/>
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                                </div>
                             </div>
                         </form>
                         </p>
@@ -148,53 +104,7 @@ align-content: center;
             </div>
             <div class="col"></div>
         </div>
-
     </div>
--->
-    <div  class="div11"  >
-
-    </div>
-
-    <h1 style="text-align:center"> Registration  </h1>
-
-
-
-
-
-    <div  class="div1"  >
-
-    </div>
-
-
-
-
-    <div  class="div2" >
-
-
-        <div  class="box1"  >
-
-
-            <div class ="div3" >
-                <h1  class="h11">  PLEASE REGISTER YOUR DETAILS</h1>
-            </div>
-            <form th:action="@{/register}" method="post">
-                <h1 class= "h12"> Username</h1>
-                <input type="text" name="userName" placeholder=" Create your Username.."/><br>
-                <h1 class= "h12"> Password</h1>
-               <input type="password" name="userPassword" placeholder=" Create your Password.."/> <br>
-                <h1 class= "h12"> Email</h1>
-                 <input type="email" name="userEmail" placeholder=" Enter your Email.."/> <br>
-
-                <input type="submit" value="REGISTER"/><br><br>
-            </form>
-
-        </div>
-
-
-    </div>
-
-
-
 </div>
 </body>
 </html>
