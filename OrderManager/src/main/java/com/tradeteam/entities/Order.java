@@ -44,8 +44,11 @@ public class Order {
     public String getStatus(){
         if(this.isOrderActive() == true){
             return "Active";
-        } else {
-            return "Inactive";
+        } else if (numberFulfilled == numberOrdered){
+            return "Complete";
+        }
+        else {
+            return "Cancelled";
         }
     }
 }
