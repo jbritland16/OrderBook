@@ -10,14 +10,17 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TradingEngineTradeServiceImpl implements TradingEngineTradeService {
     @Autowired
     TradingEngineApiConsumer apiConsumer;
     @Override
-    public List<TradeDTO> getTrades(int userId) {
-        return apiConsumer.getTradesByUser(userId);
+    public List<Trade> getTrades(int userId) {
+        return apiConsumer.getTradesByUser(userId).stream()
+                .map(tdto -> tdto.tradeForUser(userId))
+                .collect(Collectors.toList());
     }
 
     @Override

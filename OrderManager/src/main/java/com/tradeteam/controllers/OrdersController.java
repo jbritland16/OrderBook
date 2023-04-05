@@ -3,6 +3,7 @@ package com.tradeteam.controllers;
 import com.tradeteam.entities.Order;
 import com.tradeteam.entities.OrderBook;
 import com.tradeteam.dtos.TradeDTO;
+import com.tradeteam.entities.Trade;
 import com.tradeteam.security.OrderManagerUserDetails;
 import com.tradeteam.services.ExchangeOrderBookService;
 import com.tradeteam.services.OrderService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class OrdersController {
@@ -94,16 +96,18 @@ public class OrdersController {
     public String getTradeHistory(@AuthenticationPrincipal OrderManagerUserDetails userDetails,
                                   Model model) {
         int currentUserId = userDetails.getUserId();
-        List<TradeDTO> trades = tradingEngineTradeService.getTrades(currentUserId);
+        List<Trade> trades = tradingEngineTradeService.getTrades(currentUserId);
         model.addAttribute("trades", trades);
         return "list_trade_history";
     }
 
-    public String getOrderBook(String exchangeId, String companyAbbrev, Model model) {
+    @GetMapping("/orderBook/{exchangeId}/{companyAbbrev}")
+    public String getOrderBook(@PathVariable String exchangeId,
+                               @PathVariable String companyAbbrev, Model model) {
         OrderBook orderBook = exchangeOrderBookService
                 .getOrderBookByExchangeIdCompanyAbbrev(exchangeId, companyAbbrev);
         model.addAttribute("orderBook", orderBook);
-        return "view_order_book"; // This view hasn't been made yet
+        return "order_book"; // This view hasn't been made yet
     }
 
 }
