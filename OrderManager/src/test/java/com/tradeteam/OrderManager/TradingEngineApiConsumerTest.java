@@ -47,7 +47,7 @@ public class TradingEngineApiConsumerTest {
                 .getOrderBookByOrderBookId("NYSE", "KO");
         OrderBook orderBook = orderBookDTO.orderBook();
         System.out.println(orderBook);
-        Assert.assertTrue(orderBook.getOrders().size() > 0);
+        Assert.assertTrue(orderBook.getBuyOrders().size() > 0);
     }
 
     @Test

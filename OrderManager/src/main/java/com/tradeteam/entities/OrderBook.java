@@ -13,6 +13,7 @@ public class OrderBook {
     private String companyAbbrev;
     private String exchangeId;
     private String companyName;
-    private List<Order> orders;
+    private List<Order> buyOrders;
+    private List<Order> sellOrders;
 
 }

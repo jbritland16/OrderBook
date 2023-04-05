@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<div layout:fragment="content">
+  <h1>Order Book</h1>
+  <table class="table">
+    <tr>
+      <th>Exchange</th>
+      <th>Symbol</th>
+      <th>Company Name</th>
+    </tr>
+    <tr>
+      <td th:text="${orderBook.getExchangeId()}" />
+      <td th:text="${orderBook.getCompanyAbbrev()}" />
+      <td th:text="${orderBook.getCompanyName()}" />
+    </tr>
+  </table>
+  <h2>Buy Orders</h2>
+  <table class="table">
+    <tr>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+    <tr th:each="order: ${orderBook.getBuyOrders()}">
+      <td th:text="${order.getNumberOrdered() - order.getNumberFulfilled()}" />
+      <td th:text="${order.getPrice()}" />
+    </tr>
+  </table>
+  <h2>Sell Orders</h2>
+  <table class="table">
+    <tr>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+    <tr th:each="order: ${orderBook.getSellOrders()}">
+      <td th:text="${order.getNumberOrdered() - order.getNumberFulfilled()}" />
+      <td th:text="${order.getPrice()}" />
+    </tr>
+  </table>
+  <div class="row">
+    <div class="col"></div>
+    <div class="col">
+      <div class="text-center">
+        <a th:href="@{/order/create}" class="btn btn-primary">New Order</a>
+      </div>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
+</body>
+</html>

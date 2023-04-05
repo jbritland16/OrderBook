@@ -9,6 +9,6 @@ import java.util.List;
 
 @Service
 public interface TradingEngineTradeService {
-    public List<TradeDTO> getTrades(int userId);
+    public List<Trade> getTrades(int userId);
     public HashMap<String, List<String>> getExchangeIdsAndCompanyAbbrevs();
 }
