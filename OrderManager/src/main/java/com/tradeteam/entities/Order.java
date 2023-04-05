@@ -3,7 +3,10 @@ package com.tradeteam.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter @Setter @AllArgsConstructor @RequiredArgsConstructor @NoArgsConstructor @ToString
 public class Order {
@@ -49,4 +52,15 @@ public class Order {
             return "Cancelled";
         }
     }
+
+    public String getFormattedTimestamp() {
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd 'at' HH:mm:ss");
+        return df.format(this.orderTimestamp);
+    }
+
+    public String getFormattedPrice(String currencySymbol) {
+        DecimalFormat df = new DecimalFormat(currencySymbol + "0.00");
+        return df.format(this.price);
+    }
+
 }

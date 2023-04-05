@@ -15,9 +15,9 @@
         </tr>
         <tr th:each="trade: ${trades}">
             <td th:text="${trade.getTradeId()}" />
-            <td th:text="${trade.getTradeTimestamp()}" />
+            <td th:text="${trade.getFormattedTimestamp()}" />
             <td th:text="${trade.getNumberTraded()}" />
-            <td th:text="${trade.getPricePerShare()}" />
+            <td th:text="${trade.getFormattedPrice('£')}" />
         </tr>
     </table>
 </div>

@@ -26,7 +26,7 @@
     </tr>
     <tr th:each="order: ${orderBook.getBuyOrders()}">
       <td th:text="${order.getNumberOrdered() - order.getNumberFulfilled()}" />
-      <td th:text="${order.getPrice()}" />
+      <td th:text="${order.getFormattedPrice('£')}" />
     </tr>
   </table>
   <h2>Sell Orders</h2>
@@ -37,7 +37,7 @@
     </tr>
     <tr th:each="order: ${orderBook.getSellOrders()}">
       <td th:text="${order.getNumberOrdered() - order.getNumberFulfilled()}" />
-      <td th:text="${order.getPrice()}" />
+      <td th:text="${order.getFormattedPrice('£')}" />
     </tr>
   </table>
   <div class="row">
