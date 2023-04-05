@@ -6,6 +6,7 @@ import com.tradeteam.entities.OrderBook;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,10 +19,11 @@ public class OrderBookDTO {
     private List<Order> orders;
 
     public OrderBookDTO(OrderBookId orderBookId, String companyName,
-                        List<ReceiveOrderDTO> orders) {
+                        List<ExistingOrderDTO> orders) {
         this.orderBookId = orderBookId;
         this.companyName = companyName;
         this.orders = orders.stream()
+                .filter(odto -> odto.isOrderActive())
                 .map(odto -> odto.order())
                 .collect(Collectors.toList());
     }
@@ -31,9 +33,17 @@ public class OrderBookDTO {
     }
 
     public OrderBook orderBook() {
+        List<Order> buyOrders = this.orders.stream()
+                .filter(o -> o.getOrderType() == Order.OrderType.BUY)
+                .sorted(Comparator.comparingDouble(Order::getPrice).reversed())
+                .collect(Collectors.toList());
+        List<Order> sellOrders = this.orders.stream()
+                .filter(o -> o.getOrderType() == Order.OrderType.SELL)
+                .sorted(Comparator.comparingDouble(Order::getPrice))
+                .collect(Collectors.toList());
         return new OrderBook(orderBookId.getCompanyAbbrev(),
                 orderBookId.getExchangeId(),
-                companyName, orders);
+                companyName, buyOrders, sellOrders);
     }
 
 }

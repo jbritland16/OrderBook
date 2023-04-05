@@ -2,19 +2,20 @@ package com.tradeteam.controllers;
 
 import com.tradeteam.entities.Order;
 import com.tradeteam.entities.OrderBook;
+import com.tradeteam.dtos.TradeDTO;
 import com.tradeteam.entities.Trade;
 import com.tradeteam.security.OrderManagerUserDetails;
 import com.tradeteam.services.ExchangeOrderBookService;
 import com.tradeteam.services.OrderService;
-import jakarta.ws.rs.Path;
+import com.tradeteam.services.TradingEngineTradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-
-import javax.swing.plaf.BorderUIResource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class OrdersController {
@@ -23,6 +24,9 @@ public class OrdersController {
 
     @Autowired
     ExchangeOrderBookService exchangeOrderBookService;
+
+    @Autowired
+    TradingEngineTradeService tradingEngineTradeService;
 
     @GetMapping("/orders")
     public String findByUserId(@AuthenticationPrincipal OrderManagerUserDetails userDetails,
@@ -34,6 +38,8 @@ public class OrdersController {
 
     @GetMapping("/order/create")
     public String addNewOrder(Model model) {
+        HashMap<String, List<String>> exchangeCompanyAbbrevs = tradingEngineTradeService.getExchangeIdsAndCompanyAbbrevs();
+        model.addAttribute("exchangeCompanyAbbrevs", exchangeCompanyAbbrevs);
         model.addAttribute("order", new Order());
         return "add_order";
     }
@@ -43,9 +49,10 @@ public class OrdersController {
                               @RequestParam("numberOrdered") int numberOrdered,
                               @RequestParam("price") double price,
                               @RequestParam("OrderType") String orderType,
-                              @RequestParam("companyAbbrev") String companyAbbrev) {
-        Order new_order = new Order(numberOrdered, price, orderType, userDetails.getUserId(), companyAbbrev, 1);
-        orderService.createOrder(new_order);
+                              @RequestParam("companyAbbrev") String companyAbbrev,
+                              @RequestParam("exchangeId") String exchangeId) {
+        Order newOrder = new Order(numberOrdered, price, orderType, userDetails.getUserId(), companyAbbrev, exchangeId);
+        orderService.createOrder(newOrder);
         return "redirect:/orders";
     }
 
@@ -62,6 +69,8 @@ public class OrdersController {
     public String editOrder(@PathVariable("orderId") int orderId,
                             Model model) {
         Order order = orderService.findById(orderId);
+        HashMap<String, List<String>> exchangeCompanyAbbrevs = tradingEngineTradeService.getExchangeIdsAndCompanyAbbrevs();
+        model.addAttribute("exchangeCompanyAbbrevs", exchangeCompanyAbbrevs);
         model.addAttribute("order", order);
         return "edit_order";
     }
@@ -83,15 +92,38 @@ public class OrdersController {
         return "view_order";
     }
 
-    public List<Trade> getTradeHistory(int userId) {
-        return null;
+    @GetMapping("/order/tradeHistory")
+    public String getTradeHistory(@AuthenticationPrincipal OrderManagerUserDetails userDetails,
+                                  Model model) {
+        int currentUserId = userDetails.getUserId();
+        List<Trade> trades = tradingEngineTradeService.getTrades(currentUserId);
+        model.addAttribute("trades", trades);
+        return "list_trade_history";
     }
 
-    public String getOrderBook(String exchangeId, String companyAbbrev, Model model) {
+    @GetMapping("/exchanges")
+    public String getExchangeIds(Model model) {
+        List<String> exchangeIds = exchangeOrderBookService.getAllExchangeIds();
+        model.addAttribute("exchangeIds", exchangeIds);
+        return "exchanges";
+    }
+
+    @GetMapping("/orderBooks/{exchangeId}")
+    public String getSymbols(@PathVariable String exchangeId, Model model) {
+        List<String> symbols = exchangeOrderBookService
+                .getCompanyAbbrevsByExchangeId(exchangeId);
+        model.addAttribute("symbols", symbols);
+        model.addAttribute("exchangeId", exchangeId);
+        return "list_order_books";
+    }
+
+    @GetMapping("/orderBook/{exchangeId}/{companyAbbrev}")
+    public String getOrderBook(@PathVariable String exchangeId,
+                               @PathVariable String companyAbbrev, Model model) {
         OrderBook orderBook = exchangeOrderBookService
                 .getOrderBookByExchangeIdCompanyAbbrev(exchangeId, companyAbbrev);
         model.addAttribute("orderBook", orderBook);
-        return "view_order_book"; // This view hasn't been made yet
+        return "order_book"; // This view hasn't been made yet
     }
 
 }

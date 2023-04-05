@@ -6,7 +6,7 @@
 <body>
 <div layout:fragment="content">
     <h1>Orders</h1>
-    <table>
+    <table class="table">
         <tr>
             <th>Stock Symbol</th>
             <th>Operation</th>
@@ -26,17 +26,28 @@
             <td th:text="${order.getStatus()}" />
             <td th:text="${order.getOrderTimestamp()}" />
             <td>
-                <a th:href="@{/order/{orderId}(orderId=${order.getOrderId()})}" class="btn">View</a>
-                <form method="POST" th:action="@{/order/cancel}">
-                    <input type="hidden" name="orderId" th:value="${order.getOrderId()}">
-                    <button type="submit" name="submit" value="value" class="btn">Cancel</button>
-                </form>
-                <a th:href="@{/order/edit/{orderId}(orderId=${order.getOrderId()})}" class="btn">Edit</a>
+                <div class="d-flex">
+                    <a th:href="@{/order/{orderId}(orderId=${order.getOrderId()})}" class="btn btn-primary">View</a>
+                    <form method="POST" th:action="@{/order/cancel}">
+                        <input type="hidden" name="orderId" th:value="${order.getOrderId()}">
+                        <button type="submit" name="submit" value="value" class="btn btn-danger">Cancel</button>
+                    </form>
+                    <a th:href="@{/order/edit/{orderId}(orderId=${order.getOrderId()})}"
+                       class="btn btn-warning">Edit</a>
+                </div>
 
             </td>
         </tr>
     </table>
-    <a th:href="@{/order/create}" class="btn btn-primary">New Order</a>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <div class="text-center">
+                <a th:href="@{/order/create}" class="btn btn-primary">New Order</a>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
 </div>
 </body>
 </html>

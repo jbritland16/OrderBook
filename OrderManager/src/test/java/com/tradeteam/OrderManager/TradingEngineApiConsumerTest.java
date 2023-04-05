@@ -1,6 +1,7 @@
 package com.tradeteam.OrderManager;
 
 import com.tradeteam.consumers.TradingEngineApiConsumer;
+import com.tradeteam.dtos.ExistingOrderDTO;
 import com.tradeteam.dtos.NewOrderDTO;
 import com.tradeteam.dtos.OrderBookDTO;
 import com.tradeteam.entities.Order;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@SpringBootTest
 @Disabled
 public class TradingEngineApiConsumerTest {
 
@@ -45,7 +47,7 @@ public class TradingEngineApiConsumerTest {
                 .getOrderBookByOrderBookId("NYSE", "KO");
         OrderBook orderBook = orderBookDTO.orderBook();
         System.out.println(orderBook);
-        Assert.assertTrue(orderBook.getOrders().size() > 0);
+        Assert.assertTrue(orderBook.getBuyOrders().size() > 0);
     }
 
     @Test
@@ -74,11 +76,8 @@ public class TradingEngineApiConsumerTest {
     public void addNewOrderTest() {
         Order order = new Order(LocalDateTime.now(), 5, 9.80,
                 Order.OrderType.BUY, 3, "DB", "NYSE");
-        apiConsumer.addNewOrder(NewOrderDTO.of(order),
-                order.getExchangeId(), order.getCompanyAbbrev());
-        List<Order> orders = apiConsumer.getOrdersByUserId(3).stream()
-                .map(odto -> odto.order()).collect(Collectors.toList());
-        Order newOrder = orders.get(orders.size() - 1);
+        Order newOrder = apiConsumer.addNewOrder(NewOrderDTO.of(order),
+                order.getExchangeId(), order.getCompanyAbbrev()).order();
         Assert.assertEquals(5, newOrder.getNumberOrdered());
         Assert.assertEquals(9.80, newOrder.getPrice(), 2);
         Assert.assertEquals(Order.OrderType.BUY, newOrder.getOrderType());
@@ -108,6 +107,24 @@ public class TradingEngineApiConsumerTest {
                 .collect(Collectors.toList());
         System.out.println(trades);
         Assert.assertTrue(trades.size() > 0);
+    }
+
+    @Test
+    public void cancelOrderTest() {
+        Order cancelledOrder = apiConsumer.cancelOrder(new int[] {4, 6}).order();
+        Assert.assertFalse(cancelledOrder.isOrderActive());
+    }
+
+    @Test
+    public void updateOrderTest() {
+        Order order = apiConsumer.updateOrder(new ExistingOrderDTO(10, LocalDateTime.now(),
+                "NYSE", "BCS", 5, 0,
+                7.06, Order.OrderType.BUY, true)).order();
+        Assert.assertEquals(5, order.getNumberFulfilled());
+        Assert.assertEquals(5, order.getNumberOrdered());
+        Assert.assertFalse(order.isOrderActive());
+        Assert.assertEquals("BCS", order.getCompanyAbbrev());
+        Assert.assertEquals(Order.OrderType.BUY, order.getOrderType());
     }
 
 }

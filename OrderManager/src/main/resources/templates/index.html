@@ -1,22 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="ISO-8859-1">
-<style>
-.myDiv {
-  border: 5px outset red;
-  background-color: Dark blue;    
-  text-align: center;
- background-image: url("src/main/resources/market.jpg");
-  height:300px ;
-  
-}
-</style>
+ <meta charset="UTF-8">
+ <title>Trade Peak - Home</title>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+ <style>
+      /* Global styles */
+      * {
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+      }
+
+      /* Header styles */
+      header {
+        background-color: #333;
+        color: white;
+        padding: 20px;
+      }
+
+      .logo {
+        font-size: 36px;
+        font-weight: bold;
+      }
+
+      /* Main content styles */
+      .main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 140px); /* Height of header + footer */
+      }
+
+      .container {
+        width: 80%;
+        max-width: 1200px;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+      }
+
+      h1 {
+        margin-top: 0;
+        margin-bottom: 30px;
+        font-size: 48px;
+        font-weight: bold;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 24px;
+        background-color: #333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #555;
+      }
+
+      /* Footer styles */
+      footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
 </head>
 
 <body>
-<h1 style =text-align:center> Welcome to the Trade Peak </h1>
+<header>
+ <div class="logo">Trade Peak</div>
+</header>
 
+<!--
+<div class="main">
+ <div class="container">
+  <h1>Welcome to Trade Peak</h1>
+  <p></p>
+  <a th:href="@{/register}" class="btn btn-primary">Register</a>
+  <a th:href="@{/login}" class="btn btn-primary">Login</a>
+ </div>
+-->
 
 
 <div class="myDiv">
@@ -33,6 +113,11 @@
 <input style= font-size:30px type="submit" value="Login"/> 
 <!--<h1>Hello </h1>-->
 </form>
+
 </div>
+
+<footer>
+ &copy; 2023 Trade Peak
+</footer>
 </body>
 </html>

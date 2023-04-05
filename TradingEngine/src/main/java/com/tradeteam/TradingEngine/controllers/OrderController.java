@@ -29,15 +29,24 @@ public class OrderController {
     }
 
     @PostMapping("/{exchangeId}/{companyAbbrev}/new")
-    public void addNewOrder(@RequestBody Order order,
-                            @PathVariable String exchangeId,
-                            @PathVariable String companyAbbrev) {
-        orderService.addNewOrderToOrderBook(order, exchangeId, companyAbbrev);
+    public Order addNewOrder(@RequestBody Order order, @PathVariable String exchangeId,
+                             @PathVariable String companyAbbrev) {
+        return orderService.addNewOrderToOrderBook(order, exchangeId, companyAbbrev);
     }
 
     @PostMapping("/wallet")
     public Map<String, Integer> getWalletByUserId(@RequestBody int userId) {
         return orderService.getUserWallet(userId);
+    }
+
+    @PostMapping("/cancel")
+    public Order cancelOrder(@RequestBody int[] orderIdUserId) {
+        return orderService.cancelOrder(orderIdUserId[0], orderIdUserId[1]);
+    }
+
+    @PostMapping("/update")
+    public Order updateOrder(@RequestBody Order order) {
+        return orderService.updateOrder(order);
     }
 
 }

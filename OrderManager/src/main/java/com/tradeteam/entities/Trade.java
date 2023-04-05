@@ -13,7 +13,7 @@ public class Trade {
     private int tradeId;
     private LocalDateTime tradeTimestamp;
     private int numberTraded;
-    private double price;
+    private double pricePerShare;
     private Order connectedOrder;
 
 }

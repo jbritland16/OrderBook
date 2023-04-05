@@ -3,9 +3,11 @@ package com.tradeteam.services;
 import com.tradeteam.consumers.TradingEngineApiConsumer;
 import com.tradeteam.entities.OrderBook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ExchangeOrderBookServiceImpl implements ExchangeOrderBookService {
 
     @Autowired

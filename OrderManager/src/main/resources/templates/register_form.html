@@ -2,6 +2,10 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}"
       xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+<!--
+    <link rel="stylesheet" href="src/main/java/resources/static.css/css/style.css">
+-->
+
 <style>
 
 .div1 {
@@ -95,11 +99,58 @@ align-content: center;
 }
 
 </style>
+
 </head>
 
 
 <body>
+
 <div layout:fragment="content">
+<!--
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <div class="card" style="width: 22rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Registration form</h5>
+                        <p class="card-text">
+                        <form th:action="@{/register}" method="post">
+                            <div class="container-sm">
+                                <div class="mb-3">
+                                    <label for="userName" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="userName" name="userName">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                           aria-describedby="passwordHelp">
+                                    <div id="passwordHelp" class="form-text">Make sure it's at least 8 characters and
+                                        includes a
+                                        number and
+                                        a symbol.
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                           aria-describedby="emailHelp">
+                                    <div id="emailHelp" class="form-text">We'll never share your email with anyone
+                                        else.
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-primary" value="Submit"/>
+                            </div>
+                        </form>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+
+    </div>
+-->
     <div  class="div11"  >
 
     </div>
@@ -141,7 +192,6 @@ align-content: center;
 
 
     </div>
-
 
 
 

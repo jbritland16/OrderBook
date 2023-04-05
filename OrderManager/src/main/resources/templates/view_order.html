@@ -6,13 +6,40 @@
 <body>
 <div layout:fragment="content">
     <h1>View Order</h1>
-    <p th:text="'Stock Symbol: ' + ${order.getCompanyAbbrev()}"></p>
-    <p th:text="'Operation: ' + ${order.getOrderType()}"></p>
-    <p th:text="'Quantity: ' + ${order.getNumberOrdered()}"></p>
-    <p th:text="'Fulfilled: ' + ${order.getNumberFulfilled()}"></p>
-    <p th:text="'Price: ' + ${order.getPrice()}"></p>
-    <p th:text="'Status: ' + ${order.getStatus()}"></p>
-    <p th:text="'Order date: ' + ${order.getOrderTimestamp()}"></p>
+    <table class="table">
+        <tr>
+            <th>Order Details</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>Stock Symbol</td>
+            <td th:text="${order.getCompanyAbbrev()}"></td>
+        </tr>
+        <tr>
+            <td>Operation</td>
+            <td th:text="${order.getOrderType()}"></td>
+        </tr>
+        <tr>
+            <td>Quantity</td>
+            <td th:text="${order.getNumberOrdered()}"></td>
+        </tr>
+        <tr>
+            <td>Fulfilled</td>
+            <td th:text="${order.getNumberFulfilled()}"></td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td th:text="${order.getPrice()}"></td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td th:text="${order.getStatus()}"></td>
+        </tr>
+        <tr>
+            <td>Order date</td>
+            <td th:text="${order.getOrderTimestamp()}"></td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>
