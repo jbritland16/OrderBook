@@ -22,9 +22,9 @@
             <td th:text="${order.getOrderType()}" />
             <td th:text="${order.getNumberOrdered()}" />
             <td th:text="${order.getNumberFulfilled()}" />
-            <td th:text="${order.getPrice()}" />
+            <td th:text="${order.getFormattedPrice('£')}" />
             <td th:text="${order.getStatus()}" />
-            <td th:text="${order.getOrderTimestamp()}" />
+            <td th:text="${order.getFormattedTimestamp()}" />
             <td>
                 <div class="d-flex">
                     <a th:href="@{/order/{orderId}(orderId=${order.getOrderId()})}" class="btn btn-primary">View</a>
