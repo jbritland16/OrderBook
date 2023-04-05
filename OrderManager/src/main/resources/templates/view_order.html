@@ -29,7 +29,7 @@
         </tr>
         <tr>
             <td>Price</td>
-            <td th:text="${order.getPrice()}"></td>
+            <td th:text="${order.getFormattedPrice('£')}"></td>
         </tr>
         <tr>
             <td>Status</td>
@@ -37,7 +37,7 @@
         </tr>
         <tr>
             <td>Order date</td>
-            <td th:text="${order.getOrderTimestamp()}"></td>
+            <td th:text="${order.getFormattedTimestamp()}"></td>
         </tr>
     </table>
 </div>
