@@ -2,11 +2,14 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}"
       xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <style>
+
+    </style>
 </head>
 <body>
 <div layout:fragment="content">
-    <h1>Orders</h1>
-    <table class="table">
+    <h3 style="margin-top: 30px;">Orders</h3>
+    <table class="table" style="margin-top: 20px;">
         <tr>
             <th>Stock Symbol</th>
             <th>Operation</th>
@@ -27,8 +30,9 @@
             <td th:text="${order.getFormattedTimestamp()}" />
             <td>
                 <div class="d-flex">
-                    <a th:href="@{/order/{orderId}(orderId=${order.getOrderId()})}" class="btn btn-primary">View</a>
-                    <form method="POST" th:action="@{/order/cancel}">
+                    <a th:href="@{/order/{orderId}(orderId=${order.getOrderId()})}"
+                       class="btn btn-success btn-sm btn-block">view</a>
+                    <form method="POST" th:action="@{/order/cancel}" class="ps-1 pe-1">
                         <input type="hidden" name="orderId" th:value="${order.getOrderId()}">
                         <button type="submit" name="submit" value="value" class="btn btn-danger">Cancel</button>
                     </form>
@@ -39,15 +43,10 @@
             </td>
         </tr>
     </table>
-    <div class="row">
-        <div class="col"></div>
-        <div class="col">
-            <div class="text-center">
-                <a th:href="@{/order/create}" class="btn btn-primary">New Order</a>
-            </div>
-        </div>
-        <div class="col"></div>
+    <div class="text-end">
+        <a th:href="@{/order/create}" class="btn btn-primary btn-sm btn-block">+ add new order</a>
     </div>
+
 </div>
 </body>
 </html>
