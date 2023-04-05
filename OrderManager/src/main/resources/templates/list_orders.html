@@ -30,10 +30,11 @@
                     <a th:href="@{/order/{orderId}(orderId=${order.getOrderId()})}" class="btn btn-primary">View</a>
                     <form method="POST" th:action="@{/order/cancel}">
                         <input type="hidden" name="orderId" th:value="${order.getOrderId()}">
-                        <button type="submit" name="submit" value="value" class="btn btn-danger">Cancel</button>
+                        <button type="submit" name="submit" value="value" class="btn btn-danger"
+                        th:disabled="${!order.isOrderActive()}">Cancel</button>
                     </form>
                     <a th:href="@{/order/edit/{orderId}(orderId=${order.getOrderId()})}"
-                       class="btn btn-warning">Edit</a>
+                       class="btn btn-warning" th:classappend="${!order.isOrderActive()}? 'disabled'">Edit</a>
                 </div>
 
             </td>
