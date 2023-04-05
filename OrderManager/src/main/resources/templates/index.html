@@ -1,123 +1,86 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
- <meta charset="UTF-8">
- <title>Trade Peak - Home</title>
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
- <style>
-      /* Global styles */
-      * {
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
-      }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trading App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+          integrity="sha512-KfMpAdz8Mgtp+99EkmAenFhzDUpZdIlNbj2NvxZfN90cOeybw/IB/CEpNOeqGyH1iSj7ZY0xLgThVXZXE4+W3Q=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
-      body {
-        margin: 0;
-        padding: 0;
-        background-color: #f5f5f5;
-      }
+    <style>
+    .btn.btn-primary{
+      background-color: rgb(0, 24, 168);
+      border-color: rgb(0, 24, 168);
+    }
+    body {
+        opacity: 0.8;
+    }
+    footer{
+      background-color: rgb(0, 24, 168);
+      height: 40px; /* Change the height value to adjust the footer size */
+    }
 
-      /* Header styles */
-      header {
-        background-color: #333;
-        color: white;
-        padding: 20px;
-      }
-
-      .logo {
-        font-size: 36px;
-        font-weight: bold;
-      }
-
-      /* Main content styles */
-      .main {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: calc(100vh - 140px); /* Height of header + footer */
-      }
-
-      .container {
-        width: 80%;
-        max-width: 1200px;
-        background-color: white;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 20px;
-        text-align: center;
-        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-      }
-
-      h1 {
-        margin-top: 0;
-        margin-bottom: 30px;
-        font-size: 48px;
-        font-weight: bold;
-      }
-
-      button {
-        padding: 10px 20px;
-        font-size: 24px;
-        background-color: #333;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-
-      button:hover {
-        background-color: #555;
-      }
-
-      /* Footer styles */
-      footer {
-        background-color: #333;
-        color: white;
-        text-align: center;
-        padding: 20px;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-      }
+    .centered-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50%;
+      padding: 20px;
+      background-color: #f5f5f5;
+      border: 1px solid #ccc;
+    }
     </style>
 </head>
 
 <body>
-<header>
- <div class="logo">Trade Peak</div>
-</header>
 
-<!--
-<div class="main">
- <div class="container">
-  <h1>Welcome to Trade Peak</h1>
-  <p></p>
-  <a th:href="@{/register}" class="btn btn-primary">Register</a>
-  <a th:href="@{/login}" class="btn btn-primary">Login</a>
- </div>
--->
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/home}">
+            <img src="https://cdn.discordapp.com/attachments/1057981014548426752/1093297545536606239/mlvilela_trading_app_logo_474a05c2-ef8f-4fa0-af6f-06f806e8594d.png"
+                 alt="Company Logo" width="50" height="50">
+        </a>
 
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/home}">Insights</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/home}">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/home}">About Us</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-<div class="myDiv">
- 
-<form action="/register">
+<hr class="my-0">
 
-<input style= font-size:30px type="submit" value="Register"/> 
+<div id="image" style="background-image: url('https://cdn.discordapp.com/attachments/1057981014548426752/1093301535439597648/mlvilela_webpage_image_with_London_financial_industry_skyline_71bc2bb8-9d3d-4d50-805c-0b911413d5d8.png'); background-size: cover; background-position: center; height: 650px;">
 
-</form>
- <br>
- 
-<form action="/login">
-
-<input style= font-size:30px type="submit" value="Login"/> 
-<!--<h1>Hello </h1>-->
-</form>
-
+    <div class="centered-box bg-transparent border-0 align-middle">
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <a th:href="@{/register}" class="btn btn-primary">Register</a>
+            <a th:href="@{/login}" class="btn btn-primary">
+                <i class="fas fa-user"></i> Login
+            </a>
+        </div>
+    </div>
 </div>
-
-<footer>
- &copy; 2023 Trade Peak
-</footer>
 </body>
 </html>

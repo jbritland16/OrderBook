@@ -11,13 +11,13 @@
             <div class="col">
                 <div class="card" style="width: 22rem;">
                     <div class="card-body">
-                        <h5 class="card-title">Create Order</h5>
+                        <h5 class="card-title text-center">Create Order</h5>
                         <p class="card-text">
 
                         <form th:action="@{/order/create}" method="post">
                             <div th:replace="fragments/order_form :: order-form(${order})"></div>
                             <div class="text-center">
-                                <input type="submit" class="btn btn-primary" value="CREATE ORDER"/>
+                                <input type="submit" class="btn btn-primary" value="Create order"/>
                             </div>
                         </form>
                     </div>

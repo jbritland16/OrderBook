@@ -52,7 +52,7 @@ public class UserController {
         User u1 = new User(userName, userPassword, userEmail);
         User savedInfo = userDetailsService.saveUser(u1);
         if (savedInfo != null) {
-            return "login";
+            return "redirect:/login";
         } else {
             return "failure";
         }

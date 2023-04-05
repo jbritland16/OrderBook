@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="">
-<head></head>
-<body>
+<head>
+    <style>
+        .register-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
+        footer {
+            background-color: rgb(0, 24, 168);
+            color: white;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        main {
+            min-height: calc(100vh - 40px);
+        }
+    </style>
+</head>
+<body>
 
 <header th:fragment="block-header">
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Trade App</a>
+
+            <a class="navbar-brand" th:href="@{/home}">
+                <img src="https://cdn.discordapp.com/attachments/1057981014548426752/1093297545536606239/mlvilela_trading_app_logo_474a05c2-ef8f-4fa0-af6f-06f806e8594d.png" alt="Company Logo" width="50" height="50">
+            </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -17,37 +42,29 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" th:href="@{/home}">My account</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
+                        <a class="nav-link" th:href="@{/exchanges}">Exchanges</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
+                        <a class="nav-link" th:href="@{/orders}">Orders</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/order/tradeHistory}">Trade History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class= "nav-link" th:href="@{/logout}">Logout</a></li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                </li>
+                </ul>
             </div>
         </div>
     </nav>
 
+    <hr class="my-0">
+
 </header>
+
 </body>
 </html>
