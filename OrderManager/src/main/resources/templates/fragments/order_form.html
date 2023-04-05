@@ -2,40 +2,40 @@
 <html xmlns:th="">
 <head></head>
 <body>
-    <div th:fragment="order-form(order)">
-      <div class="form-group mb-3">
+<div th:fragment="order-form(order)">
+    <div class="form-group mb-3">
         <label for="exchangeId">Exchange</label>
         <select id="exchangeId" name="exchangeId" class="form-control" onchange="populateCompanyAbbrevs()">
-          <option value="">Select an Exchange</option>
-          <option th:each="key : ${exchangeCompanyAbbrevs.keySet()}" th:value="${key}" th:text="${key}"></option>
+            <option value="">Select an Exchange</option>
+            <option th:each="key : ${exchangeCompanyAbbrevs.keySet()}" th:value="${key}" th:text="${key}"></option>
         </select>
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="companyAbbrev">Company Abbrev</label>
-        <select id="companyAbbrev" name="companyAbbrev" class="form-control"></select>
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="numberOrdered">Quantity</label>
-        <input type="text" id="numberOrdered" name="numberOrdered" class="form-control" th:value="${order.getNumberOrdered()}">
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="price">Price</label>
-        <input type="text" id="price" name="price" class="form-control" th:value="${order.getPrice()}">
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="OrderType">Order Type</label>
-        <select id="OrderType" name="OrderType" class="form-control">
-          <option value="BUY">BUY</option>
-          <option value="SELL">SELL</option>
-        </select>
-      </div>
     </div>
 
-    <br />
+    <div class="form-group mb-3">
+        <label for="companyAbbrev">Company Abbrev</label>
+        <select id="companyAbbrev" name="companyAbbrev" class="form-control"></select>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="numberOrdered">Quantity</label>
+        <input type="text" id="numberOrdered" name="numberOrdered" class="form-control"
+               th:value="${order.getNumberOrdered()}">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="price">Price</label>
+        <input type="text" id="price" name="price" class="form-control" th:value="${order.getPrice()}">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="OrderType">Order Type</label>
+        <select id="OrderType" name="OrderType" class="form-control">
+            <option value="BUY">BUY</option>
+            <option value="SELL">SELL</option>
+        </select>
+    </div>
+
+    <br/>
     <script th:inline="javascript">
     function populateCompanyAbbrevs() {
         var exchangeIdSelect = document.getElementById("exchangeId");
@@ -62,7 +62,9 @@
             companyAbbrevsSelect.appendChild(option);
         }
     }
-  </script>
-  </div>
+
+    </script>
+</div>
+</div>
 </body>
 </html>

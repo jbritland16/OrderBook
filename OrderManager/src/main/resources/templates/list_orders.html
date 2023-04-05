@@ -31,7 +31,7 @@
             <td>
                 <div class="d-flex">
                     <a th:href="@{/order/{orderId}(orderId=${order.getOrderId()})}" class="btn btn-primary">View</a>
-                    <form method="POST" th:action="@{/order/cancel}">
+                    <form method="POST" th:action="@{/order/cancel}" class="ps-1 pe-1">
                         <input type="hidden" name="orderId" th:value="${order.getOrderId()}">
                         <button type="submit" name="submit" value="value" class="btn btn-danger"
                                 th:disabled="${!order.isOrderActive()}">Cancel</button>
