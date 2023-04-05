@@ -30,14 +30,14 @@
             <td th:text="${order.getFormattedTimestamp()}" />
             <td>
                 <div class="d-flex">
-                    <a th:href="@{/order/{orderId}(orderId=${order.getOrderId()})}"
-                       class="btn btn-success btn-sm btn-block">view</a>
-                    <form method="POST" th:action="@{/order/cancel}" class="ps-1 pe-1">
+                    <a th:href="@{/order/{orderId}(orderId=${order.getOrderId()})}" class="btn btn-primary">View</a>
+                    <form method="POST" th:action="@{/order/cancel}">
                         <input type="hidden" name="orderId" th:value="${order.getOrderId()}">
-                        <button type="submit" name="submit" value="value" class="btn btn-danger">Cancel</button>
+                        <button type="submit" name="submit" value="value" class="btn btn-danger"
+                                th:disabled="${!order.isOrderActive()}">Cancel</button>
                     </form>
                     <a th:href="@{/order/edit/{orderId}(orderId=${order.getOrderId()})}"
-                       class="btn btn-warning">Edit</a>
+                       class="btn btn-warning" th:classappend="${!order.isOrderActive()}? 'disabled'">Edit</a>
                 </div>
 
             </td>
