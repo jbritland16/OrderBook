@@ -101,6 +101,22 @@ public class OrdersController {
         return "list_trade_history";
     }
 
+    @GetMapping("/exchanges")
+    public String getExchangeIds(Model model) {
+        List<String> exchangeIds = exchangeOrderBookService.getAllExchangeIds();
+        model.addAttribute("exchangeIds", exchangeIds);
+        return "exchanges";
+    }
+
+    @GetMapping("/orderBooks/{exchangeId}")
+    public String getSymbols(@PathVariable String exchangeId, Model model) {
+        List<String> symbols = exchangeOrderBookService
+                .getCompanyAbbrevsByExchangeId(exchangeId);
+        model.addAttribute("symbols", symbols);
+        model.addAttribute("exchangeId", exchangeId);
+        return "list_order_books";
+    }
+
     @GetMapping("/orderBook/{exchangeId}/{companyAbbrev}")
     public String getOrderBook(@PathVariable String exchangeId,
                                @PathVariable String companyAbbrev, Model model) {

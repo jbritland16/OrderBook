@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Exchanges</h1>
+    <table class="table">
+        <tr>
+            <th>Exchanges</th>
+        </tr>
+        <tr th:each="exchangeId: ${exchangeIds}">
+            <td>
+                <a th:href="@{/orderBooks/{exchangeId}(exchangeId=${exchangeId})}"
+                   th:text="${exchangeId}" class="btn btn-primary" />
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
