@@ -56,12 +56,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order updateOrder(int orderId, int numberOrdered, double price,
-                             String orderType, String companyAbbrev) {
+                             String orderType, String exchangeId, String companyAbbrev) {
         ExistingOrderDTO orderDTO = tradingEngineApiConsumer.getOrderById(orderId);
         orderDTO.setNumberOrdered(numberOrdered);
         orderDTO.setPrice(price);
         orderDTO.setOrderType(Order.OrderType.valueOf(orderType));
         orderDTO.setCompanyAbbrev(companyAbbrev);
+        orderDTO.setExchangeId(exchangeId);
         return tradingEngineApiConsumer.updateOrder(orderDTO).order();
     }
 

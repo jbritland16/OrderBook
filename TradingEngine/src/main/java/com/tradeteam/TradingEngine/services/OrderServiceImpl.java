@@ -85,6 +85,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order updateOrder(Order order) {
+        order.setOrderBook(orderBookRepository.findByOrderBookId(
+                new OrderBookId(order.getExchangeId(), order.getCompanyAbbrev())));
         order = orderRepository.saveAndFlush(order);
         OrderBook orderBook = orderBookRepository.findByOrderBookId(
                 new OrderBookId(order.getExchangeId(), order.getCompanyAbbrev()));

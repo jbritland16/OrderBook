@@ -80,8 +80,9 @@ public class OrdersController {
                               @RequestParam("numberOrdered") int numberOrdered,
                               @RequestParam("price") double price,
                               @RequestParam("OrderType") String orderType,
+                              @RequestParam("exchangeId") String exchangeId,
                               @RequestParam("companyAbbrev") String companyAbbrev) {
-        orderService.updateOrder(orderId, numberOrdered, price, orderType, companyAbbrev);
+        orderService.updateOrder(orderId, numberOrdered, price, orderType, exchangeId, companyAbbrev);
         return "redirect:/orders";
     }
 
