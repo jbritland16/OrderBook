@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <h3 style="margin-top: 30px;">Wallet</h3>
+    <table class="table" style="margin-top: 20px;">
+        <tr>
+            <th>Exchange ID</th>
+            <th>Stock Symbol</th>
+            <th>Quantity Owned</th>
+        </tr>
+        <tr th:each="walletItem: ${wallet}">
+            <td th:text="${walletItem.getExchangeId()}" />
+            <td th:text="${walletItem.getCompanyAbbrev()}" />
+            <td th:text="${walletItem.getNumberOwned()}" />
+            <td>
+                <div class="d-flex">
+                    <a th:href="@{/orderBook/{exchangeId}/{companyAbbrev}
+                        (exchangeId=${walletItem.getExchangeId()},
+                        companyAbbrev=${walletItem.getCompanyAbbrev()})}"
+                       class="btn btn-primary">View Order Book</a>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>
