@@ -3,6 +3,7 @@ package com.tradeteam.services;
 import com.tradeteam.consumers.TradingEngineApiConsumer;
 import com.tradeteam.dtos.TradeDTO;
 import com.tradeteam.entities.Trade;
+import com.tradeteam.entities.WalletItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -10,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,5 +34,13 @@ public class TradingEngineTradeServiceImpl implements TradingEngineTradeService 
             exchangeCompanyAbbrevs.put(exchangeId, companyAbbrevs);
         }
         return exchangeCompanyAbbrevs;
+    }
+
+    @Override
+    public List<WalletItem> getWalletByUserId(int userId) {
+        Map<String, Integer> walletDTO = apiConsumer.getWalletByUserId(userId);
+        return walletDTO.entrySet().stream()
+                .map(e -> WalletItem.of(e.getKey(), e.getValue()))
+                .collect(Collectors.toList());
     }
 }

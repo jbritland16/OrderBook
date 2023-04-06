@@ -4,6 +4,7 @@ import com.tradeteam.entities.Order;
 import com.tradeteam.entities.OrderBook;
 import com.tradeteam.dtos.TradeDTO;
 import com.tradeteam.entities.Trade;
+import com.tradeteam.entities.WalletItem;
 import com.tradeteam.security.OrderManagerUserDetails;
 import com.tradeteam.services.ExchangeOrderBookService;
 import com.tradeteam.services.OrderService;
@@ -125,6 +126,15 @@ public class OrdersController {
                 .getOrderBookByExchangeIdCompanyAbbrev(exchangeId, companyAbbrev);
         model.addAttribute("orderBook", orderBook);
         return "order_book"; // This view hasn't been made yet
+    }
+
+    @GetMapping("/orders/wallet")
+    public String getUserWallet(@AuthenticationPrincipal OrderManagerUserDetails userDetails,
+                  Model model) {
+        List<WalletItem> wallet = tradingEngineTradeService
+                .getWalletByUserId(userDetails.getUserId());
+        model.addAttribute("wallet", wallet);
+        return "wallet";
     }
 
 }
