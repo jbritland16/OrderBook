@@ -45,7 +45,7 @@ public class Order {
     public String getStatus(){
         if(this.isOrderActive() == true){
             return "Active";
-        } else if (numberFulfilled == numberOrdered){
+        } else if (numberFulfilled >= numberOrdered){
             return "Complete";
         }
         else {

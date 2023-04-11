@@ -9,7 +9,7 @@
                 onchange="populateCompanyAbbrevs()">
             <option disabled="disabled" th:selected="${order.getExchangeId()==null}">Select an Exchange</option>
             <option th:each="key : ${exchangeCompanyAbbrevs.keySet()}" th:value="${key}"
-                    th:text="${key}" th:selected="${key==order.getExchangeId()}"></option>
+                    th:text="${key}" th:selected="${key==defaultExchangeId}"></option>
         </select>
     </div>
 
@@ -21,21 +21,23 @@
 
     <div class="form-group mb-3">
         <label for="numberOrdered">Quantity</label>
-        <input type="text" id="numberOrdered" name="numberOrdered" class="form-control"
-               th:value="${order.getNumberOrdered()}">
+        <input type="number" id="numberOrdered" name="numberOrdered" class="form-control"
+               th:value="${order.getNumberOrdered()}"
+               th:attr="min=${order.getNumberFulfilled()}">
     </div>
 
     <div class="form-group mb-3">
         <label for="price">Price</label>
-        <input type="text" id="price" name="price" class="form-control" th:value="${order.getPrice()}">
+        <input type="number" id="price" name="price" step="any" min="0"
+               class="form-control" th:value="${order.getPrice()}">
     </div>
 
     <div class="form-group mb-3">
         <label for="OrderType">Order Type</label>
         <select id="OrderType" name="OrderType" class="form-control">
-            <option value="BUY" th:selected="${orderType=='BUY'}">
+            <option value="BUY" th:disabled="${orderType=='SELL'}">
                 BUY</option>
-            <option value="SELL" th:selected="${orderType=='SELL'}">
+            <option value="SELL" th:selected="${orderType=='BUY'}">
                 SELL</option>
         </select>
     </div>
@@ -80,7 +82,7 @@
     function populateCompanyAbbrevs() {
         var exchangeIdSelect = document.getElementById("exchangeId");
         var companyAbbrevsSelect = document.getElementById("companyAbbrev");
-        var orderCompanyAbbrev = /*[[${order.getCompanyAbbrev()}]]*/;
+        var defaultCompanyAbbrev = /*[[${defaultCompanyAbbrev}]]*/;
 
         // Remove any existing options from the second select field
         while (companyAbbrevsSelect.firstChild) {
@@ -100,7 +102,7 @@
             var option = document.createElement("option");
             option.text = values[i];
             option.value = values[i];
-            if (option.text == orderCompanyAbbrev) {
+            if (option.text == defaultCompanyAbbrev) {
                 option.setAttribute('selected', true);
             }
             companyAbbrevsSelect.appendChild(option);

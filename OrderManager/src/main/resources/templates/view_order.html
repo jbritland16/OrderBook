@@ -40,6 +40,23 @@
             <td th:text="${order.getFormattedTimestamp()}"></td>
         </tr>
     </table>
+    <table>
+        <td>
+            <td>
+                <form method="POST" th:action="@{/order/update/edit}" class="ps-1 pe-1">
+                    <input type="hidden" name="orderId" th:value="${order.getOrderId()}">
+                    <button type="submit" name="update" value="value" class="btn btn-warning"
+                            th:disabled="${!order.isOrderActive()}">Edit</button>
+                </form>
+            </td>
+            <td>
+            <form method="POST" th:action="@{/order/cancel}" class="ps-1 pe-1">
+            <input type="hidden" name="orderId" th:value="${order.getOrderId()}">
+            <button type="submit" name="submit" value="value" class="btn btn-danger"
+                    th:disabled="${!order.isOrderActive()}">Cancel</button></form>
+            </td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>
