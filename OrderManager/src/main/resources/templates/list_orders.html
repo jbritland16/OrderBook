@@ -36,8 +36,11 @@
                         <button type="submit" name="submit" value="value" class="btn btn-danger"
                                 th:disabled="${!order.isOrderActive()}">Cancel</button>
                     </form>
-                    <a th:href="@{/order/edit/{orderId}(orderId=${order.getOrderId()})}"
-                       class="btn btn-warning" th:classappend="${!order.isOrderActive()}? 'disabled'">Edit</a>
+                    <form method="POST" th:action="@{/order/update}" class="ps-1 pe-1">
+                        <input type="hidden" name="orderId" th:value="${order.getOrderId()}">
+                        <button type="submit" name="update" value="value" class="btn btn-warning"
+                                th:disabled="${!order.isOrderActive()}">Edit</button>
+                    </form>
                 </div>
 
             </td>

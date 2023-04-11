@@ -71,8 +71,8 @@ public class OrdersController {
         return "redirect:/orders";
     }
 
-    @GetMapping("/order/edit/{orderId}")
-    public String editOrder(@PathVariable("orderId") int orderId,
+    @PostMapping("/order/update")
+    public String editOrder(@RequestParam("orderId") int orderId,
                             Model model) {
         Order order = orderService.findById(orderId);
         HashMap<String, List<String>> exchangeCompanyAbbrevs = tradingEngineTradeService
@@ -86,8 +86,8 @@ public class OrdersController {
         return "edit_order";
     }
 
-    @PostMapping("/order/update/{orderId}")
-    public String updateOrder(@PathVariable("orderId") int orderId,
+    @PostMapping("/order/update/process")
+    public String updateOrder(@RequestParam("orderId") int orderId,
                               @RequestParam("numberOrdered") int numberOrdered,
                               @RequestParam("price") double price,
                               @RequestParam("OrderType") String orderType,
