@@ -43,4 +43,23 @@ public class ExchangeServiceImpl implements  ExchangeService {
                 .collect(Collectors.toList()));
         return orderBook;
     }
+
+    @Override
+    public Double[] getBestBuyAndSellPricesByOrderBookId(OrderBookId orderBookId) {
+        List<Order> orders = orderBookRepository.findByOrderBookId(orderBookId)
+                .getOrders();
+        double bestBuyPrice = orders.stream()
+                .filter(order -> order.getOrderType() == Order.OrderType.BUY)
+                .filter(Order::isOrderActive)
+                .map(Order::getPrice)
+                .max(Double::compareTo)
+                .orElse(Double.valueOf(0));
+        double bestSellPrice = orders.stream()
+                .filter(order -> order.getOrderType() == Order.OrderType.SELL)
+                .filter(Order::isOrderActive)
+                .map(Order::getPrice)
+                .min(Double::compareTo)
+                .orElse(Double.valueOf(0));
+        return new Double[]{bestBuyPrice, bestSellPrice};
+    }
 }

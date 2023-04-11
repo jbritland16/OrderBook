@@ -1,5 +1,6 @@
 package com.tradeteam.controllers;
 
+import com.tradeteam.dtos.OrderBookId;
 import com.tradeteam.entities.Order;
 import com.tradeteam.entities.OrderBook;
 import com.tradeteam.dtos.TradeDTO;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -40,8 +42,11 @@ public class OrdersController {
     @GetMapping("/order/create")
     public String addNewOrder(Model model) {
         HashMap<String, List<String>> exchangeCompanyAbbrevs = tradingEngineTradeService.getExchangeIdsAndCompanyAbbrevs();
+        Map<String, Map<String, Double[]>> bestBuyAndSellPrices =
+                exchangeOrderBookService.getBestBuyAndSellPrices();
         model.addAttribute("exchangeCompanyAbbrevs", exchangeCompanyAbbrevs);
         model.addAttribute("order", new Order());
+        model.addAttribute("bestBuyAndSellPrices", bestBuyAndSellPrices);
         return "add_order";
     }
 
@@ -70,9 +75,14 @@ public class OrdersController {
     public String editOrder(@PathVariable("orderId") int orderId,
                             Model model) {
         Order order = orderService.findById(orderId);
-        HashMap<String, List<String>> exchangeCompanyAbbrevs = tradingEngineTradeService.getExchangeIdsAndCompanyAbbrevs();
+        HashMap<String, List<String>> exchangeCompanyAbbrevs = tradingEngineTradeService
+                .getExchangeIdsAndCompanyAbbrevs();
+        Map<String, Map<String, Double[]>> bestBuyAndSellPrices =
+                exchangeOrderBookService.getBestBuyAndSellPrices();
         model.addAttribute("exchangeCompanyAbbrevs", exchangeCompanyAbbrevs);
         model.addAttribute("order", order);
+        model.addAttribute("bestBuyAndSellPrices", bestBuyAndSellPrices);
+        model.addAttribute("orderType", order.getOrderType().toString());
         return "edit_order";
     }
 
