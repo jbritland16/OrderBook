@@ -9,7 +9,7 @@
     <table class="table">
         <tr>
             <th>Id</th>
-            <th>Order Number</th>
+            <th>For Order</th>
             <th>Trade time</th>
             <th>Exchange</th>
             <th>Symbol</th>
@@ -18,7 +18,12 @@
         </tr>
         <tr th:each="trade: ${trades}">
             <td th:text="${trade.getTradeId()}" />
-            <td th:text="${trade.getConnectedOrder().getOrderId()}" />
+            <td><form method="POST" th:action="@{/order/view}" class="ps-1 pe-1">
+                <input type="hidden" name="orderId"
+                       th:value="${trade.getConnectedOrder().getOrderId()}">
+                <button type="submit" name="submit" value="value" class="btn btn-primary btn-sm"
+                th:text="${trade.getConnectedOrder().getOrderId()}"></button>
+            </form></td>
             <td th:text="${trade.getFormattedTimestamp()}" />
             <td th:text="${trade.getConnectedOrder().getExchangeId()}" />
             <td th:text="${trade.getConnectedOrder().getCompanyAbbrev()}" />

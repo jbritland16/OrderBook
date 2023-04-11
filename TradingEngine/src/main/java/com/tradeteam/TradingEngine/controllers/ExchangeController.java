@@ -1,5 +1,6 @@
 package com.tradeteam.TradingEngine.controllers;
 
+import com.tradeteam.TradingEngine.entities.Order;
 import com.tradeteam.TradingEngine.entities.OrderBook;
 import com.tradeteam.TradingEngine.entities.OrderBookId;
 import com.tradeteam.TradingEngine.services.ExchangeService;
@@ -44,6 +45,14 @@ public class ExchangeController {
                                                       @PathVariable int month,
                                                       @PathVariable int day) {
         return tradeService.getTotalValueTradedByExchangeByDate(exchangeId, year, month, day);
+    }
+
+    @GetMapping("/{exchangeId}/{companyAbbrev}/bestBuyAndSellPrice")
+    public Double[] getBestBuyAndSellPriceByOrderBookId(
+            @PathVariable String exchangeId,
+            @PathVariable String companyAbbrev) {
+        return exchangeService.getBestBuyAndSellPricesByOrderBookId(
+                new OrderBookId(exchangeId, companyAbbrev));
     }
 
 }

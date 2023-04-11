@@ -26,6 +26,10 @@ public interface TradingEngineApiConsumer {
                                                       @PathVariable int month,
                                                       @PathVariable int day);
 
+    @GetMapping("/exchanges/{exchangeId}/{companyAbbrev}/bestBuyAndSellPrice")
+    public Double[] getBestBuyAndSellPriceByOrderBookId(@PathVariable String exchangeId,
+                                                        @PathVariable String companyAbbrev);
+
     @PostMapping("/orders/byUserId")
     public List<ExistingOrderDTO> getOrdersByUserId(int userId);
 

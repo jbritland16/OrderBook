@@ -14,5 +14,6 @@ public interface ExchangeService {
     public List<String> getAllExchangeIds();
     public List<String> getAllCompanyAbbrevsByExchangeId(String exchangeId);
     public OrderBook getOrderBookCurrentOrdersByOrderBookId(OrderBookId orderBookId);
+    public Double[] getBestBuyAndSellPricesByOrderBookId(OrderBookId orderBookId);
 
 }

@@ -1,5 +1,6 @@
 package com.tradeteam.controllers;
 
+import com.tradeteam.dtos.OrderBookId;
 import com.tradeteam.entities.Order;
 import com.tradeteam.entities.OrderBook;
 import com.tradeteam.dtos.TradeDTO;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -38,10 +41,17 @@ public class OrdersController {
     }
 
     @GetMapping("/order/create")
-    public String addNewOrder(Model model) {
+    public String addNewOrder(Model model,
+                              @RequestParam("exchangeId") Optional<String> defaultExchangeId,
+                              @RequestParam("companyAbbrev") Optional<String> defaultCompanyAbbrev) {
         HashMap<String, List<String>> exchangeCompanyAbbrevs = tradingEngineTradeService.getExchangeIdsAndCompanyAbbrevs();
+        Map<String, Map<String, Double[]>> bestBuyAndSellPrices =
+                exchangeOrderBookService.getBestBuyAndSellPrices();
         model.addAttribute("exchangeCompanyAbbrevs", exchangeCompanyAbbrevs);
         model.addAttribute("order", new Order());
+        model.addAttribute("bestBuyAndSellPrices", bestBuyAndSellPrices);
+        model.addAttribute("defaultExchangeId", defaultExchangeId.orElse(null));
+        model.addAttribute("defaultCompanyAbbrev", defaultCompanyAbbrev.orElse(null));
         return "add_order";
     }
 
@@ -66,18 +76,25 @@ public class OrdersController {
         return "redirect:/orders";
     }
 
-    @GetMapping("/order/edit/{orderId}")
-    public String editOrder(@PathVariable("orderId") int orderId,
+    @PostMapping("/order/update/edit")
+    public String editOrder(@RequestParam("orderId") int orderId,
                             Model model) {
         Order order = orderService.findById(orderId);
-        HashMap<String, List<String>> exchangeCompanyAbbrevs = tradingEngineTradeService.getExchangeIdsAndCompanyAbbrevs();
+        HashMap<String, List<String>> exchangeCompanyAbbrevs = tradingEngineTradeService
+                .getExchangeIdsAndCompanyAbbrevs();
+        Map<String, Map<String, Double[]>> bestBuyAndSellPrices =
+                exchangeOrderBookService.getBestBuyAndSellPrices();
         model.addAttribute("exchangeCompanyAbbrevs", exchangeCompanyAbbrevs);
         model.addAttribute("order", order);
+        model.addAttribute("bestBuyAndSellPrices", bestBuyAndSellPrices);
+        model.addAttribute("orderType", order.getOrderType().toString());
+        model.addAttribute("defaultExchangeId", order.getExchangeId());
+        model.addAttribute("defaultCompanyAbbrev", order.getCompanyAbbrev());
         return "edit_order";
     }
 
-    @PostMapping("/order/update/{orderId}")
-    public String updateOrder(@PathVariable("orderId") int orderId,
+    @PostMapping("/order/update/submit")
+    public String updateOrder(@RequestParam("orderId") int orderId,
                               @RequestParam("numberOrdered") int numberOrdered,
                               @RequestParam("price") double price,
                               @RequestParam("OrderType") String orderType,
@@ -87,8 +104,8 @@ public class OrdersController {
         return "redirect:/orders";
     }
 
-    @GetMapping("/order/{orderId}")
-    public String getOrderDetails(@PathVariable("orderId") int orderId, Model model) {
+    @PostMapping("/order/view")
+    public String getOrderDetails(@RequestParam("orderId") int orderId, Model model) {
         Order order = orderService.findById(orderId);
         model.addAttribute("order", order);
         return "view_order";

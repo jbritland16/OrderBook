@@ -49,6 +49,7 @@ public class OrderServiceImpl implements OrderService {
         orderDTO.setOrderType(Order.OrderType.valueOf(orderType));
         orderDTO.setCompanyAbbrev(companyAbbrev);
         orderDTO.setExchangeId(exchangeId);
+        orderDTO.setOrderActive(numberOrdered > orderDTO.getNumberFulfilled());
         return tradingEngineApiConsumer.updateOrder(orderDTO).order();
     }
 

@@ -5,41 +5,84 @@
 <div th:fragment="order-form(order)">
     <div class="form-group mb-3">
         <label for="exchangeId">Exchange</label>
-        <select id="exchangeId" name="exchangeId" class="form-control" onchange="populateCompanyAbbrevs()">
-            <option value="">Select an Exchange</option>
-            <option th:each="key : ${exchangeCompanyAbbrevs.keySet()}" th:value="${key}" th:text="${key}"></option>
+        <select id="exchangeId" name="exchangeId" class="form-control"
+                onchange="populateCompanyAbbrevs()">
+            <option disabled="disabled" th:selected="${order.getExchangeId()==null}">Select an Exchange</option>
+            <option th:each="key : ${exchangeCompanyAbbrevs.keySet()}" th:value="${key}"
+                    th:text="${key}" th:selected="${key==defaultExchangeId}"></option>
         </select>
     </div>
 
     <div class="form-group mb-3">
-        <label for="companyAbbrev">Company Abbrev</label>
-        <select id="companyAbbrev" name="companyAbbrev" class="form-control"></select>
+        <label for="companyAbbrev">Company Symbol</label>
+        <select id="companyAbbrev" name="companyAbbrev" class="form-control"
+                onchange="populateBestPrices();"></select>
     </div>
 
     <div class="form-group mb-3">
         <label for="numberOrdered">Quantity</label>
-        <input type="text" id="numberOrdered" name="numberOrdered" class="form-control"
-               th:value="${order.getNumberOrdered()}">
+        <input type="number" id="numberOrdered" name="numberOrdered" class="form-control"
+               th:value="${order.getNumberOrdered()}"
+               th:attr="min=${order.getNumberFulfilled()}">
     </div>
 
     <div class="form-group mb-3">
         <label for="price">Price</label>
-        <input type="text" id="price" name="price" class="form-control" th:value="${order.getPrice()}">
+        <input type="number" id="price" name="price" step="any" min="0"
+               class="form-control" th:value="${order.getPrice()}">
     </div>
 
     <div class="form-group mb-3">
         <label for="OrderType">Order Type</label>
         <select id="OrderType" name="OrderType" class="form-control">
-            <option value="BUY">BUY</option>
-            <option value="SELL">SELL</option>
+            <option value="BUY" th:disabled="${orderType=='SELL'}">
+                BUY</option>
+            <option value="SELL" th:selected="${orderType=='BUY'}">
+                SELL</option>
         </select>
     </div>
 
+    <p>Current best prices for this stock:</p>
+    <p>BUY: £<span id="bestBuyPrice"/></p>
+    <p>SELL: £<span id="bestSellPrice"/></p>
+
     <br/>
+
     <script th:inline="javascript">
+
+    function populateBestPrices() {
+        var bestBuyAndSellPrices = /*[[${bestBuyAndSellPrices}]]*/;
+        var exchangeIdSelect = document.getElementById("exchangeId");
+        var companyAbbrevsSelect = document.getElementById("companyAbbrev");
+
+        // Get the selected option from the first select field
+        var exchangeId = exchangeIdSelect.options[exchangeIdSelect.selectedIndex].value;
+        var companyAbbrev = companyAbbrevsSelect.options[companyAbbrevsSelect.selectedIndex].value;
+
+        // Get the values from the HashMap for the selected option
+        var values = bestBuyAndSellPrices[exchangeId][companyAbbrev];
+
+        // Add values to variables for display
+        var bestBuyPrice = document.getElementById("bestBuyPrice");
+        var bestSellPrice = document.getElementById("bestSellPrice");
+        if (values[0] > 0) {
+            bestBuyPrice.innerHTML = values[0].toFixed(2);
+        }
+        else {
+            bestBuyPrice.innerHTML = "---";
+        }
+        if (values[1] > 0) {
+            bestSellPrice.innerHTML = values[1].toFixed(2);
+        }
+        else {
+            bestSellPrice.innerHTML = "---";
+        }
+    }
+
     function populateCompanyAbbrevs() {
         var exchangeIdSelect = document.getElementById("exchangeId");
         var companyAbbrevsSelect = document.getElementById("companyAbbrev");
+        var defaultCompanyAbbrev = /*[[${defaultCompanyAbbrev}]]*/;
 
         // Remove any existing options from the second select field
         while (companyAbbrevsSelect.firstChild) {
@@ -59,9 +102,16 @@
             var option = document.createElement("option");
             option.text = values[i];
             option.value = values[i];
+            if (option.text == defaultCompanyAbbrev) {
+                option.setAttribute('selected', true);
+            }
             companyAbbrevsSelect.appendChild(option);
         }
+
+        populateBestPrices();
     }
+
+    window.onload=populateCompanyAbbrevs();
 
     </script>
 </div>

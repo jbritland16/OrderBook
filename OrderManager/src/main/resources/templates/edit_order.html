@@ -13,9 +13,10 @@
                     <div class="card-body">
                         <h5 class="card-title text-center">Edit Order</h5>
                         <p class="card-text">
-                        <form th:action="@{/order/update/{orderId}(orderId=${order.getOrderId()})}" method="post">
+                        <form th:action="@{/order/update/submit}" method="POST">
                             <div th:replace="fragments/order_form :: order-form(${order})"></div>
                             <div class="text-center">
+                                <input type="hidden" name="orderId" th:value="${order.getOrderId()}">
                                 <input type="submit" class="btn btn-primary" value="Update order"/>
                             </div>
                         </form>
