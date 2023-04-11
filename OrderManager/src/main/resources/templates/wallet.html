@@ -14,6 +14,7 @@
             <th>Exchange ID</th>
             <th>Stock Symbol</th>
             <th>Quantity Owned</th>
+            <th>Order Book</th>
         </tr>
         <tr th:each="walletItem: ${wallet}">
             <td th:text="${walletItem.getExchangeId()}" />
@@ -24,7 +25,7 @@
                     <a th:href="@{/orderBook/{exchangeId}/{companyAbbrev}
                         (exchangeId=${walletItem.getExchangeId()},
                         companyAbbrev=${walletItem.getCompanyAbbrev()})}"
-                       class="btn btn-primary">View Order Book</a>
+                       class="btn btn-primary">View</a>
                 </div>
 
             </td>
