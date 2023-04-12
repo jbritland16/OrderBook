@@ -14,11 +14,10 @@ pipeline {
 
 				 }
 		}
-	    /*
         stage('codereview-pmd') {
 		   steps {
 					echo 'codereview..'
-					sh 'mvn -P pmd:pmd'
+					sh 'mvn pmd:pmd'
 			   }
 		   post {
 				   success {
@@ -26,7 +25,6 @@ pipeline {
 				   }
 			   }
 		}
-*/
         stage('unit-test') {
 		   steps {
 					echo 'codereview..'
