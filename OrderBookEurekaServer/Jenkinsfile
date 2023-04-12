@@ -7,9 +7,11 @@ pipeline {
     stages {
         stage('compile') {
 		   steps {
-					echo 'compiling..'
-					git url: 'https://github.com/jbritland16/OrderBook.git'
-					sh 'mvn compile'
+                echo 'compiling..'
+                dir("/var/lib/jenkins/workspace/orderbook-eureka-server/OrderBookEurekaServer") {
+                    sh 'mvn compile'
+                }
+
 				 }
 		}
         stage('codereview-pmd') {
