@@ -17,7 +17,7 @@ pipeline {
         stage('codereview-pmd') {
 		   steps {
 					echo 'codereview..'
-					sh 'mvn -P metrics pmd:pmd'
+					sh 'mvn -P pmd:pmd'
 			   }
 		   post {
 				   success {
