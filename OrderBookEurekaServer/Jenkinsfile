@@ -14,11 +14,26 @@ pipeline {
 
 				 }
 		}
+	stage('codereview-pmd') {
+		   steps {
+			echo 'codereview..'
+			   dir("/var/lib/jenkins/workspace/trade-eureka-server-compilation/OrderBookEurekaServer") {
+				sh 'mvn pmd:pmd '
+			   }
+			}
+		   post {
+				   success {
+				   	recordIssues enabledForFailure: true, tool: pmdParser(pattern: '**/target/pmd.xml')
+				   }
+			   }
+		}
         stage('unit-test') {
 		   steps {
 					echo 'codereview..'
+			   dir("/var/lib/jenkins/workspace/trade-eureka-server-compilation/OrderBookEurekaServer") {
 					sh 'mvn test'
 			   }
+			}
 		   post {
 				   success {
 					   junit 'target/surefire-reports/*.xml'
@@ -28,7 +43,9 @@ pipeline {
         stage('code-coverage-stage') {
 		   steps {
 					echo 'unit test..'
+			   dir("/var/lib/jenkins/workspace/trade-eureka-server-compilation/OrderBookEurekaServer") {
 					sh 'mvn verify'
+			   }
 				}
 		   post {
 				   success {
@@ -46,7 +63,9 @@ pipeline {
         stage('Package') {
 		   steps {
 					echo 'Packaging..'
+			   dir("/var/lib/jenkins/workspace/trade-eureka-server-compilation/OrderBookEurekaServer") {
 					sh 'mvn package'
+			   }
 			   }
         }
 
