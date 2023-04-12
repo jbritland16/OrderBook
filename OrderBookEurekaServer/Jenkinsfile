@@ -8,7 +8,7 @@ pipeline {
         stage('compile') {
 		   steps {
                 echo 'compiling..'
-                dir("/OrderBookEurekaServer") {
+                dir("/var/lib/jenkins/workspace/trade-eureka-server-compilation/OrderBookEurekaServer") {
                     sh 'mvn compile'
                 }
 
