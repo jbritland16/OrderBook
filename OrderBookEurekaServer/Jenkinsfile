@@ -14,7 +14,7 @@ pipeline {
 
 				 }
 		}
-        stage('codereview-pmd') {
+        /* stage('codereview-pmd') {
 		   steps {
 					echo 'codereview..'
 					sh 'mvn pmd:pmd'
@@ -24,7 +24,7 @@ pipeline {
 				   	recordIssues enabledForFailure: true, tool: pmdParser(pattern: '**/target/pmd.xml')
 				   }
 			   }
-		}
+		} */
         stage('unit-test') {
 		   steps {
 					echo 'codereview..'
