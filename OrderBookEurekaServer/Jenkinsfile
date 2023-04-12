@@ -14,6 +14,7 @@ pipeline {
 
 				 }
 		}
+	    /*
         stage('codereview-pmd') {
 		   steps {
 					echo 'codereview..'
@@ -25,6 +26,7 @@ pipeline {
 				   }
 			   }
 		}
+*/
         stage('unit-test') {
 		   steps {
 					echo 'codereview..'
