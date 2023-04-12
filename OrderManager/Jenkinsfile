@@ -1,0 +1,72 @@
+pipeline {
+    agent any
+    tools {
+      maven 'MAVEN_HOME'
+      jdk 'JAVA_HOME'
+    }
+    stages {
+        stage('compile') {
+		   steps {
+					echo 'compiling..'
+					git url: 'https://github.com/jbritland16/OrderBook.git/OrderManager'
+					sh 'mvn compile'
+				 }
+		}
+        stage('codereview-pmd') {
+		   steps {
+					echo 'codereview..'
+					sh 'mvn -P metrics pmd:pmd'
+			   }
+		   post {
+				   success {
+				   	recordIssues enabledForFailure: true, tool: pmdParser(pattern: '**/target/pmd.xml')
+				   }
+			   }
+		}
+        stage('unit-test') {
+		   steps {
+					echo 'codereview..'
+					sh 'mvn test'
+			   }
+		   post {
+				   success {
+					   junit 'target/surefire-reports/*.xml'
+				   }
+			   }
+			}
+        stage('code-coverage-stage') {
+		   steps {
+					echo 'unit test..'
+					sh 'mvn verify'
+				}
+		   post {
+				   success {
+
+						jacoco(
+							execPattern: '**/target/**.exec',
+							classPattern: '**/target/classes',
+							sourcePattern: '**/src',
+							inclusionPattern: 'com/tradeteam/**',
+							changeBuildStatus: true
+						)
+				   }
+			   }
+        }
+        stage('Package') {
+		   steps {
+					echo 'Packaging..'
+					sh 'mvn package'
+			   }
+        }
+
+        stage ('Deploy') {
+	      steps {
+	        script {
+	          deploy adapters: [tomcat9(credentialsId: 'mysecret-id', path: '', url: 'http://44.211.46.161:8085')], contextPath: '/ordermanager', onFailure: false, war: 'target/*.war'
+	        }
+	      }
+    }
+
+
+    }
+}
