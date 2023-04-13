@@ -17,9 +17,7 @@ pipeline {
 	stage('codereview-pmd') {
 		   steps {
 			echo 'codereview..'
-			   dir("/var/lib/jenkins/workspace/trade-eureka-server-compilation/OrderBookEurekaServer") {
-				sh 'mvn pmd:pmd '
-			   }
+			sh 'mvn -f /var/lib/jenkins/workspace/trade-eureka-server-compilation/OrderBookEurekaServer/pom.xml pmd:pmd '
 			}
 		   post {
 				   success {
