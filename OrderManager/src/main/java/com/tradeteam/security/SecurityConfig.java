@@ -28,6 +28,9 @@ public class SecurityConfig {
                             authorizeConfig.requestMatchers("/register").permitAll();
                             authorizeConfig.requestMatchers("/home").permitAll();
                             authorizeConfig.requestMatchers("/").permitAll();
+                            authorizeConfig.requestMatchers("/exchanges").permitAll();
+                            authorizeConfig.requestMatchers("/orderBooks/{exchangeId}").permitAll();
+                            authorizeConfig.requestMatchers("/orderBook/{exchangeId}/{companyAbbrev}").permitAll();
                             authorizeConfig.anyRequest().authenticated();
                         })
                 .formLogin()

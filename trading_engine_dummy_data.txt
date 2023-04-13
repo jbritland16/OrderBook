@@ -7,6 +7,11 @@
 
 mysql -u root -- Or however you have access to MySQL
 
+-- To create Order Manager database
+DROP database order_manager_db;
+CREATE database order_manager_db;
+
+-- To create Trading Engine database
 DROP database trading_engine_db;
 CREATE database trading_engine_db;
 USE trading_engine_db;
@@ -18,6 +23,8 @@ USE trading_engine_db;
 -- -----------------------------------------------------------------------------------------
 
 -- 3. Go back to MySQL and run the rest of the queries below in this file
+-- The OrderManager app will be rendered useless without Exchanges and Order Books in the database, 
+-- but you may skip everything else if you don't wish to populate with dummy orders
 
 -- Exchanges
 INSERT INTO exchange(exchange_id) VALUES("NYSE");

@@ -11,7 +11,9 @@ import com.tradeteam.services.ExchangeOrderBookService;
 import com.tradeteam.services.OrderService;
 import com.tradeteam.services.TradingEngineTradeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -31,6 +33,13 @@ public class OrdersController {
 
     @Autowired
     TradingEngineTradeService tradingEngineTradeService;
+
+    @ModelAttribute("loggedIn")
+    public boolean isLoggedIn(@AuthenticationPrincipal OrderManagerUserDetails userDetails,
+                              Model model) {
+        model.addAttribute("loggedIn", userDetails != null);
+        return  userDetails != null;
+    }
 
     @GetMapping("/orders")
     public String findByUserId(@AuthenticationPrincipal OrderManagerUserDetails userDetails,
@@ -137,12 +146,13 @@ public class OrdersController {
     }
 
     @GetMapping("/orderBook/{exchangeId}/{companyAbbrev}")
-    public String getOrderBook(@PathVariable String exchangeId,
+    public String getOrderBook(@AuthenticationPrincipal OrderManagerUserDetails userDetails,
+                               @PathVariable String exchangeId,
                                @PathVariable String companyAbbrev, Model model) {
         OrderBook orderBook = exchangeOrderBookService
                 .getOrderBookByExchangeIdCompanyAbbrev(exchangeId, companyAbbrev);
         model.addAttribute("orderBook", orderBook);
-        return "order_book"; // This view hasn't been made yet
+        return "order_book";
     }
 
     @GetMapping("/orders/wallet")

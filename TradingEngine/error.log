@@ -1,0 +1,86 @@
+[32m2023-04-13 11:16:40.935[0;39m [INFO] com.tradeteam.TradingEngine.TradingEngineApplication [main] Starting TradingEngineApplication using Java 19 with PID 8896 (C:\Users\jbritland\Documents\OrderBook\TradingEngine\target\classes started by jbritland in C:\Users\jbritland\Documents\OrderBook\TradingEngine)
+[32m2023-04-13 11:16:40.939[0;39m [INFO] com.tradeteam.TradingEngine.TradingEngineApplication [main] No active profile set, falling back to 1 default profile: "default"
+[32m2023-04-13 11:16:42.187[0;39m [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[32m2023-04-13 11:16:42.445[0;39m [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 243 ms. Found 4 JPA repository interfaces.
+[32m2023-04-13 11:16:42.914[0;39m [INFO] org.springframework.cloud.context.scope.GenericScope [main] BeanFactory id=8cc16eac-ce53-3416-a107-e628ead3804c
+[32m2023-04-13 11:16:43.583[0;39m [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8082 (http)
+[32m2023-04-13 11:16:43.594[0;39m [INFO] org.apache.catalina.core.StandardService [main] Starting service [Tomcat]
+[32m2023-04-13 11:16:43.595[0;39m [INFO] org.apache.catalina.core.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/10.1.7]
+[32m2023-04-13 11:16:44.021[0;39m [INFO] org.apache.jasper.servlet.TldScanner [main] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+[32m2023-04-13 11:16:44.053[0;39m [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [main] Initializing Spring embedded WebApplicationContext
+[32m2023-04-13 11:16:44.053[0;39m [INFO] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 2989 ms
+[32m2023-04-13 11:16:44.289[0;39m [INFO] org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+[32m2023-04-13 11:16:44.377[0;39m [INFO] org.hibernate.Version [main] HHH000412: Hibernate ORM core version 6.1.7.Final
+[32m2023-04-13 11:16:44.824[0;39m [INFO] com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+[32m2023-04-13 11:16:45.576[0;39m [INFO] com.zaxxer.hikari.pool.HikariPool [main] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@19a7906c
+[32m2023-04-13 11:16:45.579[0;39m [INFO] com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+[32m2023-04-13 11:16:45.700[0;39m [INFO] SQL dialect [main] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+[32m2023-04-13 11:16:47.132[0;39m [INFO] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[32m2023-04-13 11:16:47.144[0;39m [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+[32m2023-04-13 11:16:47.839[0;39m [WARN] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[32m2023-04-13 11:16:48.616[0;39m [WARN] org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration$DefaultTemplateResolverConfiguration [main] Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+[32m2023-04-13 11:16:48.977[0;39m [INFO] org.springframework.cloud.netflix.eureka.config.DiscoveryClientOptionalArgsConfiguration [main] Eureka HTTP Client uses RestTemplate.
+[32m2023-04-13 11:16:49.132[0;39m [WARN] org.springframework.cloud.loadbalancer.config.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger [main] Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+[32m2023-04-13 11:16:49.163[0;39m [INFO] org.springframework.cloud.netflix.eureka.InstanceInfoFactory [main] Setting initial instance status as: STARTING
+[32m2023-04-13 11:16:49.439[0;39m [INFO] com.netflix.discovery.DiscoveryClient [main] Initializing Eureka in region us-east-1
+[32m2023-04-13 11:16:49.448[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [main] Resolving eureka endpoints via configuration
+[32m2023-04-13 11:16:49.476[0;39m [INFO] com.netflix.discovery.DiscoveryClient [main] Disable delta property : false
+[32m2023-04-13 11:16:49.476[0;39m [INFO] com.netflix.discovery.DiscoveryClient [main] Single vip registry refresh property : null
+[32m2023-04-13 11:16:49.476[0;39m [INFO] com.netflix.discovery.DiscoveryClient [main] Force full registry fetch : false
+[32m2023-04-13 11:16:49.476[0;39m [INFO] com.netflix.discovery.DiscoveryClient [main] Application is null : false
+[32m2023-04-13 11:16:49.476[0;39m [INFO] com.netflix.discovery.DiscoveryClient [main] Registered Applications size is zero : true
+[32m2023-04-13 11:16:49.476[0;39m [INFO] com.netflix.discovery.DiscoveryClient [main] Application version is -1: true
+[32m2023-04-13 11:16:49.477[0;39m [INFO] com.netflix.discovery.DiscoveryClient [main] Getting all instance registry info from the eureka server
+[32m2023-04-13 11:16:50.089[0;39m [INFO] com.netflix.discovery.DiscoveryClient [main] The response status is 200
+[32m2023-04-13 11:16:50.091[0;39m [INFO] com.netflix.discovery.DiscoveryClient [main] Starting heartbeat executor: renew interval is: 30
+[32m2023-04-13 11:16:50.093[0;39m [INFO] com.netflix.discovery.InstanceInfoReplicator [main] InstanceInfoReplicator onDemand update allowed rate per min is 4
+[32m2023-04-13 11:16:50.100[0;39m [INFO] com.netflix.discovery.DiscoveryClient [main] Discovery Client initialized at timestamp 1681381010099 with initial instances count: 0
+[32m2023-04-13 11:16:50.104[0;39m [INFO] org.springframework.cloud.netflix.eureka.serviceregistry.EurekaServiceRegistry [main] Registering application TRADING-ENGINE with eureka with status UP
+[32m2023-04-13 11:16:50.105[0;39m [INFO] com.netflix.discovery.DiscoveryClient [main] Saw local status change event StatusChangeEvent [timestamp=1681381010105, current=UP, previous=STARTING]
+[32m2023-04-13 11:16:50.106[0;39m [INFO] com.netflix.discovery.DiscoveryClient [DiscoveryClient-InstanceInfoReplicator-0] DiscoveryClient_TRADING-ENGINE/DESKTOP-E3M45P6.ABLAB.local:trading-engine:8082: registering service...
+[32m2023-04-13 11:16:50.148[0;39m [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8082 (http) with context path ''
+[32m2023-04-13 11:16:50.149[0;39m [INFO] org.springframework.cloud.netflix.eureka.serviceregistry.EurekaAutoServiceRegistration [main] Updating port to 8082
+[32m2023-04-13 11:16:50.226[0;39m [INFO] com.tradeteam.TradingEngine.TradingEngineApplication [main] Started TradingEngineApplication in 10.046 seconds (process running for 10.686)
+[32m2023-04-13 11:16:50.352[0;39m [INFO] com.netflix.discovery.DiscoveryClient [DiscoveryClient-InstanceInfoReplicator-0] DiscoveryClient_TRADING-ENGINE/DESKTOP-E3M45P6.ABLAB.local:trading-engine:8082 - registration status: 204
+[32m2023-04-13 11:17:20.104[0;39m [INFO] com.netflix.discovery.DiscoveryClient [DiscoveryClient-CacheRefreshExecutor-0] Disable delta property : false
+[32m2023-04-13 11:17:20.105[0;39m [INFO] com.netflix.discovery.DiscoveryClient [DiscoveryClient-CacheRefreshExecutor-0] Single vip registry refresh property : null
+[32m2023-04-13 11:17:20.105[0;39m [INFO] com.netflix.discovery.DiscoveryClient [DiscoveryClient-CacheRefreshExecutor-0] Force full registry fetch : false
+[32m2023-04-13 11:17:20.105[0;39m [INFO] com.netflix.discovery.DiscoveryClient [DiscoveryClient-CacheRefreshExecutor-0] Application is null : false
+[32m2023-04-13 11:17:20.106[0;39m [INFO] com.netflix.discovery.DiscoveryClient [DiscoveryClient-CacheRefreshExecutor-0] Registered Applications size is zero : true
+[32m2023-04-13 11:17:20.106[0;39m [INFO] com.netflix.discovery.DiscoveryClient [DiscoveryClient-CacheRefreshExecutor-0] Application version is -1: false
+[32m2023-04-13 11:17:20.106[0;39m [INFO] com.netflix.discovery.DiscoveryClient [DiscoveryClient-CacheRefreshExecutor-0] Getting all instance registry info from the eureka server
+[32m2023-04-13 11:17:20.138[0;39m [INFO] com.netflix.discovery.DiscoveryClient [DiscoveryClient-CacheRefreshExecutor-0] The response status is 200
+[32m2023-04-13 11:17:31.554[0;39m [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-8082-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+[32m2023-04-13 11:17:31.555[0;39m [INFO] org.springframework.web.servlet.DispatcherServlet [http-nio-8082-exec-1] Initializing Servlet 'dispatcherServlet'
+[32m2023-04-13 11:17:31.558[0;39m [INFO] org.springframework.web.servlet.DispatcherServlet [http-nio-8082-exec-1] Completed initialization in 3 ms
+[32m2023-04-13 11:21:49.483[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 11:26:49.506[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 11:31:49.593[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 11:36:49.612[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 11:41:49.630[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 11:46:49.647[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 11:51:49.670[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 11:56:49.684[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 12:01:49.698[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 12:06:49.717[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 12:11:49.728[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 12:16:49.739[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 12:21:49.756[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 12:26:49.760[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 12:31:49.771[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 12:36:49.779[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 12:41:49.785[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 12:46:49.801[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 12:51:49.813[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 12:56:49.821[0;39m [INFO] com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver [AsyncResolver-bootstrap-executor-0] Resolving eureka endpoints via configuration
+[32m2023-04-13 13:01:43.905[0;39m [INFO] org.springframework.cloud.netflix.eureka.serviceregistry.EurekaServiceRegistry [SpringApplicationShutdownHook] Unregistering application TRADING-ENGINE with eureka with status DOWN
+[32m2023-04-13 13:01:43.906[0;39m [INFO] com.netflix.discovery.DiscoveryClient [SpringApplicationShutdownHook] Saw local status change event StatusChangeEvent [timestamp=1681387303906, current=DOWN, previous=UP]
+[32m2023-04-13 13:01:43.906[0;39m [INFO] com.netflix.discovery.DiscoveryClient [DiscoveryClient-InstanceInfoReplicator-0] DiscoveryClient_TRADING-ENGINE/DESKTOP-E3M45P6.ABLAB.local:trading-engine:8082: registering service...
+[32m2023-04-13 13:01:43.927[0;39m [INFO] com.netflix.discovery.DiscoveryClient [DiscoveryClient-InstanceInfoReplicator-0] DiscoveryClient_TRADING-ENGINE/DESKTOP-E3M45P6.ABLAB.local:trading-engine:8082 - registration status: 204
+[32m2023-04-13 13:01:44.041[0;39m [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+[32m2023-04-13 13:01:44.078[0;39m [INFO] com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+[32m2023-04-13 13:01:44.093[0;39m [INFO] com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+[32m2023-04-13 13:01:44.097[0;39m [INFO] com.netflix.discovery.DiscoveryClient [SpringApplicationShutdownHook] Shutting down DiscoveryClient ...
+[32m2023-04-13 13:01:47.119[0;39m [INFO] com.netflix.discovery.DiscoveryClient [SpringApplicationShutdownHook] Unregistering ...
+[32m2023-04-13 13:01:47.129[0;39m [INFO] com.netflix.discovery.DiscoveryClient [SpringApplicationShutdownHook] DiscoveryClient_TRADING-ENGINE/DESKTOP-E3M45P6.ABLAB.local:trading-engine:8082 - deregister  status: 200
+[32m2023-04-13 13:01:47.147[0;39m [INFO] com.netflix.discovery.DiscoveryClient [SpringApplicationShutdownHook] Completed shut down of DiscoveryClient
