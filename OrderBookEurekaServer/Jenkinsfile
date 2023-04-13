@@ -27,10 +27,8 @@ pipeline {
 		}
         stage('unit-test') {
 		   steps {
-					echo 'codereview..'
-			   dir("/var/lib/jenkins/workspace/trade-eureka-server-compilation/OrderBookEurekaServer") {
-					sh 'mvn test'
-			   }
+				echo 'codereview..'
+				sh 'mvn -f /var/lib/jenkins/workspace/trade-eureka-server-compilation/OrderBookEurekaServer/pom.xml test'
 			}
 		   post {
 				   success {
@@ -41,9 +39,7 @@ pipeline {
         stage('code-coverage-stage') {
 		   steps {
 					echo 'unit test..'
-			   dir("/var/lib/jenkins/workspace/trade-eureka-server-compilation/OrderBookEurekaServer") {
-					sh 'mvn verify'
-			   }
+					sh 'mvn -f /var/lib/jenkins/workspace/trade-eureka-server-compilation/OrderBookEurekaServer/pom.xml verify'
 				}
 		   post {
 				   success {
@@ -60,10 +56,8 @@ pipeline {
         }
         stage('Package') {
 		   steps {
-					echo 'Packaging..'
-			   dir("/var/lib/jenkins/workspace/trade-eureka-server-compilation/OrderBookEurekaServer") {
-					sh 'mvn package'
-			   }
+				echo 'Packaging..'
+				sh 'mvn -f /var/lib/jenkins/workspace/trade-eureka-server-compilation/OrderBookEurekaServer/pom.xml package'
 			   }
         }
 
