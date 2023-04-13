@@ -47,7 +47,7 @@
         <form method="GET" th:action="@{/order/create}" class="ps-1 pe-1">
           <input type="hidden" name="exchangeId" th:value="${orderBook.getExchangeId()}">
           <input type="hidden" name="companyAbbrev" th:value="${orderBook.getCompanyAbbrev()}">
-          <button type="submit" name="submit" value="value" class="btn btn-primary">
+          <button type="submit" name="submit" value="value" class="btn btn-primary" style="padding-bottom: 30px;">
             New Order</button>
         </form>
       </div>

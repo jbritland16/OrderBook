@@ -1,0 +1,30 @@
+[32m2023-04-13 11:15:57.456[0;39m [INFO] com.tradeteam.OrderBookEurekaServer.OrderBookEurekaServerApplication [main] Starting OrderBookEurekaServerApplication using Java 19 with PID 900 (C:\Users\jbritland\Documents\OrderBook\OrderBookEurekaServer\target\classes started by jbritland in C:\Users\jbritland\Documents\OrderBook\OrderBookEurekaServer)
+[32m2023-04-13 11:15:57.459[0;39m [INFO] com.tradeteam.OrderBookEurekaServer.OrderBookEurekaServerApplication [main] No active profile set, falling back to 1 default profile: "default"
+[32m2023-04-13 11:15:59.286[0;39m [INFO] org.springframework.cloud.context.scope.GenericScope [main] BeanFactory id=5c01bf3d-25da-30bb-83f6-e3fea54819ea
+[32m2023-04-13 11:15:59.870[0;39m [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8761 (http)
+[32m2023-04-13 11:15:59.885[0;39m [INFO] org.apache.catalina.core.StandardService [main] Starting service [Tomcat]
+[32m2023-04-13 11:15:59.886[0;39m [INFO] org.apache.catalina.core.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/10.1.7]
+[32m2023-04-13 11:16:00.438[0;39m [INFO] org.apache.jasper.servlet.TldScanner [main] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+[32m2023-04-13 11:16:00.450[0;39m [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [main] Initializing Spring embedded WebApplicationContext
+[32m2023-04-13 11:16:00.450[0;39m [INFO] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 2761 ms
+[32m2023-04-13 11:16:03.263[0;39m [INFO] org.springframework.cloud.netflix.eureka.config.DiscoveryClientOptionalArgsConfiguration [main] Eureka HTTP Client uses RestTemplate.
+[32m2023-04-13 11:16:03.338[0;39m [WARN] org.springframework.cloud.loadbalancer.config.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger [main] Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+[32m2023-04-13 11:16:03.363[0;39m [INFO] org.springframework.cloud.netflix.eureka.InstanceInfoFactory [main] Setting initial instance status as: STARTING
+[32m2023-04-13 11:16:04.047[0;39m [INFO] org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver [main] Exposing 1 endpoint(s) beneath base path '/actuator'
+[32m2023-04-13 11:16:04.118[0;39m [INFO] org.springframework.cloud.netflix.eureka.serviceregistry.EurekaServiceRegistry [main] Registering application UNKNOWN with eureka with status UP
+[32m2023-04-13 11:16:04.132[0;39m [INFO] org.springframework.cloud.netflix.eureka.server.EurekaServerBootstrap [Thread-9] isAws returned false
+[32m2023-04-13 11:16:04.133[0;39m [INFO] org.springframework.cloud.netflix.eureka.server.EurekaServerBootstrap [Thread-9] Initialized server context
+[32m2023-04-13 11:16:04.142[0;39m [INFO] org.springframework.cloud.netflix.eureka.server.EurekaServerInitializerConfiguration [Thread-9] Started Eureka Server
+[32m2023-04-13 11:16:04.167[0;39m [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8761 (http) with context path ''
+[32m2023-04-13 11:16:04.168[0;39m [INFO] org.springframework.cloud.netflix.eureka.serviceregistry.EurekaAutoServiceRegistration [main] Updating port to 8761
+[32m2023-04-13 11:16:04.213[0;39m [INFO] com.tradeteam.OrderBookEurekaServer.OrderBookEurekaServerApplication [main] Started OrderBookEurekaServerApplication in 7.827 seconds (process running for 8.863)
+[32m2023-04-13 11:16:49.941[0;39m [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-8761-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+[32m2023-04-13 11:16:49.942[0;39m [INFO] org.springframework.web.servlet.DispatcherServlet [http-nio-8761-exec-1] Initializing Servlet 'dispatcherServlet'
+[32m2023-04-13 11:16:49.943[0;39m [INFO] org.springframework.web.servlet.DispatcherServlet [http-nio-8761-exec-1] Completed initialization in 1 ms
+[32m2023-04-13 13:01:48.903[0;39m [INFO] org.springframework.cloud.netflix.eureka.serviceregistry.EurekaServiceRegistry [SpringApplicationShutdownHook] Unregistering application UNKNOWN with eureka with status DOWN
+[32m2023-04-13 13:01:48.948[0;39m [INFO] org.springframework.cloud.netflix.eureka.server.EurekaServerBootstrap [SpringApplicationShutdownHook] Shutting down Eureka Server..
+[32m2023-04-13 13:01:48.960[0;39m [INFO] com.netflix.servo.monitor.StatsMonitor [SpringApplicationShutdownHook] Attempting to get the value for an expired monitor: eurekaServer.replication.batchSize.Will start computing stats again.
+[32m2023-04-13 13:01:48.967[0;39m [INFO] com.netflix.servo.monitor.StatsMonitor [SpringApplicationShutdownHook] Attempting to get the value for an expired monitor: eurekaServer.replication.executionTime.Will start computing stats again.
+[32m2023-04-13 13:01:48.968[0;39m [INFO] com.netflix.servo.monitor.StatsMonitor [SpringApplicationShutdownHook] Attempting to get the value for an expired monitor: eurekaServer.replication.executionTime.Will start computing stats again.
+[32m2023-04-13 13:01:48.968[0;39m [INFO] com.netflix.servo.monitor.StatsMonitor [SpringApplicationShutdownHook] Attempting to get the value for an expired monitor: eurekaServer.replication.batchSize.Will start computing stats again.
+[32m2023-04-13 13:01:48.982[0;39m [INFO] org.springframework.cloud.netflix.eureka.server.EurekaServerBootstrap [SpringApplicationShutdownHook] Eureka Service is now shutdown...

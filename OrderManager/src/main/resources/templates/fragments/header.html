@@ -57,7 +57,9 @@
                         <a class="nav-link" th:href="@{/orders/wallet}">Wallet</a>
                     </li>
                     <li class="nav-item">
-                        <a class= "nav-link" th:href="@{/logout}">Logout</a></li>
+                        <a th:if="${loggedIn}" class= "nav-link" th:href="@{/logout}">Logout</a></li>
+                    <li class="nav-item">
+                        <a th:if="${!loggedIn}" class= "nav-link" th:href="@{/home}">Log In/Register</a></li>
                 </ul>
                 </li>
                 </ul>
