@@ -11,4 +11,6 @@ You can also see our Jira tickets here:
 
 https://juliabritland.atlassian.net/jira/software/projects/OB/boards/7
 
+And watch TradingAppDemo.mp4 in this repository for a brief overview of the app's functions.
+
 
