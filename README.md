@@ -11,6 +11,9 @@ You can also see our Jira tickets here:
 
 https://juliabritland.atlassian.net/jira/software/projects/OB/boards/7
 
-And you can download TradingAppDemo.mp4 in this repository to watch a demonstration of the app's functions.
+And you can download TradingAppDemo.mp4 in this repository to watch a demonstration of the app's functions or visit 
+the YouTube link to watch the video without downloading here:
+
+https://youtu.be/rq-QY3cVoyM
 
 
